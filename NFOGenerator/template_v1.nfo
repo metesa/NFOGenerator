@@ -45,18 +45,18 @@
 บÛÛบ ÛÛบÛÛÛÛÛปÛÛÛÛÛปÛÛÛÛÛปÛÛบ  ÛÛบÛÛÛÛÛÛบÛÛÛÛÛÛป   ÛÛบÛÛบ ศÛÛÛบÛÛบ    ศÛÛÛÛÛษผบ
 บศอผ ศอผศออออผศออออผศออออผศอผ  ศอผศอออออผศอออออผ   ศอผศอผ  ศออผศอผ     ศออออผ บ
 บ                                                                             บ
-$$releasename
+$$RELEASENAME
 บ                                                                             บ
-บ  SOURCE..........: $$source
-บ  SiZE............: $$size
-บ  DURATiON........: $$duration
-บ  ViDEO BiTRATE...: $$videobitrate
-บ  RESOLUTiON......: $$resolution
-บ  FRAMERATE.......: $$framerate
-$$audio
-บ  SUBTiTLES.......: $$subtitle
-บ  CHAPTERS........: $$chapters
-บ  NOTES...........: $$notes
+บ  SOURCE..........: $$SOURCE
+บ  SiZE............: $$SIZE
+บ  DURATiON........: $$DURATION
+บ  ViDEO BiTRATE...: $$VIDEOBITRATE
+บ  RESOLUTiON......: $$RESOLUTION
+บ  FRAMERATE.......: $$FRAMERATE
+$$AUDIO
+บ  SUBTiTLES.......: $$SUBTITLES
+บ  CHAPTERS........: $$CHAPTERS
+บ  NOTES...........: $$NOTES
 บ                                                                             บ
 ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออRev.01อผ
 
