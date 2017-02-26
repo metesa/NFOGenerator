@@ -15,9 +15,11 @@ namespace NFOGenerator
             InitializeComponent();
         }
 
-        private void label23_Click(object sender, EventArgs e)
+        private void btnGeneralGenerate_Click(object sender, EventArgs e)
         {
-
+            
+            // enable process button after generating release name
+            this.btnProcess.Enabled = true;
         }
     }
 }
