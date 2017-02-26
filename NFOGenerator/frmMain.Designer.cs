@@ -36,15 +36,22 @@
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.cmbGeneralResolution = new System.Windows.Forms.ComboBox();
             this.lblGeneralReleaseName = new System.Windows.Forms.Label();
+            this.chkGeneralChaptersNamed = new System.Windows.Forms.CheckBox();
             this.txtGeneralReleaseName = new System.Windows.Forms.TextBox();
+            this.chkGeneralChaptersIncluded = new System.Windows.Forms.CheckBox();
             this.txtGeneralAudio = new System.Windows.Forms.TextBox();
+            this.lblGeneralChapters = new System.Windows.Forms.Label();
             this.btnGeneralGenerate = new System.Windows.Forms.Button();
             this.txtGeneralYear = new System.Windows.Forms.TextBox();
             this.lblGeneralAudio = new System.Windows.Forms.Label();
             this.lblGeneralResolution = new System.Windows.Forms.Label();
+            this.lblGeneralDuration = new System.Windows.Forms.Label();
+            this.lblGeneralSize = new System.Windows.Forms.Label();
             this.lblGeneralYear = new System.Windows.Forms.Label();
+            this.txtGeneralDuration = new System.Windows.Forms.TextBox();
             this.txtGeneralEdition = new System.Windows.Forms.TextBox();
             this.lblGeneralEdition = new System.Windows.Forms.Label();
+            this.txtGeneralSize = new System.Windows.Forms.TextBox();
             this.txtGeneralTitle = new System.Windows.Forms.TextBox();
             this.lblGeneralTitle = new System.Windows.Forms.Label();
             this.grpAudio = new System.Windows.Forms.GroupBox();
@@ -72,21 +79,20 @@
             this.lblFootnote = new System.Windows.Forms.Label();
             this.txtTargetLocation = new System.Windows.Forms.TextBox();
             this.lblTargetLocation = new System.Windows.Forms.Label();
-            this.txtGeneralDuration = new System.Windows.Forms.TextBox();
-            this.txtGeneralSize = new System.Windows.Forms.TextBox();
             this.txtVideoBitrate = new System.Windows.Forms.TextBox();
             this.lblVideoFramerate = new System.Windows.Forms.Label();
             this.lblVideoBitrate = new System.Windows.Forms.Label();
-            this.lblGeneralDuration = new System.Windows.Forms.Label();
-            this.lblGeneralSize = new System.Windows.Forms.Label();
             this.lblVideoNote = new System.Windows.Forms.Label();
             this.txtVideoNote = new System.Windows.Forms.TextBox();
-            this.lblGeneralChapters = new System.Windows.Forms.Label();
-            this.chkGeneralChaptersIncluded = new System.Windows.Forms.CheckBox();
-            this.chkGeneralChaptersNamed = new System.Windows.Forms.CheckBox();
-            this.lblVideoResolution = new System.Windows.Forms.Label();
-            this.txtVideoResolution = new System.Windows.Forms.TextBox();
+            this.lblVideoWidth = new System.Windows.Forms.Label();
+            this.txtVideoWidth = new System.Windows.Forms.TextBox();
             this.grpVideo = new System.Windows.Forms.GroupBox();
+            this.cmbVideoFramerate = new System.Windows.Forms.ComboBox();
+            this.txtVideoAR = new System.Windows.Forms.TextBox();
+            this.lblVideoAR = new System.Windows.Forms.Label();
+            this.txtVideoHeight = new System.Windows.Forms.TextBox();
+            this.lblVideoHeight = new System.Windows.Forms.Label();
+            this.lblVideoCodec = new System.Windows.Forms.Label();
             this.btnProcess = new System.Windows.Forms.Button();
             this.btnTargetBrowse = new System.Windows.Forms.Button();
             this.grpSource = new System.Windows.Forms.GroupBox();
@@ -97,9 +103,7 @@
             this.btnSourceGuess = new System.Windows.Forms.Button();
             this.txtSourceName = new System.Windows.Forms.TextBox();
             this.lblSourceResolution = new System.Windows.Forms.Label();
-            this.cmbVideoFramerate = new System.Windows.Forms.ComboBox();
-            this.lblVideoAR = new System.Windows.Forms.Label();
-            this.txtVideoAR = new System.Windows.Forms.TextBox();
+            this.cmbVideoCodec = new System.Windows.Forms.ComboBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -203,6 +207,16 @@
             this.lblGeneralReleaseName.TabIndex = 7;
             this.lblGeneralReleaseName.Text = "RLZ Name:";
             // 
+            // chkGeneralChaptersNamed
+            // 
+            this.chkGeneralChaptersNamed.AutoSize = true;
+            this.chkGeneralChaptersNamed.Location = new System.Drawing.Point(508, 70);
+            this.chkGeneralChaptersNamed.Name = "chkGeneralChaptersNamed";
+            this.chkGeneralChaptersNamed.Size = new System.Drawing.Size(54, 16);
+            this.chkGeneralChaptersNamed.TabIndex = 10;
+            this.chkGeneralChaptersNamed.Text = "Named";
+            this.chkGeneralChaptersNamed.UseVisualStyleBackColor = true;
+            // 
             // txtGeneralReleaseName
             // 
             this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 95);
@@ -210,12 +224,33 @@
             this.txtGeneralReleaseName.Size = new System.Drawing.Size(492, 21);
             this.txtGeneralReleaseName.TabIndex = 6;
             // 
+            // chkGeneralChaptersIncluded
+            // 
+            this.chkGeneralChaptersIncluded.AutoSize = true;
+            this.chkGeneralChaptersIncluded.Checked = true;
+            this.chkGeneralChaptersIncluded.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkGeneralChaptersIncluded.Location = new System.Drawing.Point(421, 70);
+            this.chkGeneralChaptersIncluded.Name = "chkGeneralChaptersIncluded";
+            this.chkGeneralChaptersIncluded.Size = new System.Drawing.Size(72, 16);
+            this.chkGeneralChaptersIncluded.TabIndex = 10;
+            this.chkGeneralChaptersIncluded.Text = "Included";
+            this.chkGeneralChaptersIncluded.UseVisualStyleBackColor = true;
+            // 
             // txtGeneralAudio
             // 
             this.txtGeneralAudio.Location = new System.Drawing.Point(553, 41);
             this.txtGeneralAudio.Name = "txtGeneralAudio";
             this.txtGeneralAudio.Size = new System.Drawing.Size(103, 21);
             this.txtGeneralAudio.TabIndex = 5;
+            // 
+            // lblGeneralChapters
+            // 
+            this.lblGeneralChapters.AutoSize = true;
+            this.lblGeneralChapters.Location = new System.Drawing.Point(344, 71);
+            this.lblGeneralChapters.Name = "lblGeneralChapters";
+            this.lblGeneralChapters.Size = new System.Drawing.Size(59, 12);
+            this.lblGeneralChapters.TabIndex = 9;
+            this.lblGeneralChapters.Text = "Chapters:";
             // 
             // btnGeneralGenerate
             // 
@@ -252,6 +287,24 @@
             this.lblGeneralResolution.TabIndex = 4;
             this.lblGeneralResolution.Text = "Resolution:";
             // 
+            // lblGeneralDuration
+            // 
+            this.lblGeneralDuration.AutoSize = true;
+            this.lblGeneralDuration.Location = new System.Drawing.Point(162, 71);
+            this.lblGeneralDuration.Name = "lblGeneralDuration";
+            this.lblGeneralDuration.Size = new System.Drawing.Size(59, 12);
+            this.lblGeneralDuration.TabIndex = 4;
+            this.lblGeneralDuration.Text = "Duration:";
+            // 
+            // lblGeneralSize
+            // 
+            this.lblGeneralSize.AutoSize = true;
+            this.lblGeneralSize.Location = new System.Drawing.Point(6, 71);
+            this.lblGeneralSize.Name = "lblGeneralSize";
+            this.lblGeneralSize.Size = new System.Drawing.Size(35, 12);
+            this.lblGeneralSize.TabIndex = 4;
+            this.lblGeneralSize.Text = "Size:";
+            // 
             // lblGeneralYear
             // 
             this.lblGeneralYear.AutoSize = true;
@@ -260,6 +313,13 @@
             this.lblGeneralYear.Size = new System.Drawing.Size(35, 12);
             this.lblGeneralYear.TabIndex = 4;
             this.lblGeneralYear.Text = "Year:";
+            // 
+            // txtGeneralDuration
+            // 
+            this.txtGeneralDuration.Location = new System.Drawing.Point(227, 68);
+            this.txtGeneralDuration.Name = "txtGeneralDuration";
+            this.txtGeneralDuration.Size = new System.Drawing.Size(111, 21);
+            this.txtGeneralDuration.TabIndex = 5;
             // 
             // txtGeneralEdition
             // 
@@ -276,6 +336,13 @@
             this.lblGeneralEdition.Size = new System.Drawing.Size(53, 12);
             this.lblGeneralEdition.TabIndex = 2;
             this.lblGeneralEdition.Text = "Edition:";
+            // 
+            // txtGeneralSize
+            // 
+            this.txtGeneralSize.Location = new System.Drawing.Point(83, 68);
+            this.txtGeneralSize.Name = "txtGeneralSize";
+            this.txtGeneralSize.Size = new System.Drawing.Size(73, 21);
+            this.txtGeneralSize.TabIndex = 5;
             // 
             // txtGeneralTitle
             // 
@@ -307,7 +374,7 @@
             this.grpAudio.Controls.Add(this.lblAudioCodec);
             this.grpAudio.Controls.Add(this.txtAudioLanguage);
             this.grpAudio.Controls.Add(this.lblAudioLanguage);
-            this.grpAudio.Location = new System.Drawing.Point(12, 353);
+            this.grpAudio.Location = new System.Drawing.Point(12, 382);
             this.grpAudio.Name = "grpAudio";
             this.grpAudio.Size = new System.Drawing.Size(324, 198);
             this.grpAudio.TabIndex = 11;
@@ -422,7 +489,7 @@
             this.grpSubtitle.Controls.Add(this.lblSubtitleFormat);
             this.grpSubtitle.Controls.Add(this.txtSubtitleLanguage);
             this.grpSubtitle.Controls.Add(this.lblSubtitleLanguage);
-            this.grpSubtitle.Location = new System.Drawing.Point(350, 353);
+            this.grpSubtitle.Location = new System.Drawing.Point(350, 382);
             this.grpSubtitle.Name = "grpSubtitle";
             this.grpSubtitle.Size = new System.Drawing.Size(324, 198);
             this.grpSubtitle.TabIndex = 12;
@@ -498,7 +565,7 @@
             // lblFootnote
             // 
             this.lblFootnote.AutoSize = true;
-            this.lblFootnote.Location = new System.Drawing.Point(153, 581);
+            this.lblFootnote.Location = new System.Drawing.Point(153, 610);
             this.lblFootnote.Name = "lblFootnote";
             this.lblFootnote.Size = new System.Drawing.Size(431, 12);
             this.lblFootnote.TabIndex = 14;
@@ -506,7 +573,7 @@
             // 
             // txtTargetLocation
             // 
-            this.txtTargetLocation.Location = new System.Drawing.Point(130, 557);
+            this.txtTargetLocation.Location = new System.Drawing.Point(130, 586);
             this.txtTargetLocation.Name = "txtTargetLocation";
             this.txtTargetLocation.Size = new System.Drawing.Size(373, 21);
             this.txtTargetLocation.TabIndex = 0;
@@ -514,31 +581,17 @@
             // lblTargetLocation
             // 
             this.lblTargetLocation.AutoSize = true;
-            this.lblTargetLocation.Location = new System.Drawing.Point(23, 561);
+            this.lblTargetLocation.Location = new System.Drawing.Point(23, 590);
             this.lblTargetLocation.Name = "lblTargetLocation";
             this.lblTargetLocation.Size = new System.Drawing.Size(101, 12);
             this.lblTargetLocation.TabIndex = 1;
             this.lblTargetLocation.Text = "Target Location:";
             // 
-            // txtGeneralDuration
-            // 
-            this.txtGeneralDuration.Location = new System.Drawing.Point(227, 68);
-            this.txtGeneralDuration.Name = "txtGeneralDuration";
-            this.txtGeneralDuration.Size = new System.Drawing.Size(111, 21);
-            this.txtGeneralDuration.TabIndex = 5;
-            // 
-            // txtGeneralSize
-            // 
-            this.txtGeneralSize.Location = new System.Drawing.Point(83, 68);
-            this.txtGeneralSize.Name = "txtGeneralSize";
-            this.txtGeneralSize.Size = new System.Drawing.Size(73, 21);
-            this.txtGeneralSize.TabIndex = 5;
-            // 
             // txtVideoBitrate
             // 
-            this.txtVideoBitrate.Location = new System.Drawing.Point(83, 20);
+            this.txtVideoBitrate.Location = new System.Drawing.Point(227, 46);
             this.txtVideoBitrate.Name = "txtVideoBitrate";
-            this.txtVideoBitrate.Size = new System.Drawing.Size(73, 21);
+            this.txtVideoBitrate.Size = new System.Drawing.Size(88, 21);
             this.txtVideoBitrate.TabIndex = 5;
             // 
             // lblVideoFramerate
@@ -553,29 +606,11 @@
             // lblVideoBitrate
             // 
             this.lblVideoBitrate.AutoSize = true;
-            this.lblVideoBitrate.Location = new System.Drawing.Point(6, 23);
+            this.lblVideoBitrate.Location = new System.Drawing.Point(162, 52);
             this.lblVideoBitrate.Name = "lblVideoBitrate";
             this.lblVideoBitrate.Size = new System.Drawing.Size(53, 12);
             this.lblVideoBitrate.TabIndex = 4;
             this.lblVideoBitrate.Text = "Bitrate:";
-            // 
-            // lblGeneralDuration
-            // 
-            this.lblGeneralDuration.AutoSize = true;
-            this.lblGeneralDuration.Location = new System.Drawing.Point(162, 71);
-            this.lblGeneralDuration.Name = "lblGeneralDuration";
-            this.lblGeneralDuration.Size = new System.Drawing.Size(59, 12);
-            this.lblGeneralDuration.TabIndex = 4;
-            this.lblGeneralDuration.Text = "Duration:";
-            // 
-            // lblGeneralSize
-            // 
-            this.lblGeneralSize.AutoSize = true;
-            this.lblGeneralSize.Location = new System.Drawing.Point(6, 71);
-            this.lblGeneralSize.Name = "lblGeneralSize";
-            this.lblGeneralSize.Size = new System.Drawing.Size(35, 12);
-            this.lblGeneralSize.TabIndex = 4;
-            this.lblGeneralSize.Text = "Size:";
             // 
             // lblVideoNote
             // 
@@ -591,80 +626,103 @@
             this.txtVideoNote.Location = new System.Drawing.Point(377, 20);
             this.txtVideoNote.Multiline = true;
             this.txtVideoNote.Name = "txtVideoNote";
-            this.txtVideoNote.Size = new System.Drawing.Size(279, 47);
+            this.txtVideoNote.Size = new System.Drawing.Size(279, 77);
             this.txtVideoNote.TabIndex = 6;
             // 
-            // lblGeneralChapters
+            // lblVideoWidth
             // 
-            this.lblGeneralChapters.AutoSize = true;
-            this.lblGeneralChapters.Location = new System.Drawing.Point(344, 71);
-            this.lblGeneralChapters.Name = "lblGeneralChapters";
-            this.lblGeneralChapters.Size = new System.Drawing.Size(59, 12);
-            this.lblGeneralChapters.TabIndex = 9;
-            this.lblGeneralChapters.Text = "Chapters:";
+            this.lblVideoWidth.AutoSize = true;
+            this.lblVideoWidth.Location = new System.Drawing.Point(6, 22);
+            this.lblVideoWidth.Name = "lblVideoWidth";
+            this.lblVideoWidth.Size = new System.Drawing.Size(41, 12);
+            this.lblVideoWidth.TabIndex = 4;
+            this.lblVideoWidth.Text = "Width:";
             // 
-            // chkGeneralChaptersIncluded
+            // txtVideoWidth
             // 
-            this.chkGeneralChaptersIncluded.AutoSize = true;
-            this.chkGeneralChaptersIncluded.Checked = true;
-            this.chkGeneralChaptersIncluded.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkGeneralChaptersIncluded.Location = new System.Drawing.Point(421, 70);
-            this.chkGeneralChaptersIncluded.Name = "chkGeneralChaptersIncluded";
-            this.chkGeneralChaptersIncluded.Size = new System.Drawing.Size(72, 16);
-            this.chkGeneralChaptersIncluded.TabIndex = 10;
-            this.chkGeneralChaptersIncluded.Text = "Included";
-            this.chkGeneralChaptersIncluded.UseVisualStyleBackColor = true;
-            // 
-            // chkGeneralChaptersNamed
-            // 
-            this.chkGeneralChaptersNamed.AutoSize = true;
-            this.chkGeneralChaptersNamed.Location = new System.Drawing.Point(508, 70);
-            this.chkGeneralChaptersNamed.Name = "chkGeneralChaptersNamed";
-            this.chkGeneralChaptersNamed.Size = new System.Drawing.Size(54, 16);
-            this.chkGeneralChaptersNamed.TabIndex = 10;
-            this.chkGeneralChaptersNamed.Text = "Named";
-            this.chkGeneralChaptersNamed.UseVisualStyleBackColor = true;
-            // 
-            // lblVideoResolution
-            // 
-            this.lblVideoResolution.AutoSize = true;
-            this.lblVideoResolution.Location = new System.Drawing.Point(6, 49);
-            this.lblVideoResolution.Name = "lblVideoResolution";
-            this.lblVideoResolution.Size = new System.Drawing.Size(71, 12);
-            this.lblVideoResolution.TabIndex = 4;
-            this.lblVideoResolution.Text = "Resolution:";
-            // 
-            // txtVideoResolution
-            // 
-            this.txtVideoResolution.Location = new System.Drawing.Point(83, 46);
-            this.txtVideoResolution.Name = "txtVideoResolution";
-            this.txtVideoResolution.Size = new System.Drawing.Size(73, 21);
-            this.txtVideoResolution.TabIndex = 5;
+            this.txtVideoWidth.Location = new System.Drawing.Point(83, 19);
+            this.txtVideoWidth.Name = "txtVideoWidth";
+            this.txtVideoWidth.Size = new System.Drawing.Size(73, 21);
+            this.txtVideoWidth.TabIndex = 5;
             // 
             // grpVideo
             // 
+            this.grpVideo.Controls.Add(this.cmbVideoCodec);
             this.grpVideo.Controls.Add(this.cmbVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoAR);
             this.grpVideo.Controls.Add(this.lblVideoAR);
-            this.grpVideo.Controls.Add(this.txtVideoResolution);
-            this.grpVideo.Controls.Add(this.lblVideoResolution);
+            this.grpVideo.Controls.Add(this.txtVideoHeight);
+            this.grpVideo.Controls.Add(this.lblVideoHeight);
+            this.grpVideo.Controls.Add(this.txtVideoWidth);
+            this.grpVideo.Controls.Add(this.lblVideoWidth);
             this.grpVideo.Controls.Add(this.txtVideoNote);
             this.grpVideo.Controls.Add(this.lblVideoNote);
+            this.grpVideo.Controls.Add(this.lblVideoCodec);
             this.grpVideo.Controls.Add(this.lblVideoBitrate);
             this.grpVideo.Controls.Add(this.lblVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoBitrate);
             this.grpVideo.Location = new System.Drawing.Point(12, 273);
             this.grpVideo.Name = "grpVideo";
-            this.grpVideo.Size = new System.Drawing.Size(662, 74);
+            this.grpVideo.Size = new System.Drawing.Size(662, 103);
             this.grpVideo.TabIndex = 15;
             this.grpVideo.TabStop = false;
             this.grpVideo.Text = "Video";
+            // 
+            // cmbVideoFramerate
+            // 
+            this.cmbVideoFramerate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVideoFramerate.FormattingEnabled = true;
+            this.cmbVideoFramerate.Location = new System.Drawing.Point(227, 20);
+            this.cmbVideoFramerate.Name = "cmbVideoFramerate";
+            this.cmbVideoFramerate.Size = new System.Drawing.Size(88, 20);
+            this.cmbVideoFramerate.TabIndex = 8;
+            // 
+            // txtVideoAR
+            // 
+            this.txtVideoAR.Location = new System.Drawing.Point(83, 76);
+            this.txtVideoAR.Name = "txtVideoAR";
+            this.txtVideoAR.Size = new System.Drawing.Size(73, 21);
+            this.txtVideoAR.TabIndex = 5;
+            // 
+            // lblVideoAR
+            // 
+            this.lblVideoAR.AutoSize = true;
+            this.lblVideoAR.Location = new System.Drawing.Point(6, 79);
+            this.lblVideoAR.Name = "lblVideoAR";
+            this.lblVideoAR.Size = new System.Drawing.Size(23, 12);
+            this.lblVideoAR.TabIndex = 4;
+            this.lblVideoAR.Text = "AR:";
+            // 
+            // txtVideoHeight
+            // 
+            this.txtVideoHeight.Location = new System.Drawing.Point(83, 49);
+            this.txtVideoHeight.Name = "txtVideoHeight";
+            this.txtVideoHeight.Size = new System.Drawing.Size(73, 21);
+            this.txtVideoHeight.TabIndex = 5;
+            // 
+            // lblVideoHeight
+            // 
+            this.lblVideoHeight.AutoSize = true;
+            this.lblVideoHeight.Location = new System.Drawing.Point(6, 49);
+            this.lblVideoHeight.Name = "lblVideoHeight";
+            this.lblVideoHeight.Size = new System.Drawing.Size(47, 12);
+            this.lblVideoHeight.TabIndex = 4;
+            this.lblVideoHeight.Text = "Height:";
+            // 
+            // lblVideoCodec
+            // 
+            this.lblVideoCodec.AutoSize = true;
+            this.lblVideoCodec.Location = new System.Drawing.Point(162, 79);
+            this.lblVideoCodec.Name = "lblVideoCodec";
+            this.lblVideoCodec.Size = new System.Drawing.Size(41, 12);
+            this.lblVideoCodec.TabIndex = 4;
+            this.lblVideoCodec.Text = "Codec:";
             // 
             // btnProcess
             // 
             this.btnProcess.Enabled = false;
             this.btnProcess.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnProcess.Location = new System.Drawing.Point(590, 557);
+            this.btnProcess.Location = new System.Drawing.Point(590, 586);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 21);
             this.btnProcess.TabIndex = 3;
@@ -673,7 +731,7 @@
             // 
             // btnTargetBrowse
             // 
-            this.btnTargetBrowse.Location = new System.Drawing.Point(509, 557);
+            this.btnTargetBrowse.Location = new System.Drawing.Point(509, 586);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(75, 21);
             this.btnTargetBrowse.TabIndex = 3;
@@ -707,6 +765,7 @@
             // 
             // cmbSourceType
             // 
+            this.cmbSourceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSourceType.FormattingEnabled = true;
             this.cmbSourceType.Location = new System.Drawing.Point(83, 37);
             this.cmbSourceType.Name = "cmbSourceType";
@@ -756,36 +815,20 @@
             this.lblSourceResolution.TabIndex = 4;
             this.lblSourceResolution.Text = "Resolution:";
             // 
-            // cmbVideoFramerate
+            // cmbVideoCodec
             // 
-            this.cmbVideoFramerate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbVideoFramerate.FormattingEnabled = true;
-            this.cmbVideoFramerate.Location = new System.Drawing.Point(227, 20);
-            this.cmbVideoFramerate.Name = "cmbVideoFramerate";
-            this.cmbVideoFramerate.Size = new System.Drawing.Size(88, 20);
-            this.cmbVideoFramerate.TabIndex = 8;
-            // 
-            // lblVideoAR
-            // 
-            this.lblVideoAR.AutoSize = true;
-            this.lblVideoAR.Location = new System.Drawing.Point(162, 49);
-            this.lblVideoAR.Name = "lblVideoAR";
-            this.lblVideoAR.Size = new System.Drawing.Size(83, 12);
-            this.lblVideoAR.TabIndex = 4;
-            this.lblVideoAR.Text = "Aspect Ratio:";
-            // 
-            // txtVideoAR
-            // 
-            this.txtVideoAR.Location = new System.Drawing.Point(251, 46);
-            this.txtVideoAR.Name = "txtVideoAR";
-            this.txtVideoAR.Size = new System.Drawing.Size(64, 21);
-            this.txtVideoAR.TabIndex = 5;
+            this.cmbVideoCodec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVideoCodec.FormattingEnabled = true;
+            this.cmbVideoCodec.Location = new System.Drawing.Point(227, 76);
+            this.cmbVideoCodec.Name = "cmbVideoCodec";
+            this.cmbVideoCodec.Size = new System.Drawing.Size(88, 20);
+            this.cmbVideoCodec.TabIndex = 8;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 597);
+            this.ClientSize = new System.Drawing.Size(686, 629);
             this.Controls.Add(this.grpSource);
             this.Controls.Add(this.btnTargetBrowse);
             this.Controls.Add(this.btnProcess);
@@ -801,6 +844,7 @@
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.Text = "TAiCHi NFO Generator";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.grpInput.ResumeLayout(false);
             this.grpInput.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
@@ -874,8 +918,8 @@
         private System.Windows.Forms.Label lblGeneralChapters;
         private System.Windows.Forms.CheckBox chkGeneralChaptersIncluded;
         private System.Windows.Forms.CheckBox chkGeneralChaptersNamed;
-        private System.Windows.Forms.Label lblVideoResolution;
-        private System.Windows.Forms.TextBox txtVideoResolution;
+        private System.Windows.Forms.Label lblVideoWidth;
+        private System.Windows.Forms.TextBox txtVideoWidth;
         private System.Windows.Forms.GroupBox grpVideo;
         private System.Windows.Forms.Button btnProcess;
         private System.Windows.Forms.Button btnTargetBrowse;
@@ -892,6 +936,10 @@
         private System.Windows.Forms.ComboBox cmbVideoFramerate;
         private System.Windows.Forms.TextBox txtVideoAR;
         private System.Windows.Forms.Label lblVideoAR;
+        private System.Windows.Forms.TextBox txtVideoHeight;
+        private System.Windows.Forms.Label lblVideoHeight;
+        private System.Windows.Forms.Label lblVideoCodec;
+        private System.Windows.Forms.ComboBox cmbVideoCodec;
     }
 }
 
