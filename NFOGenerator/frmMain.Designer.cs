@@ -42,14 +42,12 @@
             this.txtGeneralAudio = new System.Windows.Forms.TextBox();
             this.lblGeneralChapters = new System.Windows.Forms.Label();
             this.btnGeneralGenerate = new System.Windows.Forms.Button();
-            this.txtGeneralYear = new System.Windows.Forms.TextBox();
             this.lblGeneralAudio = new System.Windows.Forms.Label();
             this.lblGeneralResolution = new System.Windows.Forms.Label();
             this.lblGeneralDuration = new System.Windows.Forms.Label();
             this.lblGeneralSize = new System.Windows.Forms.Label();
             this.lblGeneralYear = new System.Windows.Forms.Label();
             this.txtGeneralDuration = new System.Windows.Forms.TextBox();
-            this.txtGeneralEdition = new System.Windows.Forms.TextBox();
             this.lblGeneralEdition = new System.Windows.Forms.Label();
             this.txtGeneralSize = new System.Windows.Forms.TextBox();
             this.txtGeneralTitle = new System.Windows.Forms.TextBox();
@@ -104,6 +102,8 @@
             this.btnSourceGuess = new System.Windows.Forms.Button();
             this.txtSourceName = new System.Windows.Forms.TextBox();
             this.lblSourceResolution = new System.Windows.Forms.Label();
+            this.cmbGeneralEdition = new System.Windows.Forms.ComboBox();
+            this.cmbGeneralYear = new System.Windows.Forms.ComboBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -118,6 +118,7 @@
             this.txtInputFile.Name = "txtInputFile";
             this.txtInputFile.Size = new System.Drawing.Size(411, 21);
             this.txtInputFile.TabIndex = 0;
+            this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
             // 
             // grpInput
             // 
@@ -163,6 +164,8 @@
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Controls.Add(this.cmbGeneralEdition);
+            this.grpGeneral.Controls.Add(this.cmbGeneralYear);
             this.grpGeneral.Controls.Add(this.cmbGeneralResolution);
             this.grpGeneral.Controls.Add(this.lblGeneralReleaseName);
             this.grpGeneral.Controls.Add(this.chkGeneralChaptersNamed);
@@ -171,14 +174,12 @@
             this.grpGeneral.Controls.Add(this.txtGeneralAudio);
             this.grpGeneral.Controls.Add(this.lblGeneralChapters);
             this.grpGeneral.Controls.Add(this.btnGeneralGenerate);
-            this.grpGeneral.Controls.Add(this.txtGeneralYear);
             this.grpGeneral.Controls.Add(this.lblGeneralAudio);
             this.grpGeneral.Controls.Add(this.lblGeneralResolution);
             this.grpGeneral.Controls.Add(this.lblGeneralDuration);
             this.grpGeneral.Controls.Add(this.lblGeneralSize);
             this.grpGeneral.Controls.Add(this.lblGeneralYear);
             this.grpGeneral.Controls.Add(this.txtGeneralDuration);
-            this.grpGeneral.Controls.Add(this.txtGeneralEdition);
             this.grpGeneral.Controls.Add(this.lblGeneralEdition);
             this.grpGeneral.Controls.Add(this.txtGeneralSize);
             this.grpGeneral.Controls.Add(this.txtGeneralTitle);
@@ -194,7 +195,7 @@
             // 
             this.cmbGeneralResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralResolution.FormattingEnabled = true;
-            this.cmbGeneralResolution.Location = new System.Drawing.Point(421, 42);
+            this.cmbGeneralResolution.Location = new System.Drawing.Point(421, 41);
             this.cmbGeneralResolution.Name = "cmbGeneralResolution";
             this.cmbGeneralResolution.Size = new System.Drawing.Size(73, 20);
             this.cmbGeneralResolution.TabIndex = 8;
@@ -264,13 +265,6 @@
             this.btnGeneralGenerate.UseVisualStyleBackColor = true;
             this.btnGeneralGenerate.Click += new System.EventHandler(this.btnGeneralGenerate_Click);
             // 
-            // txtGeneralYear
-            // 
-            this.txtGeneralYear.Location = new System.Drawing.Point(83, 41);
-            this.txtGeneralYear.Name = "txtGeneralYear";
-            this.txtGeneralYear.Size = new System.Drawing.Size(73, 21);
-            this.txtGeneralYear.TabIndex = 5;
-            // 
             // lblGeneralAudio
             // 
             this.lblGeneralAudio.AutoSize = true;
@@ -322,13 +316,6 @@
             this.txtGeneralDuration.Name = "txtGeneralDuration";
             this.txtGeneralDuration.Size = new System.Drawing.Size(111, 21);
             this.txtGeneralDuration.TabIndex = 5;
-            // 
-            // txtGeneralEdition
-            // 
-            this.txtGeneralEdition.Location = new System.Drawing.Point(227, 41);
-            this.txtGeneralEdition.Name = "txtGeneralEdition";
-            this.txtGeneralEdition.Size = new System.Drawing.Size(111, 21);
-            this.txtGeneralEdition.TabIndex = 3;
             // 
             // lblGeneralEdition
             // 
@@ -748,6 +735,7 @@
             this.btnTargetBrowse.TabIndex = 3;
             this.btnTargetBrowse.Text = "Browse";
             this.btnTargetBrowse.UseVisualStyleBackColor = true;
+            this.btnTargetBrowse.Click += new System.EventHandler(this.btnTargetBrowse_Click);
             // 
             // grpSource
             // 
@@ -826,6 +814,24 @@
             this.lblSourceResolution.TabIndex = 4;
             this.lblSourceResolution.Text = "Resolution:";
             // 
+            // cmbGeneralEdition
+            // 
+            this.cmbGeneralEdition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGeneralEdition.FormattingEnabled = true;
+            this.cmbGeneralEdition.Location = new System.Drawing.Point(227, 41);
+            this.cmbGeneralEdition.Name = "cmbGeneralEdition";
+            this.cmbGeneralEdition.Size = new System.Drawing.Size(111, 20);
+            this.cmbGeneralEdition.TabIndex = 8;
+            // 
+            // cmbGeneralYear
+            // 
+            this.cmbGeneralYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGeneralYear.FormattingEnabled = true;
+            this.cmbGeneralYear.Location = new System.Drawing.Point(83, 41);
+            this.cmbGeneralYear.Name = "cmbGeneralYear";
+            this.cmbGeneralYear.Size = new System.Drawing.Size(73, 20);
+            this.cmbGeneralYear.TabIndex = 8;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -874,11 +880,9 @@
         private System.Windows.Forms.Label lblGeneralReleaseName;
         private System.Windows.Forms.TextBox txtGeneralReleaseName;
         private System.Windows.Forms.TextBox txtGeneralAudio;
-        private System.Windows.Forms.TextBox txtGeneralYear;
         private System.Windows.Forms.Label lblGeneralAudio;
         private System.Windows.Forms.Label lblGeneralResolution;
         private System.Windows.Forms.Label lblGeneralYear;
-        private System.Windows.Forms.TextBox txtGeneralEdition;
         private System.Windows.Forms.Label lblGeneralEdition;
         private System.Windows.Forms.TextBox txtGeneralTitle;
         private System.Windows.Forms.Label lblGeneralTitle;
@@ -942,6 +946,8 @@
         private System.Windows.Forms.Label lblVideoHeight;
         private System.Windows.Forms.Label lblVideoCodec;
         private System.Windows.Forms.ComboBox cmbVideoCodec;
+        private System.Windows.Forms.ComboBox cmbGeneralEdition;
+        private System.Windows.Forms.ComboBox cmbGeneralYear;
     }
 }
 
