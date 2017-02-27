@@ -87,6 +87,7 @@
             this.lblVideoWidth = new System.Windows.Forms.Label();
             this.txtVideoWidth = new System.Windows.Forms.TextBox();
             this.grpVideo = new System.Windows.Forms.GroupBox();
+            this.cmbVideoCodec = new System.Windows.Forms.ComboBox();
             this.cmbVideoFramerate = new System.Windows.Forms.ComboBox();
             this.txtVideoAR = new System.Windows.Forms.TextBox();
             this.lblVideoAR = new System.Windows.Forms.Label();
@@ -103,7 +104,6 @@
             this.btnSourceGuess = new System.Windows.Forms.Button();
             this.txtSourceName = new System.Windows.Forms.TextBox();
             this.lblSourceResolution = new System.Windows.Forms.Label();
-            this.cmbVideoCodec = new System.Windows.Forms.ComboBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -140,6 +140,7 @@
             this.btnInputBrowse.TabIndex = 3;
             this.btnInputBrowse.Text = "Browse";
             this.btnInputBrowse.UseVisualStyleBackColor = true;
+            this.btnInputBrowse.Click += new System.EventHandler(this.btnInputBrowse_Click);
             // 
             // btnInputClear
             // 
@@ -149,6 +150,7 @@
             this.btnInputClear.TabIndex = 3;
             this.btnInputClear.Text = "Clear";
             this.btnInputClear.UseVisualStyleBackColor = true;
+            this.btnInputClear.Click += new System.EventHandler(this.btnInputClear_Click);
             // 
             // lblInputFile
             // 
@@ -668,6 +670,15 @@
             this.grpVideo.TabStop = false;
             this.grpVideo.Text = "Video";
             // 
+            // cmbVideoCodec
+            // 
+            this.cmbVideoCodec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVideoCodec.FormattingEnabled = true;
+            this.cmbVideoCodec.Location = new System.Drawing.Point(227, 76);
+            this.cmbVideoCodec.Name = "cmbVideoCodec";
+            this.cmbVideoCodec.Size = new System.Drawing.Size(88, 20);
+            this.cmbVideoCodec.TabIndex = 8;
+            // 
             // cmbVideoFramerate
             // 
             this.cmbVideoFramerate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -814,15 +825,6 @@
             this.lblSourceResolution.Size = new System.Drawing.Size(71, 12);
             this.lblSourceResolution.TabIndex = 4;
             this.lblSourceResolution.Text = "Resolution:";
-            // 
-            // cmbVideoCodec
-            // 
-            this.cmbVideoCodec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbVideoCodec.FormattingEnabled = true;
-            this.cmbVideoCodec.Location = new System.Drawing.Point(227, 76);
-            this.cmbVideoCodec.Name = "cmbVideoCodec";
-            this.cmbVideoCodec.Size = new System.Drawing.Size(88, 20);
-            this.cmbVideoCodec.TabIndex = 8;
             // 
             // frmMain
             // 
