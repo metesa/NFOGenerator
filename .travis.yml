@@ -1,0 +1,4 @@
+language: csharp
+solution: NFOGenerator.sln
+script:
+  - xbuild /p:Configuration=Release NFOGenerator.sln
