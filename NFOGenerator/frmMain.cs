@@ -178,28 +178,6 @@ namespace NFOGenerator
             this.btnProcess.Enabled = true;
         }
 
-        private void btnInputBrowse_Click(object sender, EventArgs e)
-        {
-            // Displays an OpenFileDialog so the user can select an MKV.  
-            OpenFileDialog openFileInput = new OpenFileDialog();
-            openFileInput.Filter = "MKV files|*.mkv";
-            openFileInput.Title = "Select an MKV File";
-
-            // Show the dialog.  
-            // If the user clicked OK in the dialog and a .MKV file was selected,
-            //  send the file path to input file textBox.
-            if (openFileInput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                this.txtInputFile.Text = openFileInput.FileName;
-            }
-        }
-
-        private void btnInputClear_Click(object sender, EventArgs e)
-        {
-            // Clear input file textBox
-            this.clearTextBox(this.txtInputFile);
-        }
-
         private void btnTargetBrowse_Click(object sender, EventArgs e)
         {
             // Displays a FolderBrowserDialog so the user can select a location to put the NFO
@@ -235,6 +213,38 @@ namespace NFOGenerator
         private void mnsFileExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void mnsFileClear_Click(object sender, EventArgs e)
+        {
+            // Clear textBoxes
+            this.clearTextBox(this.txtInputFile);
+            this.clearTextBox(this.txtGeneralReleaseName);
+            this.clearTextBox(this.txtGeneralTitle);
+            this.clearTextBox(this.txtTargetLocation);
+        }
+
+        private void mnsFileOpen_Click(object sender, EventArgs e)
+        {
+            // Displays an OpenFileDialog so the user can select an MKV.  
+            OpenFileDialog openFileInput = new OpenFileDialog();
+            openFileInput.Filter = "MKV files|*.mkv";
+            openFileInput.Title = "Select an MKV File";
+
+            // Show the dialog.  
+            // If the user clicked OK in the dialog and a .MKV file was selected,
+            //  send the file path to input file textBox.
+            if (openFileInput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                this.txtInputFile.Text = openFileInput.FileName;
+            }
+        }
+
+        private void mnsFileMediaInfo_Click(object sender, EventArgs e)
+        {
+            parseMediaInfo mediaInfo = new parseMediaInfo();
+            frmMediaInfoPaste dialogMediaInfo = new frmMediaInfoPaste();
+            dialogMediaInfo.ShowDialog();
         }
     }
 }

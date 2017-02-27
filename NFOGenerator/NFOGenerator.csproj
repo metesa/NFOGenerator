@@ -55,6 +55,13 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMediaInfoPaste.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMediaInfoPaste.Designer.cs">
+      <DependentUpon>frmMediaInfoPaste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="parseMediaInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="releaseInfo.cs" />
@@ -63,6 +70,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMediaInfoPaste.resx">
+      <DependentUpon>frmMediaInfoPaste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

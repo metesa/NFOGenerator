@@ -14,5 +14,22 @@ namespace NFOGenerator
         {
             InitializeComponent();
         }
+
+        private void llbOfficalSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/metesa/NFOGenerator");
+        }
+
+        private void btnHandTea_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("不要茶，要PY");
+            this.Close();
+        }
+
+        private void btnNotHandTea_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.MessageBox.Show("哼！");
+            this.Close();
+        }
     }
 }

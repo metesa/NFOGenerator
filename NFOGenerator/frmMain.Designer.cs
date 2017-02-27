@@ -30,8 +30,6 @@
         {
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.grpInput = new System.Windows.Forms.GroupBox();
-            this.btnInputBrowse = new System.Windows.Forms.Button();
-            this.btnInputClear = new System.Windows.Forms.Button();
             this.lblInputFile = new System.Windows.Forms.Label();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.cmbGeneralProper = new System.Windows.Forms.ComboBox();
@@ -80,7 +78,6 @@
             this.lblSubtitleFormat = new System.Windows.Forms.Label();
             this.txtSubtitleLanguage = new System.Windows.Forms.TextBox();
             this.lblSubtitleLanguage = new System.Windows.Forms.Label();
-            this.lblFootnote = new System.Windows.Forms.Label();
             this.txtTargetLocation = new System.Windows.Forms.TextBox();
             this.lblTargetLocation = new System.Windows.Forms.Label();
             this.txtVideoBitrate = new System.Windows.Forms.TextBox();
@@ -110,11 +107,15 @@
             this.lblSourceResolution = new System.Windows.Forms.Label();
             this.mnsMain = new System.Windows.Forms.MenuStrip();
             this.mnsFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsFileOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsFileClear = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsTools = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsToolsZonesCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelpAboutUs = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsFileMediaInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsFileSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -128,14 +129,12 @@
             // 
             this.txtInputFile.Location = new System.Drawing.Point(83, 20);
             this.txtInputFile.Name = "txtInputFile";
-            this.txtInputFile.Size = new System.Drawing.Size(411, 21);
+            this.txtInputFile.Size = new System.Drawing.Size(573, 21);
             this.txtInputFile.TabIndex = 0;
             this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
             // 
             // grpInput
             // 
-            this.grpInput.Controls.Add(this.btnInputBrowse);
-            this.grpInput.Controls.Add(this.btnInputClear);
             this.grpInput.Controls.Add(this.lblInputFile);
             this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Location = new System.Drawing.Point(12, 28);
@@ -144,26 +143,6 @@
             this.grpInput.TabIndex = 1;
             this.grpInput.TabStop = false;
             this.grpInput.Text = "Input";
-            // 
-            // btnInputBrowse
-            // 
-            this.btnInputBrowse.Location = new System.Drawing.Point(500, 20);
-            this.btnInputBrowse.Name = "btnInputBrowse";
-            this.btnInputBrowse.Size = new System.Drawing.Size(75, 21);
-            this.btnInputBrowse.TabIndex = 3;
-            this.btnInputBrowse.Text = "Browse";
-            this.btnInputBrowse.UseVisualStyleBackColor = true;
-            this.btnInputBrowse.Click += new System.EventHandler(this.btnInputBrowse_Click);
-            // 
-            // btnInputClear
-            // 
-            this.btnInputClear.Location = new System.Drawing.Point(581, 20);
-            this.btnInputClear.Name = "btnInputClear";
-            this.btnInputClear.Size = new System.Drawing.Size(75, 21);
-            this.btnInputClear.TabIndex = 3;
-            this.btnInputClear.Text = "Clear";
-            this.btnInputClear.UseVisualStyleBackColor = true;
-            this.btnInputClear.Click += new System.EventHandler(this.btnInputClear_Click);
             // 
             // lblInputFile
             // 
@@ -624,20 +603,11 @@
             this.lblSubtitleLanguage.TabIndex = 0;
             this.lblSubtitleLanguage.Text = "Language:";
             // 
-            // lblFootnote
-            // 
-            this.lblFootnote.AutoSize = true;
-            this.lblFootnote.Location = new System.Drawing.Point(153, 654);
-            this.lblFootnote.Name = "lblFootnote";
-            this.lblFootnote.Size = new System.Drawing.Size(431, 12);
-            this.lblFootnote.TabIndex = 14;
-            this.lblFootnote.Text = "Under Apache License 2.0 Github: https://github.com/metesa/NFOGenerator";
-            // 
             // txtTargetLocation
             // 
             this.txtTargetLocation.Location = new System.Drawing.Point(130, 630);
             this.txtTargetLocation.Name = "txtTargetLocation";
-            this.txtTargetLocation.Size = new System.Drawing.Size(373, 21);
+            this.txtTargetLocation.Size = new System.Drawing.Size(376, 21);
             this.txtTargetLocation.TabIndex = 0;
             // 
             // lblTargetLocation
@@ -793,7 +763,7 @@
             // 
             this.btnProcess.Enabled = false;
             this.btnProcess.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnProcess.Location = new System.Drawing.Point(590, 630);
+            this.btnProcess.Location = new System.Drawing.Point(593, 630);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 21);
             this.btnProcess.TabIndex = 3;
@@ -802,7 +772,7 @@
             // 
             // btnTargetBrowse
             // 
-            this.btnTargetBrowse.Location = new System.Drawing.Point(509, 630);
+            this.btnTargetBrowse.Location = new System.Drawing.Point(512, 630);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(75, 21);
             this.btnTargetBrowse.TabIndex = 3;
@@ -902,15 +872,34 @@
             // mnsFile
             // 
             this.mnsFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnsFileOpen,
+            this.mnsFileClear,
+            this.mnsFileMediaInfo,
+            this.mnsFileSeparator1,
             this.mnsFileExit});
             this.mnsFile.Name = "mnsFile";
             this.mnsFile.Size = new System.Drawing.Size(39, 21);
             this.mnsFile.Text = "File";
             // 
+            // mnsFileOpen
+            // 
+            this.mnsFileOpen.Name = "mnsFileOpen";
+            this.mnsFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.mnsFileOpen.Size = new System.Drawing.Size(155, 22);
+            this.mnsFileOpen.Text = "Open";
+            this.mnsFileOpen.Click += new System.EventHandler(this.mnsFileOpen_Click);
+            // 
+            // mnsFileClear
+            // 
+            this.mnsFileClear.Name = "mnsFileClear";
+            this.mnsFileClear.Size = new System.Drawing.Size(155, 22);
+            this.mnsFileClear.Text = "Clear";
+            this.mnsFileClear.Click += new System.EventHandler(this.mnsFileClear_Click);
+            // 
             // mnsFileExit
             // 
             this.mnsFileExit.Name = "mnsFileExit";
-            this.mnsFileExit.Size = new System.Drawing.Size(96, 22);
+            this.mnsFileExit.Size = new System.Drawing.Size(155, 22);
             this.mnsFileExit.Text = "Exit";
             this.mnsFileExit.Click += new System.EventHandler(this.mnsFileExit_Click);
             // 
@@ -939,20 +928,31 @@
             // mnsHelpAboutUs
             // 
             this.mnsHelpAboutUs.Name = "mnsHelpAboutUs";
-            this.mnsHelpAboutUs.Size = new System.Drawing.Size(152, 22);
+            this.mnsHelpAboutUs.Size = new System.Drawing.Size(130, 22);
             this.mnsHelpAboutUs.Text = "About Us";
             this.mnsHelpAboutUs.Click += new System.EventHandler(this.mnsHelpAboutUs_Click);
+            // 
+            // mnsFileMediaInfo
+            // 
+            this.mnsFileMediaInfo.Name = "mnsFileMediaInfo";
+            this.mnsFileMediaInfo.Size = new System.Drawing.Size(155, 22);
+            this.mnsFileMediaInfo.Text = "MediaInfo";
+            this.mnsFileMediaInfo.Click += new System.EventHandler(this.mnsFileMediaInfo_Click);
+            // 
+            // mnsFileSeparator1
+            // 
+            this.mnsFileSeparator1.Name = "mnsFileSeparator1";
+            this.mnsFileSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 673);
+            this.ClientSize = new System.Drawing.Size(686, 660);
             this.Controls.Add(this.grpSource);
             this.Controls.Add(this.btnTargetBrowse);
             this.Controls.Add(this.btnProcess);
             this.Controls.Add(this.grpVideo);
-            this.Controls.Add(this.lblFootnote);
             this.Controls.Add(this.lblTargetLocation);
             this.Controls.Add(this.grpSubtitle);
             this.Controls.Add(this.txtTargetLocation);
@@ -989,7 +989,6 @@
 
         private System.Windows.Forms.TextBox txtInputFile;
         private System.Windows.Forms.GroupBox grpInput;
-        private System.Windows.Forms.Button btnInputClear;
         private System.Windows.Forms.Label lblInputFile;
         private System.Windows.Forms.GroupBox grpGeneral;
         private System.Windows.Forms.Label lblGeneralReleaseName;
@@ -1022,10 +1021,8 @@
         private System.Windows.Forms.Label lblSubtitleFormat;
         private System.Windows.Forms.TextBox txtSubtitleLanguage;
         private System.Windows.Forms.Label lblSubtitleLanguage;
-        private System.Windows.Forms.Label lblFootnote;
         private System.Windows.Forms.TextBox txtTargetLocation;
         private System.Windows.Forms.Label lblTargetLocation;
-        private System.Windows.Forms.Button btnInputBrowse;
         private System.Windows.Forms.TextBox txtGeneralDuration;
         private System.Windows.Forms.TextBox txtGeneralSize;
         private System.Windows.Forms.TextBox txtVideoBitrate;
@@ -1074,6 +1071,10 @@
         private System.Windows.Forms.ToolStripMenuItem mnsHelp;
         private System.Windows.Forms.ToolStripMenuItem mnsHelpAboutUs;
         private System.Windows.Forms.ComboBox cmbGeneralAudio;
+        private System.Windows.Forms.ToolStripMenuItem mnsFileOpen;
+        private System.Windows.Forms.ToolStripMenuItem mnsFileClear;
+        private System.Windows.Forms.ToolStripMenuItem mnsFileMediaInfo;
+        private System.Windows.Forms.ToolStripSeparator mnsFileSeparator1;
     }
 }
 
