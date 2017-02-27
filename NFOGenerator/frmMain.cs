@@ -16,6 +16,62 @@ namespace NFOGenerator
             InitializeComponent();
         }
 
+        /*-------------------------------------------------------------------------
+         * Private custom methods down below
+         * ------------------------------------------------------------------------*/
+
+        // To show an error message.
+        private void showErrorMessage(string errorInfo)
+        {
+            System.Windows.Forms.MessageBox.Show(errorInfo, "ERROR!");
+        }
+
+        // To clear a textBox.
+        private void clearTextBox(TextBox boxToClear)
+        {
+            boxToClear.Text = "";
+        }
+
+        // To get the size of the selected file.
+        private void getFileSize(string inputFile)
+        {
+            // Get the file size of the selected media file.
+            FileInfo inputFileInfo = new FileInfo(inputFile);
+            if (!inputFileInfo.Exists)
+            {
+                // Show an error message if the selected file doesn't exist.
+                this.showErrorMessage("File doesn't exist!");
+                this.clearTextBox(this.txtGeneralSize);
+            }
+            else if (inputFileInfo.Extension != ".mkv")
+            {
+                // Show an error message if the selected file isn't an MKV file.
+                this.showErrorMessage(inputFileInfo.Extension);
+                this.clearTextBox(this.txtGeneralSize);
+            }
+            else
+            {
+                // Calculate the file size.
+                long fileSizeBytes = inputFileInfo.Length;
+                double fileSizeMBytes;
+                double fileSizeGBytes;
+                fileSizeMBytes = Convert.ToDouble(fileSizeBytes) / (1024 * 1024);
+                fileSizeGBytes = fileSizeMBytes / 1024;
+                if (fileSizeGBytes < 1)
+                {
+                    this.txtGeneralSize.Text = Math.Round(fileSizeMBytes, 2).ToString() + " MB";
+                }
+                else
+                {
+                    this.txtGeneralSize.Text = Math.Round(fileSizeGBytes, 2).ToString() + " GB";
+                }
+            }
+        }
+
+        /*-------------------------------------------------------------------------
+         * Private custom methods up above
+         * ------------------------------------------------------------------------*/
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             // Add items to general year comboBox and set default to current year
@@ -28,10 +84,10 @@ namespace NFOGenerator
             this.cmbGeneralYear.SelectedIndex = 0;
             
             // Add items to general edition comboBox and set default to blank
-            this.cmbGeneralEdition.Items.Add("(Blank)");
-            this.cmbGeneralEdition.Items.Add("Theatrical Cut");
-            this.cmbGeneralEdition.Items.Add("Director's Cut");
-            this.cmbGeneralEdition.Items.Add("Extended Cut");
+            this.cmbGeneralEdition.Items.Add("");
+            this.cmbGeneralEdition.Items.Add("Theatrical.Cut");
+            this.cmbGeneralEdition.Items.Add("Director's.Cut");
+            this.cmbGeneralEdition.Items.Add("Extended.Cut");
             this.cmbGeneralEdition.Items.Add("Unrated");
             this.cmbGeneralEdition.Items.Add("Criterion");
             this.cmbGeneralEdition.SelectedIndex = 0;
@@ -42,6 +98,29 @@ namespace NFOGenerator
             this.cmbGeneralResolution.Items.Add("576p");
             this.cmbGeneralResolution.Items.Add("480p");
             this.cmbGeneralResolution.SelectedIndex = 1;
+
+            // Add items to general hybrid comboBox and set default to no
+            this.cmbGeneralHybrid.Items.Add("");
+            this.cmbGeneralHybrid.Items.Add("Hybrid");
+            this.cmbGeneralHybrid.SelectedIndex = 0;
+
+            // Add items to general proper comboBox and set default to blank
+            this.cmbGeneralProper.Items.Add("");
+            this.cmbGeneralProper.Items.Add("PROPER");
+            this.cmbGeneralProper.Items.Add("REPACK");
+            this.cmbGeneralProper.Items.Add("PROPER.REPACK");
+            this.cmbGeneralProper.Items.Add("REPACK.PROPER");
+            this.cmbGeneralProper.SelectedIndex = 0;
+
+            // Add items to general audio comboBox and set default to DTS
+            this.cmbGeneralAudio.Items.Add("DTS");
+            this.cmbGeneralAudio.Items.Add("DTS-ES");
+            this.cmbGeneralAudio.Items.Add("DD5.1");
+            this.cmbGeneralAudio.Items.Add("AAC2.0");
+            this.cmbGeneralAudio.Items.Add("AAC1.0");
+            this.cmbGeneralAudio.Items.Add("FLAC2.0");
+            this.cmbGeneralAudio.Items.Add("FLAC1.0");
+            this.cmbGeneralAudio.SelectedIndex = 0;
 
             // Add items to source type comboBox and set default to BluRay
             this.cmbSourceType.Items.Add("BluRay");
@@ -86,6 +165,14 @@ namespace NFOGenerator
 
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
         {
+            // Create a new releaseInfo class
+            NFOGenerator.releaseInfo anotherRelease = new NFOGenerator.releaseInfo(this.txtGeneralTitle.Text,
+                this.cmbGeneralYear.SelectedItem.ToString(), this.cmbGeneralEdition.Text, this.cmbGeneralHybrid.Text,
+                this.cmbGeneralProper.Text, this.cmbGeneralResolution.Text, this.cmbSourceType.Text,
+                this.cmbGeneralAudio.Text, this.cmbVideoCodec.Text);
+
+            // Generate the release name
+            this.txtGeneralReleaseName.Text = anotherRelease.generateRLZName();
             
             // Enable process button after generating release name
             this.btnProcess.Enabled = true;
@@ -134,54 +221,20 @@ namespace NFOGenerator
                 this.clearTextBox(this.txtGeneralSize);
                 return;
             }
-            
-            // Get the file size of the selected media file.
-            string inputFile = this.txtInputFile.Text;
-            FileInfo inputFileInfo = new FileInfo(inputFile);
-            if (!inputFileInfo.Exists)
-            {
-                // Show an error message if the selected file doesn't exist.
-                this.showErrorMessage("File doesn't exist!");
-                this.clearTextBox(this.txtGeneralSize);
-            }
-            else if (inputFileInfo.Extension != ".mkv")
-            {
-                // Show an error message if the selected file isn't an MKV file.
-                this.showErrorMessage(inputFileInfo.Extension);
-                this.clearTextBox(this.txtGeneralSize);
-            }
-            else
-            {
-                // Calculate the file size.
-                long fileSizeBytes = inputFileInfo.Length;
-                double fileSizeMBytes;
-                double fileSizeGBytes;
-                fileSizeMBytes = Convert.ToDouble(fileSizeBytes) / (1024 * 1024);
-                fileSizeGBytes = fileSizeMBytes / 1024;
-                if (fileSizeGBytes < 1)
-                {
-                    this.txtGeneralSize.Text = Math.Round(fileSizeMBytes, 2).ToString() + " MB";
-                }
-                else
-                {
-                    this.txtGeneralSize.Text = Math.Round(fileSizeGBytes, 2).ToString() + " GB";
-                }
-            }
+
+            // Show file size.
+            this.getFileSize(this.txtInputFile.Text);
         }
 
-        /*-------------------------------------------------------------------------
-         * Private custom methods down below
-         * ------------------------------------------------------------------------*/
-
-        // Used for showing an error message
-        private void showErrorMessage(string errorInfo)
+        private void mnsHelpAboutUs_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show(errorInfo, "ERROR!");
+            frmAboutUs dialogAbout = new frmAboutUs();
+            dialogAbout.ShowDialog();
         }
 
-        private void clearTextBox(TextBox boxToClear)
+        private void mnsFileExit_Click(object sender, EventArgs e)
         {
-            boxToClear.Text = "";
+            Application.Exit();
         }
     }
 }
