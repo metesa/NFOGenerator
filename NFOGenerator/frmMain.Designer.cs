@@ -89,9 +89,8 @@
             this.txtVideoWidth = new System.Windows.Forms.TextBox();
             this.grpVideo = new System.Windows.Forms.GroupBox();
             this.cmbVideoCodec = new System.Windows.Forms.ComboBox();
-            this.cmbVideoFramerate = new System.Windows.Forms.ComboBox();
-            this.txtVideoAR = new System.Windows.Forms.TextBox();
-            this.lblVideoAR = new System.Windows.Forms.Label();
+            this.txtVideoDAR = new System.Windows.Forms.TextBox();
+            this.lblVideoDAR = new System.Windows.Forms.Label();
             this.txtVideoHeight = new System.Windows.Forms.TextBox();
             this.lblVideoHeight = new System.Windows.Forms.Label();
             this.lblVideoCodec = new System.Windows.Forms.Label();
@@ -109,13 +108,14 @@
             this.mnsFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsFileClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsFileMediaInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsFileSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnsFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsTools = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsToolsZonesCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelpAboutUs = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnsFileMediaInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnsFileSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.txtVideoFramerate = new System.Windows.Forms.TextBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -623,6 +623,7 @@
             // 
             this.txtVideoBitrate.Location = new System.Drawing.Point(227, 46);
             this.txtVideoBitrate.Name = "txtVideoBitrate";
+            this.txtVideoBitrate.ReadOnly = true;
             this.txtVideoBitrate.Size = new System.Drawing.Size(88, 21);
             this.txtVideoBitrate.TabIndex = 5;
             // 
@@ -674,15 +675,15 @@
             // 
             this.txtVideoWidth.Location = new System.Drawing.Point(83, 19);
             this.txtVideoWidth.Name = "txtVideoWidth";
+            this.txtVideoWidth.ReadOnly = true;
             this.txtVideoWidth.Size = new System.Drawing.Size(73, 21);
             this.txtVideoWidth.TabIndex = 5;
             // 
             // grpVideo
             // 
             this.grpVideo.Controls.Add(this.cmbVideoCodec);
-            this.grpVideo.Controls.Add(this.cmbVideoFramerate);
-            this.grpVideo.Controls.Add(this.txtVideoAR);
-            this.grpVideo.Controls.Add(this.lblVideoAR);
+            this.grpVideo.Controls.Add(this.txtVideoDAR);
+            this.grpVideo.Controls.Add(this.lblVideoDAR);
             this.grpVideo.Controls.Add(this.txtVideoHeight);
             this.grpVideo.Controls.Add(this.lblVideoHeight);
             this.grpVideo.Controls.Add(this.txtVideoWidth);
@@ -692,6 +693,7 @@
             this.grpVideo.Controls.Add(this.lblVideoCodec);
             this.grpVideo.Controls.Add(this.lblVideoBitrate);
             this.grpVideo.Controls.Add(this.lblVideoFramerate);
+            this.grpVideo.Controls.Add(this.txtVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoBitrate);
             this.grpVideo.Location = new System.Drawing.Point(12, 317);
             this.grpVideo.Name = "grpVideo";
@@ -709,35 +711,28 @@
             this.cmbVideoCodec.Size = new System.Drawing.Size(88, 20);
             this.cmbVideoCodec.TabIndex = 8;
             // 
-            // cmbVideoFramerate
+            // txtVideoDAR
             // 
-            this.cmbVideoFramerate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbVideoFramerate.FormattingEnabled = true;
-            this.cmbVideoFramerate.Location = new System.Drawing.Point(227, 20);
-            this.cmbVideoFramerate.Name = "cmbVideoFramerate";
-            this.cmbVideoFramerate.Size = new System.Drawing.Size(88, 20);
-            this.cmbVideoFramerate.TabIndex = 8;
+            this.txtVideoDAR.Location = new System.Drawing.Point(83, 76);
+            this.txtVideoDAR.Name = "txtVideoDAR";
+            this.txtVideoDAR.ReadOnly = true;
+            this.txtVideoDAR.Size = new System.Drawing.Size(73, 21);
+            this.txtVideoDAR.TabIndex = 5;
             // 
-            // txtVideoAR
+            // lblVideoDAR
             // 
-            this.txtVideoAR.Location = new System.Drawing.Point(83, 76);
-            this.txtVideoAR.Name = "txtVideoAR";
-            this.txtVideoAR.Size = new System.Drawing.Size(73, 21);
-            this.txtVideoAR.TabIndex = 5;
-            // 
-            // lblVideoAR
-            // 
-            this.lblVideoAR.AutoSize = true;
-            this.lblVideoAR.Location = new System.Drawing.Point(6, 79);
-            this.lblVideoAR.Name = "lblVideoAR";
-            this.lblVideoAR.Size = new System.Drawing.Size(23, 12);
-            this.lblVideoAR.TabIndex = 4;
-            this.lblVideoAR.Text = "AR:";
+            this.lblVideoDAR.AutoSize = true;
+            this.lblVideoDAR.Location = new System.Drawing.Point(6, 79);
+            this.lblVideoDAR.Name = "lblVideoDAR";
+            this.lblVideoDAR.Size = new System.Drawing.Size(29, 12);
+            this.lblVideoDAR.TabIndex = 4;
+            this.lblVideoDAR.Text = "DAR:";
             // 
             // txtVideoHeight
             // 
             this.txtVideoHeight.Location = new System.Drawing.Point(83, 49);
             this.txtVideoHeight.Name = "txtVideoHeight";
+            this.txtVideoHeight.ReadOnly = true;
             this.txtVideoHeight.Size = new System.Drawing.Size(73, 21);
             this.txtVideoHeight.TabIndex = 5;
             // 
@@ -896,6 +891,17 @@
             this.mnsFileClear.Text = "Clear";
             this.mnsFileClear.Click += new System.EventHandler(this.mnsFileClear_Click);
             // 
+            // mnsFileMediaInfo
+            // 
+            this.mnsFileMediaInfo.Name = "mnsFileMediaInfo";
+            this.mnsFileMediaInfo.Size = new System.Drawing.Size(155, 22);
+            this.mnsFileMediaInfo.Text = "MediaInfo";
+            // 
+            // mnsFileSeparator1
+            // 
+            this.mnsFileSeparator1.Name = "mnsFileSeparator1";
+            this.mnsFileSeparator1.Size = new System.Drawing.Size(152, 6);
+            // 
             // mnsFileExit
             // 
             this.mnsFileExit.Name = "mnsFileExit";
@@ -932,17 +938,13 @@
             this.mnsHelpAboutUs.Text = "About Us";
             this.mnsHelpAboutUs.Click += new System.EventHandler(this.mnsHelpAboutUs_Click);
             // 
-            // mnsFileMediaInfo
+            // txtVideoFramerate
             // 
-            this.mnsFileMediaInfo.Name = "mnsFileMediaInfo";
-            this.mnsFileMediaInfo.Size = new System.Drawing.Size(155, 22);
-            this.mnsFileMediaInfo.Text = "MediaInfo";
-            this.mnsFileMediaInfo.Click += new System.EventHandler(this.mnsFileMediaInfo_Click);
-            // 
-            // mnsFileSeparator1
-            // 
-            this.mnsFileSeparator1.Name = "mnsFileSeparator1";
-            this.mnsFileSeparator1.Size = new System.Drawing.Size(152, 6);
+            this.txtVideoFramerate.Location = new System.Drawing.Point(227, 19);
+            this.txtVideoFramerate.Name = "txtVideoFramerate";
+            this.txtVideoFramerate.ReadOnly = true;
+            this.txtVideoFramerate.Size = new System.Drawing.Size(88, 21);
+            this.txtVideoFramerate.TabIndex = 5;
             // 
             // frmMain
             // 
@@ -1050,9 +1052,8 @@
         private System.Windows.Forms.ComboBox cmbSourceResolution;
         private System.Windows.Forms.Label lblSourceResolution;
         private System.Windows.Forms.Button btnGeneralGenerate;
-        private System.Windows.Forms.ComboBox cmbVideoFramerate;
-        private System.Windows.Forms.TextBox txtVideoAR;
-        private System.Windows.Forms.Label lblVideoAR;
+        private System.Windows.Forms.TextBox txtVideoDAR;
+        private System.Windows.Forms.Label lblVideoDAR;
         private System.Windows.Forms.TextBox txtVideoHeight;
         private System.Windows.Forms.Label lblVideoHeight;
         private System.Windows.Forms.Label lblVideoCodec;
@@ -1075,6 +1076,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnsFileClear;
         private System.Windows.Forms.ToolStripMenuItem mnsFileMediaInfo;
         private System.Windows.Forms.ToolStripSeparator mnsFileSeparator1;
+        private System.Windows.Forms.TextBox txtVideoFramerate;
     }
 }
 

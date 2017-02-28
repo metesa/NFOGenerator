@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using MediaInfoLib;
 
 namespace NFOGenerator
 {
@@ -20,52 +21,84 @@ namespace NFOGenerator
          * Private custom methods down below
          * ------------------------------------------------------------------------*/
 
-        // To show an error message.
+        // Show an error message.
         private void showErrorMessage(string errorInfo)
         {
             System.Windows.Forms.MessageBox.Show(errorInfo, "ERROR!");
         }
 
-        // To clear a textBox.
+        // Clear a textBox.
         private void clearTextBox(TextBox boxToClear)
         {
             boxToClear.Text = "";
         }
 
-        // To get the size of the selected file.
-        private void getFileSize(string inputFile)
+        // Decide which unit to display, such as MB or GB, Kbps or Mbps, etc.
+        private string getDisplayUnit(double paraSmall, double paraBig, string unitSmall, string unitBig, int decimals)
         {
-            // Get the file size of the selected media file.
-            FileInfo inputFileInfo = new FileInfo(inputFile);
-            if (!inputFileInfo.Exists)
+            string result;
+            if (paraBig < 1)
             {
-                // Show an error message if the selected file doesn't exist.
-                this.showErrorMessage("File doesn't exist!");
-                this.clearTextBox(this.txtGeneralSize);
-            }
-            else if (inputFileInfo.Extension != ".mkv")
-            {
-                // Show an error message if the selected file isn't an MKV file.
-                this.showErrorMessage(inputFileInfo.Extension);
-                this.clearTextBox(this.txtGeneralSize);
+                result = Math.Round(paraSmall, decimals).ToString() + " " + unitSmall;
             }
             else
             {
-                // Calculate the file size.
-                long fileSizeBytes = inputFileInfo.Length;
-                double fileSizeMBytes;
-                double fileSizeGBytes;
-                fileSizeMBytes = Convert.ToDouble(fileSizeBytes) / (1024 * 1024);
-                fileSizeGBytes = fileSizeMBytes / 1024;
-                if (fileSizeGBytes < 1)
-                {
-                    this.txtGeneralSize.Text = Math.Round(fileSizeMBytes, 2).ToString() + " MB";
-                }
-                else
-                {
-                    this.txtGeneralSize.Text = Math.Round(fileSizeGBytes, 2).ToString() + " GB";
-                }
+                result = Math.Round(paraBig, decimals).ToString() + " " + unitBig;
             }
+            return result;
+        }
+
+        private string getDisplayUnit(double paraSmall, double paraBig, double criteria, string unitSmall, string unitBig,
+            int decimalSmall, int decimalBig)
+        {
+            string result;
+            if (paraSmall < criteria)
+            {
+                result = Math.Round(paraSmall, decimalSmall).ToString() + " " + unitSmall;
+            }
+            else
+            {
+                result = Math.Round(paraBig, decimalBig).ToString() + " " + unitBig;
+            }
+            return result;
+        }
+        
+        // Get the size of the selected file.
+        private string getFileSize(string paraFileSize)
+        {
+            // Calculate the file size.
+            Int64 fileSizeBytes = Convert.ToInt64(paraFileSize);
+            double fileSizeMBytes;
+            double fileSizeGBytes;
+            string result;
+            
+            // Display the file size in proper format. If it's smaller than 1GB, then display it in MB.
+            // Otherwise, display it in GB.
+            fileSizeMBytes = Convert.ToDouble(fileSizeBytes) / (1024 * 1024);
+            fileSizeGBytes = fileSizeMBytes / 1024;
+            result = this.getDisplayUnit(fileSizeMBytes, fileSizeGBytes, "MB", "GB", 2);
+            return result;
+        }
+
+        // Calculate the duration.
+        private string getDuration(string paraDuration)
+        {
+            Int64 durationMilliSecond = Convert.ToInt64(paraDuration);
+            string result;
+            DateTime duration = new DateTime(durationMilliSecond * 10000);
+            result = duration.ToString("HH") + "h " + duration.ToString("mm") + "mn " + duration.ToString("ss") + "s";
+            return result;
+        }
+
+        // Calculate the video bitrate.
+        private string getVideoBitrate(string paraBitrate)
+        {
+            string result;
+            Int32 bitrate = Convert.ToInt32(paraBitrate);
+            double bitrateKbps = bitrate / 1000;
+            double bitrateMbps = bitrateKbps / 1000;
+            result = this.getDisplayUnit(bitrateKbps, bitrateMbps, 10000, "Kbps", "Mbps", 0, 1);
+            return result;
         }
 
         /*-------------------------------------------------------------------------
@@ -74,6 +107,8 @@ namespace NFOGenerator
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            // Initialize form.
+
             // Add items to general year comboBox and set default to current year
             int currentYear = DateTime.Now.Year;
             while (currentYear >= 1900)
@@ -140,18 +175,6 @@ namespace NFOGenerator
             this.cmbSourceResolution.Items.Add("720i");
             this.cmbSourceResolution.SelectedIndex = 2;
 
-            // Add items to video framerate comboBox and set default to 23.976 FPS
-            this.cmbVideoFramerate.Items.Add("23.976 FPS (24000/1001)");
-            this.cmbVideoFramerate.Items.Add("24.000 FPS");
-            this.cmbVideoFramerate.Items.Add("25.000 FPS");
-            this.cmbVideoFramerate.Items.Add("29.97 FPS");
-            this.cmbVideoFramerate.Items.Add("30.000 FPS");
-            this.cmbVideoFramerate.Items.Add("50.000 FPS");
-            this.cmbVideoFramerate.Items.Add("59.94 FPS");
-            this.cmbVideoFramerate.Items.Add("60.000 FPS");
-            this.cmbVideoFramerate.Items.Add("120.000 FPS");
-            this.cmbVideoFramerate.SelectedIndex = 0;
-
             // Add items to video codec comboBox and set default to x264
             this.cmbVideoCodec.Items.Add("x264");
             this.cmbVideoCodec.Items.Add("H.264");
@@ -197,11 +220,28 @@ namespace NFOGenerator
             if (this.txtInputFile.Text == "")
             {
                 this.clearTextBox(this.txtGeneralSize);
+                this.clearTextBox(this.txtGeneralDuration);
+
+                this.clearTextBox(this.txtVideoWidth);
+                this.clearTextBox(this.txtVideoHeight);
+                this.clearTextBox(this.txtVideoDAR);
+                this.clearTextBox(this.txtVideoFramerate);
+                this.clearTextBox(this.txtVideoBitrate);
                 return;
             }
 
-            // Show file size.
-            this.getFileSize(this.txtInputFile.Text);
+            // Read info from MediaInfo and fill in corresponding texBoxes
+            MediaInfo MI = new MediaInfo();
+            MI.Open(this.txtInputFile.Text);
+            this.txtGeneralSize.Text = this.getFileSize(MI.Get(StreamKind.General, 0, "FileSize"));
+            this.txtGeneralDuration.Text = this.getDuration(MI.Get(StreamKind.General, 0, "Duration"));
+
+            // Get video info.
+            this.txtVideoWidth.Text = MI.Get(StreamKind.Video, 0, "Width");
+            this.txtVideoHeight.Text = MI.Get(StreamKind.Video, 0, "Height");
+            this.txtVideoDAR.Text = MI.Get(StreamKind.Video, 0, "DisplayAspectRatio");
+            this.txtVideoFramerate.Text = MI.Get(StreamKind.Video, 0, "FrameRate") + " FPS";
+            this.txtVideoBitrate.Text = this.getVideoBitrate(MI.Get(StreamKind.Video, 0, "BitRate"));
         }
 
         private void mnsHelpAboutUs_Click(object sender, EventArgs e)
@@ -238,13 +278,6 @@ namespace NFOGenerator
             {
                 this.txtInputFile.Text = openFileInput.FileName;
             }
-        }
-
-        private void mnsFileMediaInfo_Click(object sender, EventArgs e)
-        {
-            parseMediaInfo mediaInfo = new parseMediaInfo();
-            frmMediaInfoPaste dialogMediaInfo = new frmMediaInfoPaste();
-            dialogMediaInfo.ShowDialog();
         }
     }
 }
