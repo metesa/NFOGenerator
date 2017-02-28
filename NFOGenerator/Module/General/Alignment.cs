@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator.Model.General
+namespace NFOGenerator.Module.General
 {
     public enum Alignment
     {

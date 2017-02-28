@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,31 +43,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
+    <Compile Include="Forms\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\AudioInfo.cs" />
-    <Compile Include="Model\General\Alignment.cs" />
-    <Compile Include="Model\NFO\Line\DictionaryLine.cs" />
-    <Compile Include="Model\NFO\Line\Line.cs" />
-    <Compile Include="Model\NFO\Line\ImmutableLine.cs" />
-    <Compile Include="Model\NFO\Line\MutableLine.cs" />
-    <Compile Include="Model\NFO\NFOStyle.cs" />
-    <Compile Include="Model\NFO\NFOTemplate.cs" />
+    <Compile Include="Module\AudioInfo.cs" />
+    <Compile Include="Module\General\Alignment.cs" />
+    <Compile Include="Module\NFO\Line\DictionaryLine.cs" />
+    <Compile Include="Module\NFO\Line\Line.cs" />
+    <Compile Include="Module\NFO\Line\ImmutableLine.cs" />
+    <Compile Include="Module\NFO\Line\MutableLine.cs" />
+    <Compile Include="Module\NFO\NFOStyle.cs" />
+    <Compile Include="Module\NFO\NFOTemplate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="frmAboutUs.cs">
+    <Compile Include="Forms\frmAboutUs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAboutUs.Designer.cs">
+    <Compile Include="Forms\frmAboutUs.Designer.cs">
       <DependentUpon>frmAboutUs.cs</DependentUpon>
     </Compile>
     <Compile Include="MediaInfoDLL.cs" />
     <Compile Include="releaseInfo.cs" />
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -75,7 +75,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAboutUs.resx">
+    <EmbeddedResource Include="Forms\frmAboutUs.resx">
       <DependentUpon>frmAboutUs.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">

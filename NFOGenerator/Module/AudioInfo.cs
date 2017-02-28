@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace NFOGenerator.Model
+namespace NFOGenerator.Module
 {
     public class AudioInfo
     {

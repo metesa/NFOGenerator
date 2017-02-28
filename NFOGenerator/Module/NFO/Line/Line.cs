@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator.Model.NFO.Line
+namespace NFOGenerator.Module.NFO.Line
 {
     public abstract class Line
     {

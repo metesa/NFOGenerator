@@ -1,4 +1,4 @@
-﻿namespace NFOGenerator
+﻿namespace NFOGenerator.Forms
 {
     partial class frmAboutUs
     {

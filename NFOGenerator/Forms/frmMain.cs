@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MediaInfoLib;
 
-namespace NFOGenerator
+namespace NFOGenerator.Forms
 {
     public partial class frmMain : Form
     {
@@ -189,7 +189,7 @@ namespace NFOGenerator
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
         {
             // Create a new releaseInfo class
-            NFOGenerator.releaseInfo anotherRelease = new NFOGenerator.releaseInfo(this.txtGeneralTitle.Text,
+            NFOGenerator.ReleaseInfo anotherRelease = new NFOGenerator.ReleaseInfo(this.txtGeneralTitle.Text,
                 this.cmbGeneralYear.SelectedItem.ToString(), this.cmbGeneralEdition.Text, this.cmbGeneralHybrid.Text,
                 this.cmbGeneralProper.Text, this.cmbGeneralResolution.Text, this.cmbSourceType.Text,
                 this.cmbGeneralAudio.Text, this.cmbVideoCodec.Text);

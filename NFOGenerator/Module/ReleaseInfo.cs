@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NFOGenerator
 {
-    class releaseInfo
+    class ReleaseInfo
     {
         public string nameTitle;
         public string nameYear;
@@ -18,7 +18,7 @@ namespace NFOGenerator
         public string releaseName;
 
         // Constructors        
-        public releaseInfo(string paraTitle, string paraYear, string paraEdition, string paraHybrid,
+        public ReleaseInfo(string paraTitle, string paraYear, string paraEdition, string paraHybrid,
             string paraProper, string paraResolution, string paraSource, string paraAudio, string paraVideo)
         {
             this.nameTitle = paraTitle;

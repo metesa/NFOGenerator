@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NFOGenerator
+namespace NFOGenerator.Forms
 {
     public partial class frmAboutUs : Form
     {
