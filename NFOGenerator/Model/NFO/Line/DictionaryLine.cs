@@ -9,10 +9,10 @@ namespace NFOGenerator.Model.NFO.Line
         private string key;
         private string value;
 
-        public DictionaryLine(string key, string value, NFOStyle style)
+        public DictionaryLine(KeyValuePair<string, string> dataPair, NFOStyle style)
         {
-            this.key = key;
-            this.value = value;
+            this.key = dataPair.Key;
+            this.value = dataPair.Value;
 
             List<string> lines = SplitByLength(value, style.LineLength);
             int count = lines.Count;

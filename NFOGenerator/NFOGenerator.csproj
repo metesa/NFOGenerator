@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,17 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\FrmImageUploader.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmImageUploader.Designer.cs">
-      <DependentUpon>FrmImageUploader.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmImageUploader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmImageUploader.Designer.cs">
+      <DependentUpon>FrmImageUploader.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmZones.cs">
       <SubType>Form</SubType>
@@ -67,6 +67,7 @@
     <Compile Include="Model\FileInfo\ReleaseInfo.cs" />
     <Compile Include="Model\FileInfo\SubtitleInfo.cs" />
     <Compile Include="Model\FileInfo\VideoInfo.cs" />
+    <Compile Include="Model\NFOInfo.cs" />
     <Compile Include="Model\NFO\Line\DictionaryLine.cs" />
     <Compile Include="Model\NFO\Line\Line.cs" />
     <Compile Include="Model\NFO\Line\ImmutableLine.cs" />
@@ -85,6 +86,8 @@
       <DependentUpon>FrmAboutUs.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\MediaInfoDLL.cs" />
+    <Compile Include="Util\ClassUtil.cs" />
+    <Compile Include="Util\EnumUtil.cs" />
     <EmbeddedResource Include="Forms\FrmImageUploader.resx">
       <DependentUpon>FrmImageUploader.cs</DependentUpon>
     </EmbeddedResource>

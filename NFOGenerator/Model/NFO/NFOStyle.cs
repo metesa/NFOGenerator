@@ -10,16 +10,16 @@ namespace NFOGenerator.Model.NFO
     [Serializable]
     public class NFOStyle
     {
-        private string dictPrefix1 = "║  ";
-        private string dictPrefix2 = "║                    ";
-        private string dictConcat = ": ";
-        private string dictSuffix = "  ║\r\n";
-        private char dictKeyPaddingChar = '.';
-        private char dictLinePaddingChar = ' ';
-        private int dictKeyLength = 16;
-        private int dictLineLength = 55;
-        private Alignment mutContentAlignment = 0;
-        private int mutLengthLimit = 73;
+        private string dictPrefix1;
+        private string dictPrefix2;
+        private string dictConcat;
+        private string dictSuffix;
+        private char dictKeyPaddingChar;
+        private char dictLinePaddingChar;
+        private int dictKeyLength;
+        private int dictLineLength;
+        private Alignment mutContentAlignment;
+        private int mutLengthLimit;
 
         public NFOStyle(string dictPrefix1, string dictPrefix2, string dictConcat, string dictSuffix, 
             char dictKeyPaddingChar, char dictLinePaddingChar, int dictKeyLength, int dictLineLength,
@@ -35,6 +35,20 @@ namespace NFOGenerator.Model.NFO
             this.dictLineLength = dictLineLength;
             this.mutContentAlignment = mutContentAlignment;
             this.mutLengthLimit = mutLengthLimit;
+        }
+
+        public NFOStyle()
+        {
+            this.dictPrefix1 = "║  ";
+            this.dictPrefix2 = "║                    ";
+            this.dictConcat = ": ";
+            this.dictSuffix = "  ║\r\n";
+            this.dictKeyPaddingChar = '.';
+            this.dictLinePaddingChar = ' ';
+            this.dictKeyLength = 16;
+            this.dictLineLength = 55;
+            this.mutContentAlignment = 0;
+            this.mutLengthLimit = 73;
         }
 
         public string Prefix1
