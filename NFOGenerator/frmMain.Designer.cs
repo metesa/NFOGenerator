@@ -543,7 +543,7 @@
             this.btnSubtitleAdd.Name = "btnSubtitleAdd";
             this.btnSubtitleAdd.Size = new System.Drawing.Size(103, 102);
             this.btnSubtitleAdd.TabIndex = 7;
-            this.btnSubtitleAdd.Text = "Add Audio";
+            this.btnSubtitleAdd.Text = "Add Subtitle";
             this.btnSubtitleAdd.UseVisualStyleBackColor = true;
             // 
             // lstSubtitle
