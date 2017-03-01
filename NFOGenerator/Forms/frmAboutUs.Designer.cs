@@ -1,6 +1,6 @@
 ﻿namespace NFOGenerator.Forms
 {
-    partial class frmAboutUs
+    partial class FrmAboutUs
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAboutUs));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAboutUs));
             this.picMain = new System.Windows.Forms.PictureBox();
             this.lblAboutInfo = new System.Windows.Forms.Label();
             this.btnHandTea = new System.Windows.Forms.Button();

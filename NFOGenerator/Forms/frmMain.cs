@@ -6,103 +6,35 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using NFOGenerator.Module.Main;
+using NFOGenerator.Module.Utils;
 using MediaInfoLib;
 
 namespace NFOGenerator.Forms
 {
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
-        public frmMain()
+
+        // Create streamInfo to read info's from the file.
+        StreamInfo streamInfo = new StreamInfo();
+
+        public FrmMain()
         {
             InitializeComponent();
         }
 
         /*-------------------------------------------------------------------------
-         * Private custom methods down below
+         * Protected custom methods down below
          * ------------------------------------------------------------------------*/
 
-        // Show an error message.
-        private void showErrorMessage(string errorInfo)
-        {
-            System.Windows.Forms.MessageBox.Show(errorInfo, "ERROR!");
-        }
-
         // Clear a textBox.
-        private void clearTextBox(TextBox boxToClear)
+        protected void ClearTextBox(TextBox boxToClear)
         {
             boxToClear.Text = "";
         }
 
-        // Decide which unit to display, such as MB or GB, Kbps or Mbps, etc.
-        private string getDisplayUnit(double paraSmall, double paraBig, string unitSmall, string unitBig, int decimals)
-        {
-            string result;
-            if (paraBig < 1)
-            {
-                result = Math.Round(paraSmall, decimals).ToString() + " " + unitSmall;
-            }
-            else
-            {
-                result = Math.Round(paraBig, decimals).ToString() + " " + unitBig;
-            }
-            return result;
-        }
-
-        private string getDisplayUnit(double paraSmall, double paraBig, double criteria, string unitSmall, string unitBig,
-            int decimalSmall, int decimalBig)
-        {
-            string result;
-            if (paraSmall < criteria)
-            {
-                result = Math.Round(paraSmall, decimalSmall).ToString() + " " + unitSmall;
-            }
-            else
-            {
-                result = Math.Round(paraBig, decimalBig).ToString() + " " + unitBig;
-            }
-            return result;
-        }
-        
-        // Get the size of the selected file.
-        private string getFileSize(string paraFileSize)
-        {
-            // Calculate the file size.
-            Int64 fileSizeBytes = Convert.ToInt64(paraFileSize);
-            double fileSizeMBytes;
-            double fileSizeGBytes;
-            string result;
-            
-            // Display the file size in proper format. If it's smaller than 1GB, then display it in MB.
-            // Otherwise, display it in GB.
-            fileSizeMBytes = Convert.ToDouble(fileSizeBytes) / (1024 * 1024);
-            fileSizeGBytes = fileSizeMBytes / 1024;
-            result = this.getDisplayUnit(fileSizeMBytes, fileSizeGBytes, "MB", "GB", 2);
-            return result;
-        }
-
-        // Calculate the duration.
-        private string getDuration(string paraDuration)
-        {
-            Int64 durationMilliSecond = Convert.ToInt64(paraDuration);
-            string result;
-            DateTime duration = new DateTime(durationMilliSecond * 10000);
-            result = duration.ToString("HH") + "h " + duration.ToString("mm") + "mn " + duration.ToString("ss") + "s";
-            return result;
-        }
-
-        // Calculate the video bitrate.
-        private string getVideoBitrate(string paraBitrate)
-        {
-            string result;
-            Int32 bitrate = Convert.ToInt32(paraBitrate);
-            double bitrateKbps = bitrate / 1000;
-            double bitrateMbps = bitrateKbps / 1000;
-            result = this.getDisplayUnit(bitrateKbps, bitrateMbps, 10000, "Kbps", "Mbps", 0, 1);
-            return result;
-        }
-
         /*-------------------------------------------------------------------------
-         * Private custom methods up above
+         * Protected custom methods up above
          * ------------------------------------------------------------------------*/
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -189,7 +121,7 @@ namespace NFOGenerator.Forms
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
         {
             // Create a new releaseInfo class
-            NFOGenerator.ReleaseInfo anotherRelease = new NFOGenerator.ReleaseInfo(this.txtGeneralTitle.Text,
+            ReleaseInfo anotherRelease = new ReleaseInfo(this.txtGeneralTitle.Text,
                 this.cmbGeneralYear.SelectedItem.ToString(), this.cmbGeneralEdition.Text, this.cmbGeneralHybrid.Text,
                 this.cmbGeneralProper.Text, this.cmbGeneralResolution.Text, this.cmbSourceType.Text,
                 this.cmbGeneralAudio.Text, this.cmbVideoCodec.Text);
@@ -219,34 +151,41 @@ namespace NFOGenerator.Forms
             // Do nothing if the input file is empty.
             if (this.txtInputFile.Text == "")
             {
-                this.clearTextBox(this.txtGeneralSize);
-                this.clearTextBox(this.txtGeneralDuration);
+                this.ClearTextBox(this.txtGeneralSize);
+                this.ClearTextBox(this.txtGeneralDuration);
 
-                this.clearTextBox(this.txtVideoWidth);
-                this.clearTextBox(this.txtVideoHeight);
-                this.clearTextBox(this.txtVideoDAR);
-                this.clearTextBox(this.txtVideoFramerate);
-                this.clearTextBox(this.txtVideoBitrate);
+                this.ClearTextBox(this.txtVideoWidth);
+                this.ClearTextBox(this.txtVideoHeight);
+                this.ClearTextBox(this.txtVideoDAR);
+                this.ClearTextBox(this.txtVideoFramerate);
+                this.ClearTextBox(this.txtVideoBitrate);
                 return;
             }
 
-            // Read info from MediaInfo and fill in corresponding texBoxes
-            MediaInfo MI = new MediaInfo();
-            MI.Open(this.txtInputFile.Text);
-            this.txtGeneralSize.Text = this.getFileSize(MI.Get(StreamKind.General, 0, "FileSize"));
-            this.txtGeneralDuration.Text = this.getDuration(MI.Get(StreamKind.General, 0, "Duration"));
+            this.streamInfo.ReadMediaInfo(this.txtInputFile.Text);
 
-            // Get video info.
-            this.txtVideoWidth.Text = MI.Get(StreamKind.Video, 0, "Width");
-            this.txtVideoHeight.Text = MI.Get(StreamKind.Video, 0, "Height");
-            this.txtVideoDAR.Text = MI.Get(StreamKind.Video, 0, "DisplayAspectRatio");
-            this.txtVideoFramerate.Text = MI.Get(StreamKind.Video, 0, "FrameRate") + " FPS";
-            this.txtVideoBitrate.Text = this.getVideoBitrate(MI.Get(StreamKind.Video, 0, "BitRate"));
+            // Display general info.
+            this.txtGeneralSize.Text = this.streamInfo.GI.fileSize;
+            this.txtGeneralDuration.Text = this.streamInfo.GI.duration;
+
+            // Display video info.
+            this.txtVideoWidth.Text = this.streamInfo.VI.width;
+            this.txtVideoHeight.Text = this.streamInfo.VI.height;
+            this.txtVideoDAR.Text = this.streamInfo.VI.displayAR;
+            this.txtVideoFramerate.Text = this.streamInfo.VI.framerate;
+            this.txtVideoBitrate.Text = this.streamInfo.VI.bitrate;
+
+            // Display audio info.
+            this.lstAudio.Items.Clear();
+            for (int i = 0; i < this.streamInfo.MI.Count_Get(MediaInfoLib.StreamKind.Audio); i++)
+            {
+                this.lstAudio.Items.Add(this.streamInfo.AI[i].audioInfoFull);
+            }
         }
 
         private void mnsHelpAboutUs_Click(object sender, EventArgs e)
         {
-            frmAboutUs dialogAbout = new frmAboutUs();
+            FrmAboutUs dialogAbout = new FrmAboutUs();
             dialogAbout.ShowDialog();
         }
 
@@ -258,10 +197,10 @@ namespace NFOGenerator.Forms
         private void mnsFileClear_Click(object sender, EventArgs e)
         {
             // Clear textBoxes
-            this.clearTextBox(this.txtInputFile);
-            this.clearTextBox(this.txtGeneralReleaseName);
-            this.clearTextBox(this.txtGeneralTitle);
-            this.clearTextBox(this.txtTargetLocation);
+            this.ClearTextBox(this.txtInputFile);
+            this.ClearTextBox(this.txtGeneralReleaseName);
+            this.ClearTextBox(this.txtGeneralTitle);
+            this.ClearTextBox(this.txtTargetLocation);
         }
 
         private void mnsFileOpen_Click(object sender, EventArgs e)
@@ -277,6 +216,36 @@ namespace NFOGenerator.Forms
             if (openFileInput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.txtInputFile.Text = openFileInput.FileName;
+            }
+        }
+
+        private void chkAudioCommentary_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.chkAudioCommentary.Checked)
+            {
+                this.txtAudioCommentaryBy.Visible = true;
+            }
+            else
+            {
+                this.txtAudioCommentaryBy.Visible = false;
+            }
+        }
+
+        private void lstAudio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.txtAudioLanguage.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioLang;
+            this.txtAudioCodec.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioCodec;
+            this.txtAudioChannels.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioChan;
+            this.txtAudioBitrate.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioBitr;
+
+            if (this.streamInfo.AI[this.lstAudio.SelectedIndex].audioComm)
+            {
+                this.chkAudioCommentary.Checked = true;
+                this.txtAudioCommentaryBy.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioCommentator;
+            }
+            else
+            {
+                this.chkAudioCommentary.Checked = false;
             }
         }
     }

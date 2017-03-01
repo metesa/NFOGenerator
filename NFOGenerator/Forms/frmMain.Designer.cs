@@ -1,6 +1,6 @@
 ﻿namespace NFOGenerator.Forms
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -57,11 +57,13 @@
             this.txtGeneralTitle = new System.Windows.Forms.TextBox();
             this.lblGeneralTitle = new System.Windows.Forms.Label();
             this.grpAudio = new System.Windows.Forms.GroupBox();
-            this.btnAudioAdd = new System.Windows.Forms.Button();
+            this.chkAudioCommentary = new System.Windows.Forms.CheckBox();
+            this.btnAudioDown = new System.Windows.Forms.Button();
+            this.btnAudioUp = new System.Windows.Forms.Button();
+            this.btnAudioEdit = new System.Windows.Forms.Button();
             this.lstAudio = new System.Windows.Forms.ListBox();
-            this.txtAudioComment = new System.Windows.Forms.TextBox();
+            this.txtAudioCommentaryBy = new System.Windows.Forms.TextBox();
             this.txtAudioBitrate = new System.Windows.Forms.TextBox();
-            this.lblAudioComment = new System.Windows.Forms.Label();
             this.txtAudioChannels = new System.Windows.Forms.TextBox();
             this.lblAudioBitrate = new System.Windows.Forms.Label();
             this.txtAudioCodec = new System.Windows.Forms.TextBox();
@@ -94,6 +96,7 @@
             this.txtVideoHeight = new System.Windows.Forms.TextBox();
             this.lblVideoHeight = new System.Windows.Forms.Label();
             this.lblVideoCodec = new System.Windows.Forms.Label();
+            this.txtVideoFramerate = new System.Windows.Forms.TextBox();
             this.btnProcess = new System.Windows.Forms.Button();
             this.btnTargetBrowse = new System.Windows.Forms.Button();
             this.grpSource = new System.Windows.Forms.GroupBox();
@@ -115,7 +118,6 @@
             this.mnsToolsZonesCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelpAboutUs = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtVideoFramerate = new System.Windows.Forms.TextBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -403,11 +405,13 @@
             // 
             // grpAudio
             // 
-            this.grpAudio.Controls.Add(this.btnAudioAdd);
+            this.grpAudio.Controls.Add(this.chkAudioCommentary);
+            this.grpAudio.Controls.Add(this.btnAudioDown);
+            this.grpAudio.Controls.Add(this.btnAudioUp);
+            this.grpAudio.Controls.Add(this.btnAudioEdit);
             this.grpAudio.Controls.Add(this.lstAudio);
-            this.grpAudio.Controls.Add(this.txtAudioComment);
+            this.grpAudio.Controls.Add(this.txtAudioCommentaryBy);
             this.grpAudio.Controls.Add(this.txtAudioBitrate);
-            this.grpAudio.Controls.Add(this.lblAudioComment);
             this.grpAudio.Controls.Add(this.txtAudioChannels);
             this.grpAudio.Controls.Add(this.lblAudioBitrate);
             this.grpAudio.Controls.Add(this.txtAudioCodec);
@@ -417,63 +421,86 @@
             this.grpAudio.Controls.Add(this.lblAudioLanguage);
             this.grpAudio.Location = new System.Drawing.Point(12, 426);
             this.grpAudio.Name = "grpAudio";
-            this.grpAudio.Size = new System.Drawing.Size(324, 198);
+            this.grpAudio.Size = new System.Drawing.Size(324, 232);
             this.grpAudio.TabIndex = 11;
             this.grpAudio.TabStop = false;
             this.grpAudio.Text = "Audio";
             // 
-            // btnAudioAdd
+            // chkAudioCommentary
             // 
-            this.btnAudioAdd.Location = new System.Drawing.Point(215, 14);
-            this.btnAudioAdd.Name = "btnAudioAdd";
-            this.btnAudioAdd.Size = new System.Drawing.Size(102, 102);
-            this.btnAudioAdd.TabIndex = 7;
-            this.btnAudioAdd.Text = "Add Audio";
-            this.btnAudioAdd.UseVisualStyleBackColor = true;
+            this.chkAudioCommentary.AutoSize = true;
+            this.chkAudioCommentary.Location = new System.Drawing.Point(8, 70);
+            this.chkAudioCommentary.Name = "chkAudioCommentary";
+            this.chkAudioCommentary.Size = new System.Drawing.Size(84, 16);
+            this.chkAudioCommentary.TabIndex = 8;
+            this.chkAudioCommentary.Text = "Commentary";
+            this.chkAudioCommentary.UseVisualStyleBackColor = true;
+            this.chkAudioCommentary.CheckedChanged += new System.EventHandler(this.chkAudioCommentary_CheckedChanged);
+            // 
+            // btnAudioDown
+            // 
+            this.btnAudioDown.Location = new System.Drawing.Point(117, 95);
+            this.btnAudioDown.Name = "btnAudioDown";
+            this.btnAudioDown.Size = new System.Drawing.Size(89, 21);
+            this.btnAudioDown.TabIndex = 7;
+            this.btnAudioDown.Text = "Move Down";
+            this.btnAudioDown.UseVisualStyleBackColor = true;
+            // 
+            // btnAudioUp
+            // 
+            this.btnAudioUp.Location = new System.Drawing.Point(8, 95);
+            this.btnAudioUp.Name = "btnAudioUp";
+            this.btnAudioUp.Size = new System.Drawing.Size(89, 21);
+            this.btnAudioUp.TabIndex = 7;
+            this.btnAudioUp.Text = "Move Up";
+            this.btnAudioUp.UseVisualStyleBackColor = true;
+            // 
+            // btnAudioEdit
+            // 
+            this.btnAudioEdit.Location = new System.Drawing.Point(226, 95);
+            this.btnAudioEdit.Name = "btnAudioEdit";
+            this.btnAudioEdit.Size = new System.Drawing.Size(89, 21);
+            this.btnAudioEdit.TabIndex = 7;
+            this.btnAudioEdit.Text = "Edit Audio";
+            this.btnAudioEdit.UseVisualStyleBackColor = true;
             // 
             // lstAudio
             // 
             this.lstAudio.FormattingEnabled = true;
+            this.lstAudio.HorizontalScrollbar = true;
             this.lstAudio.ItemHeight = 12;
-            this.lstAudio.Location = new System.Drawing.Point(6, 149);
+            this.lstAudio.Location = new System.Drawing.Point(8, 125);
             this.lstAudio.Name = "lstAudio";
-            this.lstAudio.Size = new System.Drawing.Size(309, 40);
+            this.lstAudio.Size = new System.Drawing.Size(307, 100);
             this.lstAudio.TabIndex = 6;
+            this.lstAudio.SelectedIndexChanged += new System.EventHandler(this.lstAudio_SelectedIndexChanged);
             // 
-            // txtAudioComment
+            // txtAudioCommentaryBy
             // 
-            this.txtAudioComment.Location = new System.Drawing.Point(83, 122);
-            this.txtAudioComment.Name = "txtAudioComment";
-            this.txtAudioComment.Size = new System.Drawing.Size(232, 21);
-            this.txtAudioComment.TabIndex = 5;
+            this.txtAudioCommentaryBy.Location = new System.Drawing.Point(98, 68);
+            this.txtAudioCommentaryBy.Name = "txtAudioCommentaryBy";
+            this.txtAudioCommentaryBy.Size = new System.Drawing.Size(217, 21);
+            this.txtAudioCommentaryBy.TabIndex = 5;
+            this.txtAudioCommentaryBy.Visible = false;
             // 
             // txtAudioBitrate
             // 
-            this.txtAudioBitrate.Location = new System.Drawing.Point(83, 95);
+            this.txtAudioBitrate.Location = new System.Drawing.Point(227, 41);
             this.txtAudioBitrate.Name = "txtAudioBitrate";
-            this.txtAudioBitrate.Size = new System.Drawing.Size(126, 21);
+            this.txtAudioBitrate.Size = new System.Drawing.Size(88, 21);
             this.txtAudioBitrate.TabIndex = 5;
-            // 
-            // lblAudioComment
-            // 
-            this.lblAudioComment.AutoSize = true;
-            this.lblAudioComment.Location = new System.Drawing.Point(6, 125);
-            this.lblAudioComment.Name = "lblAudioComment";
-            this.lblAudioComment.Size = new System.Drawing.Size(53, 12);
-            this.lblAudioComment.TabIndex = 4;
-            this.lblAudioComment.Text = "Comment:";
             // 
             // txtAudioChannels
             // 
-            this.txtAudioChannels.Location = new System.Drawing.Point(83, 68);
+            this.txtAudioChannels.Location = new System.Drawing.Point(227, 14);
             this.txtAudioChannels.Name = "txtAudioChannels";
-            this.txtAudioChannels.Size = new System.Drawing.Size(126, 21);
+            this.txtAudioChannels.Size = new System.Drawing.Size(88, 21);
             this.txtAudioChannels.TabIndex = 5;
             // 
             // lblAudioBitrate
             // 
             this.lblAudioBitrate.AutoSize = true;
-            this.lblAudioBitrate.Location = new System.Drawing.Point(6, 98);
+            this.lblAudioBitrate.Location = new System.Drawing.Point(162, 44);
             this.lblAudioBitrate.Name = "lblAudioBitrate";
             this.lblAudioBitrate.Size = new System.Drawing.Size(53, 12);
             this.lblAudioBitrate.TabIndex = 4;
@@ -483,13 +510,13 @@
             // 
             this.txtAudioCodec.Location = new System.Drawing.Point(83, 41);
             this.txtAudioCodec.Name = "txtAudioCodec";
-            this.txtAudioCodec.Size = new System.Drawing.Size(126, 21);
+            this.txtAudioCodec.Size = new System.Drawing.Size(73, 21);
             this.txtAudioCodec.TabIndex = 5;
             // 
             // lblAudioChannels
             // 
             this.lblAudioChannels.AutoSize = true;
-            this.lblAudioChannels.Location = new System.Drawing.Point(6, 71);
+            this.lblAudioChannels.Location = new System.Drawing.Point(162, 17);
             this.lblAudioChannels.Name = "lblAudioChannels";
             this.lblAudioChannels.Size = new System.Drawing.Size(59, 12);
             this.lblAudioChannels.TabIndex = 4;
@@ -508,7 +535,7 @@
             // 
             this.txtAudioLanguage.Location = new System.Drawing.Point(83, 14);
             this.txtAudioLanguage.Name = "txtAudioLanguage";
-            this.txtAudioLanguage.Size = new System.Drawing.Size(126, 21);
+            this.txtAudioLanguage.Size = new System.Drawing.Size(73, 21);
             this.txtAudioLanguage.TabIndex = 1;
             // 
             // lblAudioLanguage
@@ -532,7 +559,7 @@
             this.grpSubtitle.Controls.Add(this.lblSubtitleLanguage);
             this.grpSubtitle.Location = new System.Drawing.Point(350, 426);
             this.grpSubtitle.Name = "grpSubtitle";
-            this.grpSubtitle.Size = new System.Drawing.Size(324, 198);
+            this.grpSubtitle.Size = new System.Drawing.Size(324, 232);
             this.grpSubtitle.TabIndex = 12;
             this.grpSubtitle.TabStop = false;
             this.grpSubtitle.Text = "Subtitle";
@@ -541,7 +568,7 @@
             // 
             this.btnSubtitleAdd.Location = new System.Drawing.Point(215, 14);
             this.btnSubtitleAdd.Name = "btnSubtitleAdd";
-            this.btnSubtitleAdd.Size = new System.Drawing.Size(103, 102);
+            this.btnSubtitleAdd.Size = new System.Drawing.Size(103, 48);
             this.btnSubtitleAdd.TabIndex = 7;
             this.btnSubtitleAdd.Text = "Add Subtitle";
             this.btnSubtitleAdd.UseVisualStyleBackColor = true;
@@ -549,22 +576,23 @@
             // lstSubtitle
             // 
             this.lstSubtitle.FormattingEnabled = true;
+            this.lstSubtitle.HorizontalScrollbar = true;
             this.lstSubtitle.ItemHeight = 12;
-            this.lstSubtitle.Location = new System.Drawing.Point(6, 149);
+            this.lstSubtitle.Location = new System.Drawing.Point(6, 101);
             this.lstSubtitle.Name = "lstSubtitle";
-            this.lstSubtitle.Size = new System.Drawing.Size(312, 40);
+            this.lstSubtitle.Size = new System.Drawing.Size(312, 124);
             this.lstSubtitle.TabIndex = 6;
             // 
             // txtSubtitleComment
             // 
-            this.txtSubtitleComment.Location = new System.Drawing.Point(83, 122);
+            this.txtSubtitleComment.Location = new System.Drawing.Point(83, 68);
             this.txtSubtitleComment.Name = "txtSubtitleComment";
             this.txtSubtitleComment.Size = new System.Drawing.Size(235, 21);
             this.txtSubtitleComment.TabIndex = 5;
             // 
             // txtSubtitleFormat
             // 
-            this.txtSubtitleFormat.Location = new System.Drawing.Point(83, 68);
+            this.txtSubtitleFormat.Location = new System.Drawing.Point(83, 41);
             this.txtSubtitleFormat.Name = "txtSubtitleFormat";
             this.txtSubtitleFormat.Size = new System.Drawing.Size(126, 21);
             this.txtSubtitleFormat.TabIndex = 5;
@@ -572,7 +600,7 @@
             // lblSubtitleComment
             // 
             this.lblSubtitleComment.AutoSize = true;
-            this.lblSubtitleComment.Location = new System.Drawing.Point(6, 125);
+            this.lblSubtitleComment.Location = new System.Drawing.Point(6, 71);
             this.lblSubtitleComment.Name = "lblSubtitleComment";
             this.lblSubtitleComment.Size = new System.Drawing.Size(53, 12);
             this.lblSubtitleComment.TabIndex = 4;
@@ -581,7 +609,7 @@
             // lblSubtitleFormat
             // 
             this.lblSubtitleFormat.AutoSize = true;
-            this.lblSubtitleFormat.Location = new System.Drawing.Point(6, 71);
+            this.lblSubtitleFormat.Location = new System.Drawing.Point(6, 44);
             this.lblSubtitleFormat.Name = "lblSubtitleFormat";
             this.lblSubtitleFormat.Size = new System.Drawing.Size(47, 12);
             this.lblSubtitleFormat.TabIndex = 4;
@@ -605,7 +633,7 @@
             // 
             // txtTargetLocation
             // 
-            this.txtTargetLocation.Location = new System.Drawing.Point(130, 630);
+            this.txtTargetLocation.Location = new System.Drawing.Point(127, 664);
             this.txtTargetLocation.Name = "txtTargetLocation";
             this.txtTargetLocation.Size = new System.Drawing.Size(376, 21);
             this.txtTargetLocation.TabIndex = 0;
@@ -613,7 +641,7 @@
             // lblTargetLocation
             // 
             this.lblTargetLocation.AutoSize = true;
-            this.lblTargetLocation.Location = new System.Drawing.Point(23, 634);
+            this.lblTargetLocation.Location = new System.Drawing.Point(20, 668);
             this.lblTargetLocation.Name = "lblTargetLocation";
             this.lblTargetLocation.Size = new System.Drawing.Size(101, 12);
             this.lblTargetLocation.TabIndex = 1;
@@ -754,11 +782,19 @@
             this.lblVideoCodec.TabIndex = 4;
             this.lblVideoCodec.Text = "Codec:";
             // 
+            // txtVideoFramerate
+            // 
+            this.txtVideoFramerate.Location = new System.Drawing.Point(227, 19);
+            this.txtVideoFramerate.Name = "txtVideoFramerate";
+            this.txtVideoFramerate.ReadOnly = true;
+            this.txtVideoFramerate.Size = new System.Drawing.Size(88, 21);
+            this.txtVideoFramerate.TabIndex = 5;
+            // 
             // btnProcess
             // 
             this.btnProcess.Enabled = false;
             this.btnProcess.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnProcess.Location = new System.Drawing.Point(593, 630);
+            this.btnProcess.Location = new System.Drawing.Point(590, 664);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 21);
             this.btnProcess.TabIndex = 3;
@@ -767,7 +803,7 @@
             // 
             // btnTargetBrowse
             // 
-            this.btnTargetBrowse.Location = new System.Drawing.Point(512, 630);
+            this.btnTargetBrowse.Location = new System.Drawing.Point(509, 664);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(75, 21);
             this.btnTargetBrowse.TabIndex = 3;
@@ -938,19 +974,11 @@
             this.mnsHelpAboutUs.Text = "About Us";
             this.mnsHelpAboutUs.Click += new System.EventHandler(this.mnsHelpAboutUs_Click);
             // 
-            // txtVideoFramerate
-            // 
-            this.txtVideoFramerate.Location = new System.Drawing.Point(227, 19);
-            this.txtVideoFramerate.Name = "txtVideoFramerate";
-            this.txtVideoFramerate.ReadOnly = true;
-            this.txtVideoFramerate.Size = new System.Drawing.Size(88, 21);
-            this.txtVideoFramerate.TabIndex = 5;
-            // 
-            // frmMain
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 660);
+            this.ClientSize = new System.Drawing.Size(686, 697);
             this.Controls.Add(this.grpSource);
             this.Controls.Add(this.btnTargetBrowse);
             this.Controls.Add(this.btnProcess);
@@ -965,7 +993,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.mnsMain;
             this.MaximizeBox = false;
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.Text = "TAiCHi NFO Generator";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.grpInput.ResumeLayout(false);
@@ -1002,11 +1030,10 @@
         private System.Windows.Forms.TextBox txtGeneralTitle;
         private System.Windows.Forms.Label lblGeneralTitle;
         private System.Windows.Forms.GroupBox grpAudio;
-        private System.Windows.Forms.Button btnAudioAdd;
+        private System.Windows.Forms.Button btnAudioEdit;
         private System.Windows.Forms.ListBox lstAudio;
-        private System.Windows.Forms.TextBox txtAudioComment;
+        private System.Windows.Forms.TextBox txtAudioCommentaryBy;
         private System.Windows.Forms.TextBox txtAudioBitrate;
-        private System.Windows.Forms.Label lblAudioComment;
         private System.Windows.Forms.TextBox txtAudioChannels;
         private System.Windows.Forms.Label lblAudioBitrate;
         private System.Windows.Forms.TextBox txtAudioCodec;
@@ -1077,6 +1104,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnsFileMediaInfo;
         private System.Windows.Forms.ToolStripSeparator mnsFileSeparator1;
         private System.Windows.Forms.TextBox txtVideoFramerate;
+        private System.Windows.Forms.CheckBox chkAudioCommentary;
+        private System.Windows.Forms.Button btnAudioDown;
+        private System.Windows.Forms.Button btnAudioUp;
     }
 }
 

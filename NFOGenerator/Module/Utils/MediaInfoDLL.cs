@@ -16,6 +16,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using NFOGenerator.Module.Utils;
 
 #pragma warning disable 1591 // Disable XML documentation warnings
 

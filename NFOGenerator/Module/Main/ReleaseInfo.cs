@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator
+namespace NFOGenerator.Module.Main
 {
     class ReleaseInfo
     {
@@ -17,7 +17,19 @@ namespace NFOGenerator
         public string nameVideo;
         public string releaseName;
 
-        // Constructors        
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
+        /// <param name="paraTitle">Movie title.</param>
+        /// <param name="paraYear">Cinema year.</param>
+        /// <param name="paraEdition">Edition.</param>
+        /// <param name="paraHybrid">Hybrid encode or not.</param>
+        /// <param name="paraProper">PROPER, REPACK, etc.</param>
+        /// <param name="paraResolution">Resolution standard.</param>
+        /// <param name="paraSource">Source type.</param>
+        /// <param name="paraAudio">Main audio format.</param>
+        /// <param name="paraVideo">Video codec.</param>
+       
         public ReleaseInfo(string paraTitle, string paraYear, string paraEdition, string paraHybrid,
             string paraProper, string paraResolution, string paraSource, string paraAudio, string paraVideo)
         {
@@ -33,7 +45,10 @@ namespace NFOGenerator
         }
         // End of constructors
 
-        // Generate a complete release name.
+        /// <summary>
+        /// Generate a complete release name.
+        /// </summary>
+        /// <returns>release name</returns>
         public string generateRLZName()
         {
             this.releaseName = this.nameTitle + "." + this.nameYear + this.removeDotIfEmpty(this.nameEdition) + 
@@ -41,8 +56,11 @@ namespace NFOGenerator
                 this.nameResolution + "." + this.nameSource + "." + this.nameAudio + "." + this.nameVideo + "-TAiCHi";
             return this.releaseName;
         }
-
-        // See if the encode is a hybrid.
+        
+        /// <summary>
+        /// See if the encode is a hybrid.
+        /// </summary>
+        /// <returns>"Hybrid" if yes, otherwise blank.</returns>
         public string getHybrid()
         {
             if (this.nameHybrid == "Yes")
@@ -55,7 +73,11 @@ namespace NFOGenerator
             }
         }
 
-        // Remove the leading dot if an option is empty, such as Edition, PROPER, etc.
+        /// <summary>
+        /// Remove the leading dot if an option is empty, such as Edition, PROPER, etc.
+        /// </summary>
+        /// <param name="paraStr"></param>
+        /// <returns>".OPTION" if option is filled, otherwise blank.</returns>
         private string removeDotIfEmpty(string paraStr)
         {
             string result;

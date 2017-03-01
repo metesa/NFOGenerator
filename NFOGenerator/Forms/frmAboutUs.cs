@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace NFOGenerator.Forms
 {
-    public partial class frmAboutUs : Form
+    public partial class FrmAboutUs : Form
     {
-        public frmAboutUs()
+        public FrmAboutUs()
         {
             InitializeComponent();
         }

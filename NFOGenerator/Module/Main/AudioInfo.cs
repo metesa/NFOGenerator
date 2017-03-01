@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace NFOGenerator.Module
+namespace NFOGenerator.Module.Main
 {
     public class AudioInfo
     {
-        private AudioCodec audioCodec;
-        private AudioChannel audioChannel;
+        public string audioLang;
+        public string audioCodec;
+        public string audioChan;
+        public string audioBitr;
+        public bool audioComm;
+        public string audioCommentator;
+        public string audioInfoFull;
 
-        public AudioInfo(AudioCodec codec, AudioChannel channel)
+        public AudioInfo(bool isCommentary)
         {
-            audioCodec = codec;
-            audioChannel = channel;
+            this.audioComm = isCommentary;
+        }
+
+        public AudioInfo()
+        {
+            this.audioComm = false;
         }
     }
 
+    /*
     public enum AudioCodec
     {
         [Description("DTS-HD MA")]
@@ -88,4 +98,5 @@ namespace NFOGenerator.Module
         [Description("")]
         Unknown
     }
+    */
 }
