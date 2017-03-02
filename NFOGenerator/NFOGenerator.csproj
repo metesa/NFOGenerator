@@ -6,12 +6,13 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{62E6921F-3E37-4C90-9B76-63E9FB53DFFC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFOGenerator</RootNamespace>
     <AssemblyName>NFOGenerator</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -39,6 +43,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -48,6 +53,12 @@
     </Compile>
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmAboutUs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmAboutUs.Designer.cs">
+      <DependentUpon>FrmAboutUs.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmImageUploader.cs">
       <SubType>Form</SubType>
@@ -62,32 +73,30 @@
       <DependentUpon>FrmZones.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FileInfo\AudioInfo.cs" />
-    <Compile Include="Model\General\Alignment.cs" />
     <Compile Include="Model\FileInfo\GeneralInfo.cs" />
     <Compile Include="Model\FileInfo\ReleaseInfo.cs" />
     <Compile Include="Model\FileInfo\SubtitleInfo.cs" />
     <Compile Include="Model\FileInfo\VideoInfo.cs" />
-    <Compile Include="Model\NFOInfo.cs" />
+    <Compile Include="Model\General\Alignment.cs" />
     <Compile Include="Model\NFO\Line\DictionaryLine.cs" />
-    <Compile Include="Model\NFO\Line\Line.cs" />
     <Compile Include="Model\NFO\Line\ImmutableLine.cs" />
+    <Compile Include="Model\NFO\Line\Line.cs" />
     <Compile Include="Model\NFO\Line\MutableLine.cs" />
+ 	<Compile Include="Model\NFO\NFODocument.cs" />
+    <Compile Include="Model\NFO\NFOInfo.cs" />
     <Compile Include="Model\NFO\NFOStyle.cs" />
-    <Compile Include="Model\NFO\NFOTemplate.cs" />
     <Compile Include="Tools\Zones\ZonesCommand.cs" />
-    <Compile Include="Util\LangDic.cs" />
     <Compile Include="Tools\Zones\ZonesRange.cs" />
+    <Compile Include="Util\CharacterEncodingUtil.cs" />
+    <Compile Include="Util\ClassUtil.cs" />
+    <Compile Include="Util\CryptographUtil.cs" />
+    <Compile Include="Util\EnumUtil.cs" />
+    <Compile Include="Util\IOUtil.cs" />
+    <Compile Include="Util\LangDic.cs" />
+    <Compile Include="Util\MediaInfoDLL.cs" />
+    <Compile Include="Util\SerializationUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\FrmAboutUs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmAboutUs.Designer.cs">
-      <DependentUpon>FrmAboutUs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Util\MediaInfoDLL.cs" />
-    <Compile Include="Util\ClassUtil.cs" />
-    <Compile Include="Util\EnumUtil.cs" />
     <EmbeddedResource Include="Forms\FrmImageUploader.resx">
       <DependentUpon>FrmImageUploader.cs</DependentUpon>
     </EmbeddedResource>
@@ -108,7 +117,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -118,6 +129,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Templates\TAiCHi.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

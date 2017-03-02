@@ -10,6 +10,9 @@ using NFOGenerator.Model.FileInfo;
 using NFOGenerator.Util;
 using MediaInfoLib;
 
+using NFOGenerator.Model.General;
+using NFOGenerator.Model.NFO;
+
 namespace NFOGenerator.Forms
 {
     public partial class FrmMain : Form
@@ -281,14 +284,14 @@ namespace NFOGenerator.Forms
             try
             {
                 // Combine all the audio info's into one string.
-                string audioCombined;
+                string audioCombined = "";
                 for (int i = 0; i < this.lstAudio.Items.Count; i++)
                 {
                     audioCombined += this.lstAudio.GetItemText(i);
                 }
 
                 // Combine all the subtitle info's into one string.
-                string subCombined;
+                string subCombined = "";
                 for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
                 {
                     subCombined += this.lstSubtitle.GetItemText(i);
@@ -314,11 +317,11 @@ namespace NFOGenerator.Forms
 
                 NFOStyle style = NFOStyle.ImportTemplate(@"./Templates/TAiCHi.tpl");
                 NFOInfo info = new NFOInfo(this.txtGeneralReleaseName.Text,
-                    Model.General.Alignment.Left,
+                    Alignment.Left,
                     this.txtIMDb.Text,
                     this.txtSourceName.Text + " - Thanks!",
                     this.txtGeneralSize.Text,
-                    this.txtGeneralDuration,
+                    this.txtGeneralDuration.Text,
                     this.txtVideoBitrate.Text,
                     this.txtVideoWidth.Text + " x " + this.txtVideoHeight.Text,
                     this.txtVideoFramerate.Text,
@@ -327,7 +330,7 @@ namespace NFOGenerator.Forms
                     chapters,
                     this.txtVideoNote.Text
                 );
-                NFO nfo = new NFO(info, style);
+                NFODocument nfo = new NFODocument(info, style);
                 nfo.WriteNfoFile(this.txtTargetLocation.Text + @"\" + this.txtGeneralReleaseName.Text + ".nfo");
             }
             catch (Exception ex)

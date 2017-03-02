@@ -1180,7 +1180,7 @@
             // mnsHelpAboutUs
             // 
             this.mnsHelpAboutUs.Name = "mnsHelpAboutUs";
-            this.mnsHelpAboutUs.Size = new System.Drawing.Size(130, 22);
+            this.mnsHelpAboutUs.Size = new System.Drawing.Size(152, 22);
             this.mnsHelpAboutUs.Text = "About Us";
             this.mnsHelpAboutUs.Click += new System.EventHandler(this.mnsHelpAboutUs_Click);
             // 
@@ -1348,4 +1348,3 @@
         private System.Windows.Forms.Label lblIMDb;
     }
 }
-
