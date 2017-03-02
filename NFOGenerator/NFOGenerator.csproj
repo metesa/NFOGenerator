@@ -48,28 +48,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\FrmMain.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmMain.Designer.cs">
+    <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmAboutUs.cs">
+    <Compile Include="FrmAboutUs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmAboutUs.Designer.cs">
+    <Compile Include="FrmAboutUs.Designer.cs">
       <DependentUpon>FrmAboutUs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmImageUploader.cs">
+    <Compile Include="FrmImageUploader.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmImageUploader.Designer.cs">
+    <Compile Include="FrmImageUploader.Designer.cs">
       <DependentUpon>FrmImageUploader.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmZones.cs">
+    <Compile Include="FrmZones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmZones.Designer.cs">
+    <Compile Include="FrmZones.Designer.cs">
       <DependentUpon>FrmZones.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FileInfo\AudioInfo.cs" />
@@ -97,13 +97,13 @@
     <Compile Include="Util\SerializationUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\FrmImageUploader.resx">
+    <EmbeddedResource Include="FrmImageUploader.resx">
       <DependentUpon>FrmImageUploader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmMain.resx">
+    <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmZones.resx">
+    <EmbeddedResource Include="FrmZones.resx">
       <DependentUpon>FrmZones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -111,7 +111,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmAboutUs.resx">
+    <EmbeddedResource Include="FrmAboutUs.resx">
       <DependentUpon>FrmAboutUs.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
