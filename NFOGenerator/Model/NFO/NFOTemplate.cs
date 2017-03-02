@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-using NFOGenerator.Module.NFO.Line;
+using NFOGenerator.Model.NFO.Line;
 
-namespace NFOGenerator.Module.NFO
+namespace NFOGenerator.Model.NFO
 {
     class NFOTemplate
     {

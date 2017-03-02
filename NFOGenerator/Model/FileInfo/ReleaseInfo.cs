@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using NFOGenerator.Module.Utils;
+using NFOGenerator.Util;
+using NFOGenerator.Model.FileInfo;
 using MediaInfoLib;
 
-namespace NFOGenerator.Module.Main
+namespace NFOGenerator.Model.FileInfo
 {
-    public class StreamInfo
+    public class ReleaseInfo
     {
         public MediaInfo MI = new MediaInfo();
         public GeneralInfo GI = new GeneralInfo();
         public VideoInfo VI = new VideoInfo();
         public AudioInfo[] AI;
+        public SubtitleInfo[] SI;
 
-        public StreamInfo()
+        public ReleaseInfo()
         {
         }
 
@@ -38,22 +40,48 @@ namespace NFOGenerator.Module.Main
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
             {
                 // Get the language code and look it up in the dictionary.
-                this.AI[i] = new AudioInfo(this.isCommentary(this.MI.Get(StreamKind.Audio, i, "Title")));
+                this.AI[i] = new AudioInfo(this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title"), "Commentary"));
                 this.AI[i].audioLang = languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language"));
                 this.AI[i].audioCodec = this.MI.Get(StreamKind.Audio, i, "Format");
                 this.AI[i].audioChan = this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)"));
                 this.AI[i].audioBitr = this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate"));
+                this.AI[i].audioCommentator = this.MI.Get(StreamKind.Audio, i, "Title");
+                this.AI[i].UpdateAudioInfo();
+            }
 
-                if (this.AI[i].audioComm)
+            this.SI = new SubtitleInfo[this.MI.Count_Get(StreamKind.Text)];
+
+            for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
+            {
+                this.SI[i] = new SubtitleInfo();
+                this.SI[i].subLang = languageName.GetFullName(this.MI.Get(StreamKind.Text, i, "Language"));
+                this.SI[i].subFormat = this.MI.Get(StreamKind.Text, i, "Format");
+                this.SI[i].subComment = this.MI.Get(StreamKind.Text, 0, "Title");
+                this.SI[i].subForced = (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || 
+                    this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced"));
+                this.SI[i].subSDH = this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "SDH");
+
+                if (this.SI[i].subSDH)
                 {
-                    this.AI[i].audioCommentator = this.MI.Get(StreamKind.Audio, i, "Title");
-                    this.AI[i].audioInfoFull = this.AI[i].audioLang + ", " + this.AI[i].audioCodec + ", " +
-                        this.AI[i].audioChan + ", " + this.AI[i].audioBitr + ", " + this.AI[i].audioCommentator;
+                    if (this.SI[i].subForced)
+                    {
+                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ", SDH, Forced)";
+                    }
+                    else
+                    {
+                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ", SDH)";
+                    }
                 }
                 else
                 {
-                    this.AI[i].audioInfoFull = this.AI[i].audioLang + ", " + this.AI[i].audioCodec + ", " +
-                        this.AI[i].audioChan + ", " + this.AI[i].audioBitr;
+                    if (this.SI[i].subForced)
+                    {
+                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ", Forced)";
+                    }
+                    else
+                    {
+                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ")";
+                    }
                 }
             }
         }
@@ -174,9 +202,27 @@ namespace NFOGenerator.Module.Main
             return result + " channels";
         }
 
-        protected bool isCommentary(string paraComm)
+        /// <summary>
+        /// Determine if something is something, by checking if the full string contains a sub string.
+        /// </summary>
+        /// <param name="strFull">Full string.</param>
+        /// <param name="strSub">Sub string.</param>
+        /// <returns>True or False.</returns>
+        protected bool isSomething(string strFull, string strSub)
         {
-            if (paraComm.Contains("Commentary"))
+            if (strFull.Contains(strSub))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        protected bool isYesOrNo(string paraYesOrNo)
+        {
+            if (paraYesOrNo.Contains("Yes"))
             {
                 return true;
             }

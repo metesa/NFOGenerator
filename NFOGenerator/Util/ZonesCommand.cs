@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator.Module.Main
+namespace NFOGenerator.Utils
 {
-    public class SubtitleInfo
+    class ZonesCommand
     {
     }
 }

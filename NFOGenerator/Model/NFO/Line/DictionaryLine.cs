@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator.Module.NFO.Line
+namespace NFOGenerator.Model.NFO.Line
 {
     class DictionaryLine : Line
     {

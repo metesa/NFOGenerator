@@ -72,14 +72,16 @@
             this.txtAudioLanguage = new System.Windows.Forms.TextBox();
             this.lblAudioLanguage = new System.Windows.Forms.Label();
             this.grpSubtitle = new System.Windows.Forms.GroupBox();
-            this.btnSubtitleAdd = new System.Windows.Forms.Button();
+            this.btnSubtitleEdit = new System.Windows.Forms.Button();
             this.lstSubtitle = new System.Windows.Forms.ListBox();
             this.txtSubtitleComment = new System.Windows.Forms.TextBox();
             this.txtSubtitleFormat = new System.Windows.Forms.TextBox();
             this.lblSubtitleComment = new System.Windows.Forms.Label();
             this.lblSubtitleFormat = new System.Windows.Forms.Label();
             this.txtSubtitleLanguage = new System.Windows.Forms.TextBox();
+            this.chkSubtitleSDH = new System.Windows.Forms.CheckBox();
             this.lblSubtitleLanguage = new System.Windows.Forms.Label();
+            this.chkSubtitleForced = new System.Windows.Forms.CheckBox();
             this.txtTargetLocation = new System.Windows.Forms.TextBox();
             this.lblTargetLocation = new System.Windows.Forms.Label();
             this.txtVideoBitrate = new System.Windows.Forms.TextBox();
@@ -115,9 +117,15 @@
             this.mnsFileSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnsFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsToolsImageUploader = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsToolsImageUpImagebam = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsToolsZonesCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnsToolsAutoTest = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelpAboutUs = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblIMDb = new System.Windows.Forms.Label();
+            this.txtIMDb = new System.Windows.Forms.TextBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -125,10 +133,15 @@
             this.grpVideo.SuspendLayout();
             this.grpSource.SuspendLayout();
             this.mnsMain.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInputFile
             // 
+            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInputFile.Location = new System.Drawing.Point(83, 20);
             this.txtInputFile.Name = "txtInputFile";
             this.txtInputFile.Size = new System.Drawing.Size(573, 21);
@@ -137,6 +150,8 @@
             // 
             // grpInput
             // 
+            this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpInput.Controls.Add(this.lblInputFile);
             this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Location = new System.Drawing.Point(12, 28);
@@ -157,6 +172,8 @@
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGeneral.Controls.Add(this.cmbGeneralProper);
             this.grpGeneral.Controls.Add(this.cmbGeneralHybrid);
             this.grpGeneral.Controls.Add(this.cmbGeneralEdition);
@@ -179,20 +196,29 @@
             this.grpGeneral.Controls.Add(this.txtGeneralDuration);
             this.grpGeneral.Controls.Add(this.lblGeneralEdition);
             this.grpGeneral.Controls.Add(this.txtGeneralSize);
+            this.grpGeneral.Controls.Add(this.txtIMDb);
+            this.grpGeneral.Controls.Add(this.lblIMDb);
             this.grpGeneral.Controls.Add(this.txtGeneralTitle);
             this.grpGeneral.Controls.Add(this.lblGeneralTitle);
             this.grpGeneral.Location = new System.Drawing.Point(12, 87);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(662, 151);
+            this.grpGeneral.Size = new System.Drawing.Size(662, 173);
             this.grpGeneral.TabIndex = 2;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
             // 
             // cmbGeneralProper
             // 
+            this.cmbGeneralProper.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbGeneralProper.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralProper.FormattingEnabled = true;
-            this.cmbGeneralProper.Location = new System.Drawing.Point(289, 67);
+            this.cmbGeneralProper.Items.AddRange(new object[] {
+            "",
+            "PROPER",
+            "REPACK",
+            "PROPER.REPACK",
+            "REPACK.PROPER"});
+            this.cmbGeneralProper.Location = new System.Drawing.Point(289, 94);
             this.cmbGeneralProper.Name = "cmbGeneralProper";
             this.cmbGeneralProper.Size = new System.Drawing.Size(126, 20);
             this.cmbGeneralProper.TabIndex = 8;
@@ -201,16 +227,27 @@
             // 
             this.cmbGeneralHybrid.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralHybrid.FormattingEnabled = true;
-            this.cmbGeneralHybrid.Location = new System.Drawing.Point(83, 67);
+            this.cmbGeneralHybrid.Items.AddRange(new object[] {
+            "",
+            "Hybrid"});
+            this.cmbGeneralHybrid.Location = new System.Drawing.Point(83, 94);
             this.cmbGeneralHybrid.Name = "cmbGeneralHybrid";
             this.cmbGeneralHybrid.Size = new System.Drawing.Size(91, 20);
             this.cmbGeneralHybrid.TabIndex = 8;
             // 
             // cmbGeneralEdition
             // 
+            this.cmbGeneralEdition.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbGeneralEdition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralEdition.FormattingEnabled = true;
-            this.cmbGeneralEdition.Location = new System.Drawing.Point(289, 41);
+            this.cmbGeneralEdition.Items.AddRange(new object[] {
+            "",
+            "Theatrical.Cut",
+            "Director\'s.Cut",
+            "Extended.Cut",
+            "Unrated",
+            "Criterion"});
+            this.cmbGeneralEdition.Location = new System.Drawing.Point(289, 68);
             this.cmbGeneralEdition.Name = "cmbGeneralEdition";
             this.cmbGeneralEdition.Size = new System.Drawing.Size(126, 20);
             this.cmbGeneralEdition.TabIndex = 8;
@@ -219,34 +256,52 @@
             // 
             this.cmbGeneralYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralYear.FormattingEnabled = true;
-            this.cmbGeneralYear.Location = new System.Drawing.Point(83, 41);
+            this.cmbGeneralYear.Location = new System.Drawing.Point(83, 68);
             this.cmbGeneralYear.Name = "cmbGeneralYear";
             this.cmbGeneralYear.Size = new System.Drawing.Size(91, 20);
             this.cmbGeneralYear.TabIndex = 8;
             // 
             // cmbGeneralAudio
             // 
+            this.cmbGeneralAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGeneralAudio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralAudio.FormattingEnabled = true;
-            this.cmbGeneralAudio.Location = new System.Drawing.Point(528, 67);
+            this.cmbGeneralAudio.Items.AddRange(new object[] {
+            "DTS",
+            "DTS-ES",
+            "DD5.1",
+            "DD2.1",
+            "DD2.0",
+            "AAC2.0",
+            "AAC1.0",
+            "FLAC2.0",
+            "FLAC1.0"});
+            this.cmbGeneralAudio.Location = new System.Drawing.Point(536, 94);
             this.cmbGeneralAudio.Name = "cmbGeneralAudio";
-            this.cmbGeneralAudio.Size = new System.Drawing.Size(128, 20);
+            this.cmbGeneralAudio.Size = new System.Drawing.Size(120, 20);
             this.cmbGeneralAudio.TabIndex = 8;
             // 
             // cmbGeneralResolution
             // 
+            this.cmbGeneralResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbGeneralResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralResolution.FormattingEnabled = true;
-            this.cmbGeneralResolution.Location = new System.Drawing.Point(528, 41);
+            this.cmbGeneralResolution.Items.AddRange(new object[] {
+            "1080p",
+            "720p",
+            "576p",
+            "480p"});
+            this.cmbGeneralResolution.Location = new System.Drawing.Point(536, 68);
             this.cmbGeneralResolution.Name = "cmbGeneralResolution";
-            this.cmbGeneralResolution.Size = new System.Drawing.Size(128, 20);
+            this.cmbGeneralResolution.Size = new System.Drawing.Size(120, 20);
             this.cmbGeneralResolution.TabIndex = 8;
             // 
             // lblGeneralReleaseName
             // 
+            this.lblGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblGeneralReleaseName.AutoSize = true;
             this.lblGeneralReleaseName.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblGeneralReleaseName.Location = new System.Drawing.Point(6, 123);
+            this.lblGeneralReleaseName.Location = new System.Drawing.Point(6, 150);
             this.lblGeneralReleaseName.Name = "lblGeneralReleaseName";
             this.lblGeneralReleaseName.Size = new System.Drawing.Size(68, 12);
             this.lblGeneralReleaseName.TabIndex = 7;
@@ -254,8 +309,9 @@
             // 
             // chkGeneralChaptersNamed
             // 
+            this.chkGeneralChaptersNamed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGeneralChaptersNamed.AutoSize = true;
-            this.chkGeneralChaptersNamed.Location = new System.Drawing.Point(602, 95);
+            this.chkGeneralChaptersNamed.Location = new System.Drawing.Point(602, 122);
             this.chkGeneralChaptersNamed.Name = "chkGeneralChaptersNamed";
             this.chkGeneralChaptersNamed.Size = new System.Drawing.Size(54, 16);
             this.chkGeneralChaptersNamed.TabIndex = 10;
@@ -264,17 +320,20 @@
             // 
             // txtGeneralReleaseName
             // 
-            this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 120);
+            this.txtGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 147);
             this.txtGeneralReleaseName.Name = "txtGeneralReleaseName";
             this.txtGeneralReleaseName.Size = new System.Drawing.Size(492, 21);
             this.txtGeneralReleaseName.TabIndex = 6;
             // 
             // chkGeneralChaptersIncluded
             // 
+            this.chkGeneralChaptersIncluded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGeneralChaptersIncluded.AutoSize = true;
             this.chkGeneralChaptersIncluded.Checked = true;
             this.chkGeneralChaptersIncluded.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkGeneralChaptersIncluded.Location = new System.Drawing.Point(524, 95);
+            this.chkGeneralChaptersIncluded.Location = new System.Drawing.Point(524, 122);
             this.chkGeneralChaptersIncluded.Name = "chkGeneralChaptersIncluded";
             this.chkGeneralChaptersIncluded.Size = new System.Drawing.Size(72, 16);
             this.chkGeneralChaptersIncluded.TabIndex = 10;
@@ -283,8 +342,9 @@
             // 
             // lblGeneralChapters
             // 
+            this.lblGeneralChapters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGeneralChapters.AutoSize = true;
-            this.lblGeneralChapters.Location = new System.Drawing.Point(450, 96);
+            this.lblGeneralChapters.Location = new System.Drawing.Point(459, 123);
             this.lblGeneralChapters.Name = "lblGeneralChapters";
             this.lblGeneralChapters.Size = new System.Drawing.Size(59, 12);
             this.lblGeneralChapters.TabIndex = 9;
@@ -292,7 +352,8 @@
             // 
             // btnGeneralGenerate
             // 
-            this.btnGeneralGenerate.Location = new System.Drawing.Point(581, 119);
+            this.btnGeneralGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGeneralGenerate.Location = new System.Drawing.Point(581, 147);
             this.btnGeneralGenerate.Name = "btnGeneralGenerate";
             this.btnGeneralGenerate.Size = new System.Drawing.Size(75, 21);
             this.btnGeneralGenerate.TabIndex = 3;
@@ -302,8 +363,9 @@
             // 
             // lblGeneralAudio
             // 
+            this.lblGeneralAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGeneralAudio.AutoSize = true;
-            this.lblGeneralAudio.Location = new System.Drawing.Point(450, 70);
+            this.lblGeneralAudio.Location = new System.Drawing.Point(459, 97);
             this.lblGeneralAudio.Name = "lblGeneralAudio";
             this.lblGeneralAudio.Size = new System.Drawing.Size(41, 12);
             this.lblGeneralAudio.TabIndex = 4;
@@ -311,8 +373,9 @@
             // 
             // lblGeneralResolution
             // 
+            this.lblGeneralResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGeneralResolution.AutoSize = true;
-            this.lblGeneralResolution.Location = new System.Drawing.Point(450, 44);
+            this.lblGeneralResolution.Location = new System.Drawing.Point(459, 71);
             this.lblGeneralResolution.Name = "lblGeneralResolution";
             this.lblGeneralResolution.Size = new System.Drawing.Size(71, 12);
             this.lblGeneralResolution.TabIndex = 4;
@@ -320,8 +383,9 @@
             // 
             // lblGeneralDuration
             // 
+            this.lblGeneralDuration.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblGeneralDuration.AutoSize = true;
-            this.lblGeneralDuration.Location = new System.Drawing.Point(224, 96);
+            this.lblGeneralDuration.Location = new System.Drawing.Point(224, 123);
             this.lblGeneralDuration.Name = "lblGeneralDuration";
             this.lblGeneralDuration.Size = new System.Drawing.Size(59, 12);
             this.lblGeneralDuration.TabIndex = 4;
@@ -330,7 +394,7 @@
             // lblGeneralHybrid
             // 
             this.lblGeneralHybrid.AutoSize = true;
-            this.lblGeneralHybrid.Location = new System.Drawing.Point(6, 70);
+            this.lblGeneralHybrid.Location = new System.Drawing.Point(6, 97);
             this.lblGeneralHybrid.Name = "lblGeneralHybrid";
             this.lblGeneralHybrid.Size = new System.Drawing.Size(47, 12);
             this.lblGeneralHybrid.TabIndex = 4;
@@ -339,7 +403,7 @@
             // lblGeneralSize
             // 
             this.lblGeneralSize.AutoSize = true;
-            this.lblGeneralSize.Location = new System.Drawing.Point(6, 96);
+            this.lblGeneralSize.Location = new System.Drawing.Point(6, 123);
             this.lblGeneralSize.Name = "lblGeneralSize";
             this.lblGeneralSize.Size = new System.Drawing.Size(35, 12);
             this.lblGeneralSize.TabIndex = 4;
@@ -348,7 +412,7 @@
             // lblGeneralYear
             // 
             this.lblGeneralYear.AutoSize = true;
-            this.lblGeneralYear.Location = new System.Drawing.Point(6, 44);
+            this.lblGeneralYear.Location = new System.Drawing.Point(6, 71);
             this.lblGeneralYear.Name = "lblGeneralYear";
             this.lblGeneralYear.Size = new System.Drawing.Size(35, 12);
             this.lblGeneralYear.TabIndex = 4;
@@ -356,8 +420,9 @@
             // 
             // lblGeneralProper
             // 
+            this.lblGeneralProper.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblGeneralProper.AutoSize = true;
-            this.lblGeneralProper.Location = new System.Drawing.Point(224, 70);
+            this.lblGeneralProper.Location = new System.Drawing.Point(224, 97);
             this.lblGeneralProper.Name = "lblGeneralProper";
             this.lblGeneralProper.Size = new System.Drawing.Size(47, 12);
             this.lblGeneralProper.TabIndex = 2;
@@ -365,15 +430,18 @@
             // 
             // txtGeneralDuration
             // 
-            this.txtGeneralDuration.Location = new System.Drawing.Point(289, 93);
+            this.txtGeneralDuration.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtGeneralDuration.Location = new System.Drawing.Point(289, 120);
             this.txtGeneralDuration.Name = "txtGeneralDuration";
+            this.txtGeneralDuration.ReadOnly = true;
             this.txtGeneralDuration.Size = new System.Drawing.Size(126, 21);
             this.txtGeneralDuration.TabIndex = 5;
             // 
             // lblGeneralEdition
             // 
+            this.lblGeneralEdition.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblGeneralEdition.AutoSize = true;
-            this.lblGeneralEdition.Location = new System.Drawing.Point(224, 44);
+            this.lblGeneralEdition.Location = new System.Drawing.Point(224, 71);
             this.lblGeneralEdition.Name = "lblGeneralEdition";
             this.lblGeneralEdition.Size = new System.Drawing.Size(53, 12);
             this.lblGeneralEdition.TabIndex = 2;
@@ -381,7 +449,7 @@
             // 
             // txtGeneralSize
             // 
-            this.txtGeneralSize.Location = new System.Drawing.Point(83, 93);
+            this.txtGeneralSize.Location = new System.Drawing.Point(83, 120);
             this.txtGeneralSize.Name = "txtGeneralSize";
             this.txtGeneralSize.ReadOnly = true;
             this.txtGeneralSize.Size = new System.Drawing.Size(91, 21);
@@ -389,6 +457,8 @@
             // 
             // txtGeneralTitle
             // 
+            this.txtGeneralTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGeneralTitle.Location = new System.Drawing.Point(83, 14);
             this.txtGeneralTitle.Name = "txtGeneralTitle";
             this.txtGeneralTitle.Size = new System.Drawing.Size(573, 21);
@@ -405,6 +475,9 @@
             // 
             // grpAudio
             // 
+            this.grpAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAudio.Controls.Add(this.chkAudioCommentary);
             this.grpAudio.Controls.Add(this.btnAudioDown);
             this.grpAudio.Controls.Add(this.btnAudioUp);
@@ -419,9 +492,9 @@
             this.grpAudio.Controls.Add(this.lblAudioCodec);
             this.grpAudio.Controls.Add(this.txtAudioLanguage);
             this.grpAudio.Controls.Add(this.lblAudioLanguage);
-            this.grpAudio.Location = new System.Drawing.Point(12, 426);
+            this.grpAudio.Location = new System.Drawing.Point(3, 3);
             this.grpAudio.Name = "grpAudio";
-            this.grpAudio.Size = new System.Drawing.Size(324, 232);
+            this.grpAudio.Size = new System.Drawing.Size(324, 209);
             this.grpAudio.TabIndex = 11;
             this.grpAudio.TabStop = false;
             this.grpAudio.Text = "Audio";
@@ -439,6 +512,8 @@
             // 
             // btnAudioDown
             // 
+            this.btnAudioDown.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAudioDown.Enabled = false;
             this.btnAudioDown.Location = new System.Drawing.Point(117, 95);
             this.btnAudioDown.Name = "btnAudioDown";
             this.btnAudioDown.Size = new System.Drawing.Size(89, 21);
@@ -448,6 +523,7 @@
             // 
             // btnAudioUp
             // 
+            this.btnAudioUp.Enabled = false;
             this.btnAudioUp.Location = new System.Drawing.Point(8, 95);
             this.btnAudioUp.Name = "btnAudioUp";
             this.btnAudioUp.Size = new System.Drawing.Size(89, 21);
@@ -457,26 +533,33 @@
             // 
             // btnAudioEdit
             // 
+            this.btnAudioEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAudioEdit.Location = new System.Drawing.Point(226, 95);
             this.btnAudioEdit.Name = "btnAudioEdit";
             this.btnAudioEdit.Size = new System.Drawing.Size(89, 21);
             this.btnAudioEdit.TabIndex = 7;
             this.btnAudioEdit.Text = "Edit Audio";
             this.btnAudioEdit.UseVisualStyleBackColor = true;
+            this.btnAudioEdit.Click += new System.EventHandler(this.btnAudioEdit_Click);
             // 
             // lstAudio
             // 
+            this.lstAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lstAudio.FormattingEnabled = true;
             this.lstAudio.HorizontalScrollbar = true;
             this.lstAudio.ItemHeight = 12;
             this.lstAudio.Location = new System.Drawing.Point(8, 125);
             this.lstAudio.Name = "lstAudio";
-            this.lstAudio.Size = new System.Drawing.Size(307, 100);
+            this.lstAudio.Size = new System.Drawing.Size(307, 76);
             this.lstAudio.TabIndex = 6;
             this.lstAudio.SelectedIndexChanged += new System.EventHandler(this.lstAudio_SelectedIndexChanged);
             // 
             // txtAudioCommentaryBy
             // 
+            this.txtAudioCommentaryBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAudioCommentaryBy.Location = new System.Drawing.Point(98, 68);
             this.txtAudioCommentaryBy.Name = "txtAudioCommentaryBy";
             this.txtAudioCommentaryBy.Size = new System.Drawing.Size(217, 21);
@@ -485,6 +568,7 @@
             // 
             // txtAudioBitrate
             // 
+            this.txtAudioBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAudioBitrate.Location = new System.Drawing.Point(227, 41);
             this.txtAudioBitrate.Name = "txtAudioBitrate";
             this.txtAudioBitrate.Size = new System.Drawing.Size(88, 21);
@@ -492,6 +576,7 @@
             // 
             // txtAudioChannels
             // 
+            this.txtAudioChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAudioChannels.Location = new System.Drawing.Point(227, 14);
             this.txtAudioChannels.Name = "txtAudioChannels";
             this.txtAudioChannels.Size = new System.Drawing.Size(88, 21);
@@ -499,6 +584,7 @@
             // 
             // lblAudioBitrate
             // 
+            this.lblAudioBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAudioBitrate.AutoSize = true;
             this.lblAudioBitrate.Location = new System.Drawing.Point(162, 44);
             this.lblAudioBitrate.Name = "lblAudioBitrate";
@@ -510,11 +596,12 @@
             // 
             this.txtAudioCodec.Location = new System.Drawing.Point(83, 41);
             this.txtAudioCodec.Name = "txtAudioCodec";
-            this.txtAudioCodec.Size = new System.Drawing.Size(73, 21);
+            this.txtAudioCodec.Size = new System.Drawing.Size(70, 21);
             this.txtAudioCodec.TabIndex = 5;
             // 
             // lblAudioChannels
             // 
+            this.lblAudioChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAudioChannels.AutoSize = true;
             this.lblAudioChannels.Location = new System.Drawing.Point(162, 17);
             this.lblAudioChannels.Name = "lblAudioChannels";
@@ -535,7 +622,7 @@
             // 
             this.txtAudioLanguage.Location = new System.Drawing.Point(83, 14);
             this.txtAudioLanguage.Name = "txtAudioLanguage";
-            this.txtAudioLanguage.Size = new System.Drawing.Size(73, 21);
+            this.txtAudioLanguage.Size = new System.Drawing.Size(70, 21);
             this.txtAudioLanguage.TabIndex = 1;
             // 
             // lblAudioLanguage
@@ -549,52 +636,66 @@
             // 
             // grpSubtitle
             // 
-            this.grpSubtitle.Controls.Add(this.btnSubtitleAdd);
+            this.grpSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpSubtitle.Controls.Add(this.btnSubtitleEdit);
             this.grpSubtitle.Controls.Add(this.lstSubtitle);
             this.grpSubtitle.Controls.Add(this.txtSubtitleComment);
             this.grpSubtitle.Controls.Add(this.txtSubtitleFormat);
             this.grpSubtitle.Controls.Add(this.lblSubtitleComment);
             this.grpSubtitle.Controls.Add(this.lblSubtitleFormat);
             this.grpSubtitle.Controls.Add(this.txtSubtitleLanguage);
+            this.grpSubtitle.Controls.Add(this.chkSubtitleSDH);
             this.grpSubtitle.Controls.Add(this.lblSubtitleLanguage);
-            this.grpSubtitle.Location = new System.Drawing.Point(350, 426);
+            this.grpSubtitle.Controls.Add(this.chkSubtitleForced);
+            this.grpSubtitle.Location = new System.Drawing.Point(3, 3);
             this.grpSubtitle.Name = "grpSubtitle";
-            this.grpSubtitle.Size = new System.Drawing.Size(324, 232);
+            this.grpSubtitle.Size = new System.Drawing.Size(322, 209);
             this.grpSubtitle.TabIndex = 12;
             this.grpSubtitle.TabStop = false;
             this.grpSubtitle.Text = "Subtitle";
             // 
-            // btnSubtitleAdd
+            // btnSubtitleEdit
             // 
-            this.btnSubtitleAdd.Location = new System.Drawing.Point(215, 14);
-            this.btnSubtitleAdd.Name = "btnSubtitleAdd";
-            this.btnSubtitleAdd.Size = new System.Drawing.Size(103, 48);
-            this.btnSubtitleAdd.TabIndex = 7;
-            this.btnSubtitleAdd.Text = "Add Subtitle";
-            this.btnSubtitleAdd.UseVisualStyleBackColor = true;
+            this.btnSubtitleEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSubtitleEdit.Location = new System.Drawing.Point(238, 95);
+            this.btnSubtitleEdit.Name = "btnSubtitleEdit";
+            this.btnSubtitleEdit.Size = new System.Drawing.Size(78, 21);
+            this.btnSubtitleEdit.TabIndex = 7;
+            this.btnSubtitleEdit.Text = "Edit";
+            this.btnSubtitleEdit.UseVisualStyleBackColor = true;
             // 
             // lstSubtitle
             // 
+            this.lstSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lstSubtitle.FormattingEnabled = true;
             this.lstSubtitle.HorizontalScrollbar = true;
             this.lstSubtitle.ItemHeight = 12;
-            this.lstSubtitle.Location = new System.Drawing.Point(6, 101);
+            this.lstSubtitle.Location = new System.Drawing.Point(6, 125);
             this.lstSubtitle.Name = "lstSubtitle";
-            this.lstSubtitle.Size = new System.Drawing.Size(312, 124);
+            this.lstSubtitle.Size = new System.Drawing.Size(310, 76);
             this.lstSubtitle.TabIndex = 6;
+            this.lstSubtitle.SelectedIndexChanged += new System.EventHandler(this.lstSubtitle_SelectedIndexChanged);
             // 
             // txtSubtitleComment
             // 
+            this.txtSubtitleComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleComment.Location = new System.Drawing.Point(83, 68);
             this.txtSubtitleComment.Name = "txtSubtitleComment";
-            this.txtSubtitleComment.Size = new System.Drawing.Size(235, 21);
+            this.txtSubtitleComment.Size = new System.Drawing.Size(233, 21);
             this.txtSubtitleComment.TabIndex = 5;
             // 
             // txtSubtitleFormat
             // 
+            this.txtSubtitleFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleFormat.Location = new System.Drawing.Point(83, 41);
             this.txtSubtitleFormat.Name = "txtSubtitleFormat";
-            this.txtSubtitleFormat.Size = new System.Drawing.Size(126, 21);
+            this.txtSubtitleFormat.Size = new System.Drawing.Size(155, 21);
             this.txtSubtitleFormat.TabIndex = 5;
             // 
             // lblSubtitleComment
@@ -617,10 +718,23 @@
             // 
             // txtSubtitleLanguage
             // 
+            this.txtSubtitleLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleLanguage.Location = new System.Drawing.Point(83, 14);
             this.txtSubtitleLanguage.Name = "txtSubtitleLanguage";
-            this.txtSubtitleLanguage.Size = new System.Drawing.Size(126, 21);
+            this.txtSubtitleLanguage.Size = new System.Drawing.Size(155, 21);
             this.txtSubtitleLanguage.TabIndex = 1;
+            // 
+            // chkSubtitleSDH
+            // 
+            this.chkSubtitleSDH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkSubtitleSDH.AutoSize = true;
+            this.chkSubtitleSDH.Location = new System.Drawing.Point(245, 43);
+            this.chkSubtitleSDH.Name = "chkSubtitleSDH";
+            this.chkSubtitleSDH.Size = new System.Drawing.Size(42, 16);
+            this.chkSubtitleSDH.TabIndex = 10;
+            this.chkSubtitleSDH.Text = "SDH";
+            this.chkSubtitleSDH.UseVisualStyleBackColor = true;
             // 
             // lblSubtitleLanguage
             // 
@@ -631,17 +745,31 @@
             this.lblSubtitleLanguage.TabIndex = 0;
             this.lblSubtitleLanguage.Text = "Language:";
             // 
+            // chkSubtitleForced
+            // 
+            this.chkSubtitleForced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkSubtitleForced.AutoSize = true;
+            this.chkSubtitleForced.Location = new System.Drawing.Point(245, 16);
+            this.chkSubtitleForced.Name = "chkSubtitleForced";
+            this.chkSubtitleForced.Size = new System.Drawing.Size(60, 16);
+            this.chkSubtitleForced.TabIndex = 10;
+            this.chkSubtitleForced.Text = "Forced";
+            this.chkSubtitleForced.UseVisualStyleBackColor = true;
+            // 
             // txtTargetLocation
             // 
-            this.txtTargetLocation.Location = new System.Drawing.Point(127, 664);
+            this.txtTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTargetLocation.Location = new System.Drawing.Point(125, 670);
             this.txtTargetLocation.Name = "txtTargetLocation";
-            this.txtTargetLocation.Size = new System.Drawing.Size(376, 21);
+            this.txtTargetLocation.Size = new System.Drawing.Size(381, 21);
             this.txtTargetLocation.TabIndex = 0;
             // 
             // lblTargetLocation
             // 
+            this.lblTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTargetLocation.AutoSize = true;
-            this.lblTargetLocation.Location = new System.Drawing.Point(20, 668);
+            this.lblTargetLocation.Location = new System.Drawing.Point(18, 673);
             this.lblTargetLocation.Name = "lblTargetLocation";
             this.lblTargetLocation.Size = new System.Drawing.Size(101, 12);
             this.lblTargetLocation.TabIndex = 1;
@@ -684,7 +812,10 @@
             // 
             // txtVideoNote
             // 
-            this.txtVideoNote.Location = new System.Drawing.Point(377, 20);
+            this.txtVideoNote.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtVideoNote.Location = new System.Drawing.Point(377, 19);
             this.txtVideoNote.Multiline = true;
             this.txtVideoNote.Name = "txtVideoNote";
             this.txtVideoNote.Size = new System.Drawing.Size(279, 77);
@@ -709,6 +840,8 @@
             // 
             // grpVideo
             // 
+            this.grpVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpVideo.Controls.Add(this.cmbVideoCodec);
             this.grpVideo.Controls.Add(this.txtVideoDAR);
             this.grpVideo.Controls.Add(this.lblVideoDAR);
@@ -723,7 +856,7 @@
             this.grpVideo.Controls.Add(this.lblVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoBitrate);
-            this.grpVideo.Location = new System.Drawing.Point(12, 317);
+            this.grpVideo.Location = new System.Drawing.Point(12, 339);
             this.grpVideo.Name = "grpVideo";
             this.grpVideo.Size = new System.Drawing.Size(662, 103);
             this.grpVideo.TabIndex = 15;
@@ -734,6 +867,14 @@
             // 
             this.cmbVideoCodec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVideoCodec.FormattingEnabled = true;
+            this.cmbVideoCodec.Items.AddRange(new object[] {
+            "x264",
+            "H.264",
+            "x265",
+            "MPEG2",
+            "VC-1",
+            "AVC",
+            "XviD"});
             this.cmbVideoCodec.Location = new System.Drawing.Point(227, 76);
             this.cmbVideoCodec.Name = "cmbVideoCodec";
             this.cmbVideoCodec.Size = new System.Drawing.Size(88, 20);
@@ -792,9 +933,10 @@
             // 
             // btnProcess
             // 
+            this.btnProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProcess.Enabled = false;
             this.btnProcess.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnProcess.Location = new System.Drawing.Point(590, 664);
+            this.btnProcess.Location = new System.Drawing.Point(593, 669);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 21);
             this.btnProcess.TabIndex = 3;
@@ -803,7 +945,8 @@
             // 
             // btnTargetBrowse
             // 
-            this.btnTargetBrowse.Location = new System.Drawing.Point(509, 664);
+            this.btnTargetBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTargetBrowse.Location = new System.Drawing.Point(512, 669);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(75, 21);
             this.btnTargetBrowse.TabIndex = 3;
@@ -813,6 +956,8 @@
             // 
             // grpSource
             // 
+            this.grpSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSource.Controls.Add(this.cmbSourceResolution);
             this.grpSource.Controls.Add(this.cmbSourceType);
             this.grpSource.Controls.Add(this.lblSourceType);
@@ -820,7 +965,7 @@
             this.grpSource.Controls.Add(this.btnSourceGuess);
             this.grpSource.Controls.Add(this.txtSourceName);
             this.grpSource.Controls.Add(this.lblSourceResolution);
-            this.grpSource.Location = new System.Drawing.Point(12, 244);
+            this.grpSource.Location = new System.Drawing.Point(12, 266);
             this.grpSource.Name = "grpSource";
             this.grpSource.Size = new System.Drawing.Size(662, 67);
             this.grpSource.TabIndex = 16;
@@ -829,26 +974,43 @@
             // 
             // cmbSourceResolution
             // 
+            this.cmbSourceResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbSourceResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSourceResolution.FormattingEnabled = true;
-            this.cmbSourceResolution.Location = new System.Drawing.Point(421, 37);
+            this.cmbSourceResolution.Items.AddRange(new object[] {
+            "4K",
+            "2160p",
+            "1080p",
+            "1080i",
+            "720p",
+            "720i"});
+            this.cmbSourceResolution.Location = new System.Drawing.Point(421, 42);
             this.cmbSourceResolution.Name = "cmbSourceResolution";
             this.cmbSourceResolution.Size = new System.Drawing.Size(126, 20);
             this.cmbSourceResolution.TabIndex = 8;
             // 
             // cmbSourceType
             // 
+            this.cmbSourceType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cmbSourceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSourceType.FormattingEnabled = true;
-            this.cmbSourceType.Location = new System.Drawing.Point(83, 37);
+            this.cmbSourceType.Items.AddRange(new object[] {
+            "BluRay",
+            "HDDVD",
+            "DVDRip",
+            "WEB-DL",
+            "WEBRip",
+            "HDTV"});
+            this.cmbSourceType.Location = new System.Drawing.Point(83, 42);
             this.cmbSourceType.Name = "cmbSourceType";
             this.cmbSourceType.Size = new System.Drawing.Size(126, 20);
             this.cmbSourceType.TabIndex = 8;
             // 
             // lblSourceType
             // 
+            this.lblSourceType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSourceType.AutoSize = true;
-            this.lblSourceType.Location = new System.Drawing.Point(6, 40);
+            this.lblSourceType.Location = new System.Drawing.Point(6, 45);
             this.lblSourceType.Name = "lblSourceType";
             this.lblSourceType.Size = new System.Drawing.Size(35, 12);
             this.lblSourceType.TabIndex = 8;
@@ -865,7 +1027,8 @@
             // 
             // btnSourceGuess
             // 
-            this.btnSourceGuess.Location = new System.Drawing.Point(581, 12);
+            this.btnSourceGuess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSourceGuess.Location = new System.Drawing.Point(581, 14);
             this.btnSourceGuess.Name = "btnSourceGuess";
             this.btnSourceGuess.Size = new System.Drawing.Size(75, 21);
             this.btnSourceGuess.TabIndex = 3;
@@ -874,15 +1037,18 @@
             // 
             // txtSourceName
             // 
-            this.txtSourceName.Location = new System.Drawing.Point(83, 12);
+            this.txtSourceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSourceName.Location = new System.Drawing.Point(83, 14);
             this.txtSourceName.Name = "txtSourceName";
             this.txtSourceName.Size = new System.Drawing.Size(492, 21);
             this.txtSourceName.TabIndex = 6;
             // 
             // lblSourceResolution
             // 
+            this.lblSourceResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSourceResolution.AutoSize = true;
-            this.lblSourceResolution.Location = new System.Drawing.Point(344, 40);
+            this.lblSourceResolution.Location = new System.Drawing.Point(344, 45);
             this.lblSourceResolution.Name = "lblSourceResolution";
             this.lblSourceResolution.Size = new System.Drawing.Size(71, 12);
             this.lblSourceResolution.TabIndex = 4;
@@ -948,16 +1114,41 @@
             // mnsTools
             // 
             this.mnsTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnsToolsZonesCommand});
+            this.mnsToolsImageUploader,
+            this.mnsToolsZonesCommand,
+            this.mnsToolsAutoTest});
             this.mnsTools.Name = "mnsTools";
             this.mnsTools.Size = new System.Drawing.Size(52, 21);
             this.mnsTools.Text = "Tools";
             // 
+            // mnsToolsImageUploader
+            // 
+            this.mnsToolsImageUploader.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnsToolsImageUpImagebam});
+            this.mnsToolsImageUploader.Name = "mnsToolsImageUploader";
+            this.mnsToolsImageUploader.Size = new System.Drawing.Size(175, 22);
+            this.mnsToolsImageUploader.Text = "Image Uploader";
+            // 
+            // mnsToolsImageUpImagebam
+            // 
+            this.mnsToolsImageUpImagebam.Name = "mnsToolsImageUpImagebam";
+            this.mnsToolsImageUpImagebam.Size = new System.Drawing.Size(139, 22);
+            this.mnsToolsImageUpImagebam.Text = "Imagebam";
+            this.mnsToolsImageUpImagebam.Click += new System.EventHandler(this.mnsToolsImageUpImagebam_Click);
+            // 
             // mnsToolsZonesCommand
             // 
+            this.mnsToolsZonesCommand.Enabled = false;
             this.mnsToolsZonesCommand.Name = "mnsToolsZonesCommand";
             this.mnsToolsZonesCommand.Size = new System.Drawing.Size(175, 22);
             this.mnsToolsZonesCommand.Text = "Zones Command";
+            // 
+            // mnsToolsAutoTest
+            // 
+            this.mnsToolsAutoTest.Enabled = false;
+            this.mnsToolsAutoTest.Name = "mnsToolsAutoTest";
+            this.mnsToolsAutoTest.Size = new System.Drawing.Size(175, 22);
+            this.mnsToolsAutoTest.Text = "Automatic Test";
             // 
             // mnsHelp
             // 
@@ -974,25 +1165,61 @@
             this.mnsHelpAboutUs.Text = "About Us";
             this.mnsHelpAboutUs.Click += new System.EventHandler(this.mnsHelpAboutUs_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(12, 448);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.grpAudio);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.grpSubtitle);
+            this.splitContainer1.Size = new System.Drawing.Size(662, 215);
+            this.splitContainer1.SplitterDistance = 330;
+            this.splitContainer1.TabIndex = 18;
+            // 
+            // lblIMDb
+            // 
+            this.lblIMDb.AutoSize = true;
+            this.lblIMDb.Location = new System.Drawing.Point(6, 44);
+            this.lblIMDb.Name = "lblIMDb";
+            this.lblIMDb.Size = new System.Drawing.Size(65, 12);
+            this.lblIMDb.TabIndex = 0;
+            this.lblIMDb.Text = "IMDb Link:";
+            // 
+            // txtIMDb
+            // 
+            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIMDb.Location = new System.Drawing.Point(83, 41);
+            this.txtIMDb.Name = "txtIMDb";
+            this.txtIMDb.Size = new System.Drawing.Size(573, 21);
+            this.txtIMDb.TabIndex = 1;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 697);
+            this.ClientSize = new System.Drawing.Size(686, 694);
             this.Controls.Add(this.grpSource);
             this.Controls.Add(this.btnTargetBrowse);
             this.Controls.Add(this.btnProcess);
             this.Controls.Add(this.grpVideo);
             this.Controls.Add(this.lblTargetLocation);
-            this.Controls.Add(this.grpSubtitle);
             this.Controls.Add(this.txtTargetLocation);
-            this.Controls.Add(this.grpAudio);
             this.Controls.Add(this.grpGeneral);
             this.Controls.Add(this.grpInput);
             this.Controls.Add(this.mnsMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Controls.Add(this.splitContainer1);
             this.MainMenuStrip = this.mnsMain;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(702, 733);
             this.Name = "FrmMain";
             this.Text = "TAiCHi NFO Generator";
             this.Load += new System.EventHandler(this.frmMain_Load);
@@ -1010,6 +1237,9 @@
             this.grpSource.PerformLayout();
             this.mnsMain.ResumeLayout(false);
             this.mnsMain.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1042,7 +1272,7 @@
         private System.Windows.Forms.TextBox txtAudioLanguage;
         private System.Windows.Forms.Label lblAudioLanguage;
         private System.Windows.Forms.GroupBox grpSubtitle;
-        private System.Windows.Forms.Button btnSubtitleAdd;
+        private System.Windows.Forms.Button btnSubtitleEdit;
         private System.Windows.Forms.ListBox lstSubtitle;
         private System.Windows.Forms.TextBox txtSubtitleComment;
         private System.Windows.Forms.TextBox txtSubtitleFormat;
@@ -1107,6 +1337,14 @@
         private System.Windows.Forms.CheckBox chkAudioCommentary;
         private System.Windows.Forms.Button btnAudioDown;
         private System.Windows.Forms.Button btnAudioUp;
+        private System.Windows.Forms.CheckBox chkSubtitleSDH;
+        private System.Windows.Forms.CheckBox chkSubtitleForced;
+        private System.Windows.Forms.ToolStripMenuItem mnsToolsImageUploader;
+        private System.Windows.Forms.ToolStripMenuItem mnsToolsAutoTest;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStripMenuItem mnsToolsImageUpImagebam;
+        private System.Windows.Forms.TextBox txtIMDb;
+        private System.Windows.Forms.Label lblIMDb;
     }
 }
 

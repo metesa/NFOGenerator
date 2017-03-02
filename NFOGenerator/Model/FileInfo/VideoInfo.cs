@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator.Module.Main
+namespace NFOGenerator.Model.FileInfo
 {
     public class VideoInfo
     {

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NFOGenerator.Module.Main
+namespace NFOGenerator.Model.FileInfo
 {
-    class ReleaseInfo
+    public class GeneralInfo
     {
+        public string imdbLink;
+        public string fileSize;
+        public string duration;
         public string nameTitle;
         public string nameYear;
         public string nameEdition;
@@ -16,6 +19,7 @@ namespace NFOGenerator.Module.Main
         public string nameAudio;
         public string nameVideo;
         public string releaseName;
+        public string releaseNameSrc;
 
         /// <summary>
         /// Class constructor.
@@ -30,7 +34,7 @@ namespace NFOGenerator.Module.Main
         /// <param name="paraAudio">Main audio format.</param>
         /// <param name="paraVideo">Video codec.</param>
        
-        public ReleaseInfo(string paraTitle, string paraYear, string paraEdition, string paraHybrid,
+        public GeneralInfo(string paraTitle, string paraYear, string paraEdition, string paraHybrid,
             string paraProper, string paraResolution, string paraSource, string paraAudio, string paraVideo)
         {
             this.nameTitle = paraTitle;
@@ -43,16 +47,20 @@ namespace NFOGenerator.Module.Main
             this.nameAudio = paraAudio;
             this.nameVideo = paraVideo;
         }
+
+        public GeneralInfo()
+        {
+        }
         // End of constructors
 
         /// <summary>
         /// Generate a complete release name.
         /// </summary>
         /// <returns>release name</returns>
-        public string generateRLZName()
+        public string GenerateRLZName()
         {
-            this.releaseName = this.nameTitle + "." + this.nameYear + this.removeDotIfEmpty(this.nameEdition) + 
-                this.removeDotIfEmpty(this.nameHybrid) + this.removeDotIfEmpty(this.nameProper) + "." + 
+            this.releaseName = this.nameTitle + "." + this.nameYear + this.RemoveDotIfEmpty(this.nameEdition) + 
+                this.RemoveDotIfEmpty(this.nameHybrid) + this.RemoveDotIfEmpty(this.nameProper) + "." + 
                 this.nameResolution + "." + this.nameSource + "." + this.nameAudio + "." + this.nameVideo + "-TAiCHi";
             return this.releaseName;
         }
@@ -61,7 +69,7 @@ namespace NFOGenerator.Module.Main
         /// See if the encode is a hybrid.
         /// </summary>
         /// <returns>"Hybrid" if yes, otherwise blank.</returns>
-        public string getHybrid()
+        public string GetHybrid()
         {
             if (this.nameHybrid == "Yes")
             {
@@ -78,7 +86,7 @@ namespace NFOGenerator.Module.Main
         /// </summary>
         /// <param name="paraStr"></param>
         /// <returns>".OPTION" if option is filled, otherwise blank.</returns>
-        private string removeDotIfEmpty(string paraStr)
+        protected string RemoveDotIfEmpty(string paraStr)
         {
             string result;
             if (paraStr == "")

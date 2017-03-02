@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using NFOGenerator.Model.General;
 
-using NFOGenerator.Module.General;
-
-namespace NFOGenerator.Module.NFO
+namespace NFOGenerator.Model.NFO
 {
     [Serializable]
     public class NFOStyle

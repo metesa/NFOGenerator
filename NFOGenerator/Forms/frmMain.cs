@@ -6,8 +6,8 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using NFOGenerator.Module.Main;
-using NFOGenerator.Module.Utils;
+using NFOGenerator.Model.FileInfo;
+using NFOGenerator.Util;
 using MediaInfoLib;
 
 namespace NFOGenerator.Forms
@@ -16,7 +16,7 @@ namespace NFOGenerator.Forms
     {
 
         // Create streamInfo to read info's from the file.
-        StreamInfo streamInfo = new StreamInfo();
+        ReleaseInfo releaseInfo = new ReleaseInfo();
 
         public FrmMain()
         {
@@ -32,6 +32,40 @@ namespace NFOGenerator.Forms
         {
             boxToClear.Text = "";
         }
+
+        protected void MoveUp(ListBox paraBox)
+        {
+            this.MoveItem(paraBox, -1);
+        }
+
+        protected void MoveDown(ListBox paraBox)
+        {
+            this.MoveItem(paraBox, 1);
+        }
+
+        protected void MoveItem(ListBox paraBox, int direction)
+        {
+            // Checking selected item
+            if (paraBox.SelectedItem == null || paraBox.SelectedIndex < 0)
+                return; // No selected item - nothing to do
+
+            // Calculate new index using move direction
+            int newIndex = paraBox.SelectedIndex + direction;
+
+            // Checking bounds of the range
+            if (newIndex < 0 || newIndex >= paraBox.Items.Count)
+                return; // Index out of range - nothing to do
+
+            object selected = paraBox.SelectedItem;
+
+            // Removing removable element
+            paraBox.Items.Remove(selected);
+            // Insert it in new position
+            paraBox.Items.Insert(newIndex, selected);
+            // Restore selection
+            paraBox.SetSelected(newIndex, true);
+        }
+
 
         /*-------------------------------------------------------------------------
          * Protected custom methods up above
@@ -49,85 +83,27 @@ namespace NFOGenerator.Forms
                 currentYear -= 1;
             }
             this.cmbGeneralYear.SelectedIndex = 0;
-            
-            // Add items to general edition comboBox and set default to blank
-            this.cmbGeneralEdition.Items.Add("");
-            this.cmbGeneralEdition.Items.Add("Theatrical.Cut");
-            this.cmbGeneralEdition.Items.Add("Director's.Cut");
-            this.cmbGeneralEdition.Items.Add("Extended.Cut");
-            this.cmbGeneralEdition.Items.Add("Unrated");
-            this.cmbGeneralEdition.Items.Add("Criterion");
-            this.cmbGeneralEdition.SelectedIndex = 0;
-            
-            // Add items to general resolution comboBox and set default to 720p
-            this.cmbGeneralResolution.Items.Add("1080p");
-            this.cmbGeneralResolution.Items.Add("720p");
-            this.cmbGeneralResolution.Items.Add("576p");
-            this.cmbGeneralResolution.Items.Add("480p");
             this.cmbGeneralResolution.SelectedIndex = 1;
-
-            // Add items to general hybrid comboBox and set default to no
-            this.cmbGeneralHybrid.Items.Add("");
-            this.cmbGeneralHybrid.Items.Add("Hybrid");
-            this.cmbGeneralHybrid.SelectedIndex = 0;
-
-            // Add items to general proper comboBox and set default to blank
-            this.cmbGeneralProper.Items.Add("");
-            this.cmbGeneralProper.Items.Add("PROPER");
-            this.cmbGeneralProper.Items.Add("REPACK");
-            this.cmbGeneralProper.Items.Add("PROPER.REPACK");
-            this.cmbGeneralProper.Items.Add("REPACK.PROPER");
-            this.cmbGeneralProper.SelectedIndex = 0;
-
-            // Add items to general audio comboBox and set default to DTS
-            this.cmbGeneralAudio.Items.Add("DTS");
-            this.cmbGeneralAudio.Items.Add("DTS-ES");
-            this.cmbGeneralAudio.Items.Add("DD5.1");
-            this.cmbGeneralAudio.Items.Add("AAC2.0");
-            this.cmbGeneralAudio.Items.Add("AAC1.0");
-            this.cmbGeneralAudio.Items.Add("FLAC2.0");
-            this.cmbGeneralAudio.Items.Add("FLAC1.0");
-            this.cmbGeneralAudio.SelectedIndex = 0;
-
-            // Add items to source type comboBox and set default to BluRay
-            this.cmbSourceType.Items.Add("BluRay");
-            this.cmbSourceType.Items.Add("HDDVD");
-            this.cmbSourceType.Items.Add("DVDRip");
-            this.cmbSourceType.Items.Add("WEB-DL");
-            this.cmbSourceType.Items.Add("WEBRip");
-            this.cmbSourceType.Items.Add("HDTV");
-            this.cmbSourceType.SelectedIndex = 0;
-
-            // Add items to source resolution comboBox and set default to 1080p
-            this.cmbSourceResolution.Items.Add("4K");
-            this.cmbSourceResolution.Items.Add("2160p");
-            this.cmbSourceResolution.Items.Add("1080p");
-            this.cmbSourceResolution.Items.Add("1080i");
-            this.cmbSourceResolution.Items.Add("720p");
-            this.cmbSourceResolution.Items.Add("720i");
             this.cmbSourceResolution.SelectedIndex = 2;
-
-            // Add items to video codec comboBox and set default to x264
-            this.cmbVideoCodec.Items.Add("x264");
-            this.cmbVideoCodec.Items.Add("H.264");
-            this.cmbVideoCodec.Items.Add("x265");
-            this.cmbVideoCodec.Items.Add("MPEG2");
-            this.cmbVideoCodec.Items.Add("VC-1");
-            this.cmbVideoCodec.Items.Add("AVC");
-            this.cmbVideoCodec.Items.Add("XviD");
-            this.cmbVideoCodec.SelectedIndex = 0;
         }
 
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
         {
-            // Create a new releaseInfo class
-            ReleaseInfo anotherRelease = new ReleaseInfo(this.txtGeneralTitle.Text,
-                this.cmbGeneralYear.SelectedItem.ToString(), this.cmbGeneralEdition.Text, this.cmbGeneralHybrid.Text,
-                this.cmbGeneralProper.Text, this.cmbGeneralResolution.Text, this.cmbSourceType.Text,
-                this.cmbGeneralAudio.Text, this.cmbVideoCodec.Text);
+            // Load form infomation into releaseInfo.GI container.
+            this.releaseInfo.GI.imdbLink = this.txtIMDb.Text;
+            this.releaseInfo.GI.nameTitle = this.txtGeneralTitle.Text;
+            this.releaseInfo.GI.nameYear = this.cmbGeneralYear.Text;
+            this.releaseInfo.GI.nameEdition = this.cmbGeneralEdition.Text;
+            this.releaseInfo.GI.nameHybrid = this.cmbGeneralHybrid.Text;
+            this.releaseInfo.GI.nameProper = this.cmbGeneralProper.Text;
+            this.releaseInfo.GI.nameResolution = this.cmbGeneralResolution.Text;
+            this.releaseInfo.GI.nameSource = this.cmbSourceType.Text;
+            this.releaseInfo.GI.nameAudio = this.cmbGeneralAudio.Text;
+            this.releaseInfo.GI.nameVideo = this.cmbVideoCodec.Text;
+            this.releaseInfo.GI.releaseNameSrc = this.txtSourceName.Text;
 
             // Generate the release name
-            this.txtGeneralReleaseName.Text = anotherRelease.generateRLZName();
+            this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName();
             
             // Enable process button after generating release name
             this.btnProcess.Enabled = true;
@@ -162,24 +138,31 @@ namespace NFOGenerator.Forms
                 return;
             }
 
-            this.streamInfo.ReadMediaInfo(this.txtInputFile.Text);
+            this.releaseInfo.ReadMediaInfo(this.txtInputFile.Text);
 
             // Display general info.
-            this.txtGeneralSize.Text = this.streamInfo.GI.fileSize;
-            this.txtGeneralDuration.Text = this.streamInfo.GI.duration;
+            this.txtGeneralSize.Text = this.releaseInfo.GI.fileSize;
+            this.txtGeneralDuration.Text = this.releaseInfo.GI.duration;
 
             // Display video info.
-            this.txtVideoWidth.Text = this.streamInfo.VI.width;
-            this.txtVideoHeight.Text = this.streamInfo.VI.height;
-            this.txtVideoDAR.Text = this.streamInfo.VI.displayAR;
-            this.txtVideoFramerate.Text = this.streamInfo.VI.framerate;
-            this.txtVideoBitrate.Text = this.streamInfo.VI.bitrate;
+            this.txtVideoWidth.Text = this.releaseInfo.VI.width;
+            this.txtVideoHeight.Text = this.releaseInfo.VI.height;
+            this.txtVideoDAR.Text = this.releaseInfo.VI.displayAR;
+            this.txtVideoFramerate.Text = this.releaseInfo.VI.framerate;
+            this.txtVideoBitrate.Text = this.releaseInfo.VI.bitrate;
 
             // Display audio info.
             this.lstAudio.Items.Clear();
-            for (int i = 0; i < this.streamInfo.MI.Count_Get(MediaInfoLib.StreamKind.Audio); i++)
+            for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Audio); i++)
             {
-                this.lstAudio.Items.Add(this.streamInfo.AI[i].audioInfoFull);
+                this.lstAudio.Items.Add(this.releaseInfo.AI[i].audioInfoFull);
+            }
+
+            // Display subtitle info.
+            this.lstSubtitle.Items.Clear();
+            for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Text); i++)
+            {
+                this.lstSubtitle.Items.Add(this.releaseInfo.SI[i].subInfoFull);
             }
         }
 
@@ -233,20 +216,64 @@ namespace NFOGenerator.Forms
 
         private void lstAudio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.txtAudioLanguage.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioLang;
-            this.txtAudioCodec.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioCodec;
-            this.txtAudioChannels.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioChan;
-            this.txtAudioBitrate.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioBitr;
-
-            if (this.streamInfo.AI[this.lstAudio.SelectedIndex].audioComm)
+            if (this.lstAudio.SelectedIndex < 0 || this.lstAudio.SelectedIndex >= this.lstAudio.Items.Count)
             {
-                this.chkAudioCommentary.Checked = true;
-                this.txtAudioCommentaryBy.Text = this.streamInfo.AI[this.lstAudio.SelectedIndex].audioCommentator;
+                return;
             }
             else
             {
-                this.chkAudioCommentary.Checked = false;
+                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioLang;
+                this.txtAudioCodec.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioCodec;
+                this.txtAudioChannels.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioChan;
+                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioBitr;
+                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioComm;
+                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioCommentator;
             }
+        }
+
+        private void lstSubtitle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.lstSubtitle.SelectedIndex < 0 || this.lstSubtitle.SelectedIndex >= this.lstSubtitle.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subLang;
+                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subFormat;
+                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subComment;
+                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subForced;
+                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subSDH;
+            }
+        }
+
+        private void btnAudioEdit_Click(object sender, EventArgs e)
+        {
+            int editIndex = this.lstAudio.SelectedIndex;
+
+            if (editIndex < 0 || editIndex >= this.lstAudio.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                this.releaseInfo.AI[editIndex].audioLang = this.txtAudioLanguage.Text;
+                this.releaseInfo.AI[editIndex].audioCodec = this.txtAudioCodec.Text;
+                this.releaseInfo.AI[editIndex].audioChan = this.txtAudioChannels.Text;
+                this.releaseInfo.AI[editIndex].audioBitr = this.txtAudioBitrate.Text;
+                this.releaseInfo.AI[editIndex].audioComm = this.chkAudioCommentary.Checked;
+                this.releaseInfo.AI[editIndex].audioCommentator = this.txtAudioCommentaryBy.Text;
+                this.releaseInfo.AI[editIndex].UpdateAudioInfo();
+                //this.lstAudio.SelectedItem = this.releaseInfo.AI[editIndex].audioInfoFull;
+                this.lstAudio.Items.RemoveAt(editIndex);
+                this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].audioInfoFull);
+            }
+        }
+
+        private void mnsToolsImageUpImagebam_Click(object sender, EventArgs e)
+        {
+            FrmImageUploader imageUp = new FrmImageUploader();
+            imageUp.Show();
         }
     }
 }

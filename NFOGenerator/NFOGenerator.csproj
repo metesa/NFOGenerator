@@ -43,25 +43,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FrmImageUploader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmImageUploader.Designer.cs">
+      <DependentUpon>FrmImageUploader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Module\Main\AudioInfo.cs" />
-    <Compile Include="Module\General\Alignment.cs" />
-    <Compile Include="Module\Main\GeneralInfo.cs" />
-    <Compile Include="Module\Main\StreamInfo.cs" />
-    <Compile Include="Module\Main\SubtitleInfo.cs" />
-    <Compile Include="Module\Main\VideoInfo.cs" />
-    <Compile Include="Module\NFO\Line\DictionaryLine.cs" />
-    <Compile Include="Module\NFO\Line\Line.cs" />
-    <Compile Include="Module\NFO\Line\ImmutableLine.cs" />
-    <Compile Include="Module\NFO\Line\MutableLine.cs" />
-    <Compile Include="Module\NFO\NFOStyle.cs" />
-    <Compile Include="Module\NFO\NFOTemplate.cs" />
-    <Compile Include="Module\Utils\LangDic.cs" />
+    <Compile Include="Model\FileInfo\AudioInfo.cs" />
+    <Compile Include="Model\General\Alignment.cs" />
+    <Compile Include="Model\FileInfo\GeneralInfo.cs" />
+    <Compile Include="Model\FileInfo\ReleaseInfo.cs" />
+    <Compile Include="Model\FileInfo\SubtitleInfo.cs" />
+    <Compile Include="Model\FileInfo\VideoInfo.cs" />
+    <Compile Include="Model\NFO\Line\DictionaryLine.cs" />
+    <Compile Include="Model\NFO\Line\Line.cs" />
+    <Compile Include="Model\NFO\Line\ImmutableLine.cs" />
+    <Compile Include="Model\NFO\Line\MutableLine.cs" />
+    <Compile Include="Model\NFO\NFOStyle.cs" />
+    <Compile Include="Model\NFO\NFOTemplate.cs" />
+    <Compile Include="Util\LangDic.cs" />
+    <Compile Include="Util\ZonesCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\FrmAboutUs.cs">
@@ -70,8 +77,10 @@
     <Compile Include="Forms\FrmAboutUs.Designer.cs">
       <DependentUpon>FrmAboutUs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Module\Utils\MediaInfoDLL.cs" />
-    <Compile Include="Module\Main\ReleaseInfo.cs" />
+    <Compile Include="Util\MediaInfoDLL.cs" />
+    <EmbeddedResource Include="Forms\FrmImageUploader.resx">
+      <DependentUpon>FrmImageUploader.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
