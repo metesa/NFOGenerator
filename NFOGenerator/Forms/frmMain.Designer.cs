@@ -140,18 +140,20 @@
             // 
             // txtInputFile
             // 
-            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInputFile.Location = new System.Drawing.Point(83, 20);
             this.txtInputFile.Name = "txtInputFile";
+            this.txtInputFile.ReadOnly = true;
             this.txtInputFile.Size = new System.Drawing.Size(573, 21);
             this.txtInputFile.TabIndex = 0;
             this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
             // 
             // grpInput
             // 
-            this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpInput.AllowDrop = true;
+            this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpInput.Controls.Add(this.lblInputFile);
             this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Location = new System.Drawing.Point(12, 28);
@@ -160,9 +162,8 @@
             this.grpInput.TabIndex = 1;
             this.grpInput.TabStop = false;
             this.grpInput.Text = "Input";
-            this.grpInput.AllowDrop = true;
-            this.grpInput.DragDrop += new System.Windows.Forms.DragEventHandler(grpInput_DragDrop);
-            this.grpInput.DragEnter += new System.Windows.Forms.DragEventHandler(grpInput_DragEnter);
+            this.grpInput.DragDrop += new System.Windows.Forms.DragEventHandler(this.grpInput_DragDrop);
+            this.grpInput.DragEnter += new System.Windows.Forms.DragEventHandler(this.grpInput_DragEnter);
             // 
             // lblInputFile
             // 
@@ -175,8 +176,8 @@
             // 
             // grpGeneral
             // 
-            this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGeneral.Controls.Add(this.cmbGeneralProper);
             this.grpGeneral.Controls.Add(this.cmbGeneralHybrid);
             this.grpGeneral.Controls.Add(this.cmbGeneralEdition);
@@ -303,7 +304,7 @@
             // 
             this.lblGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblGeneralReleaseName.AutoSize = true;
-            this.lblGeneralReleaseName.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblGeneralReleaseName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblGeneralReleaseName.Location = new System.Drawing.Point(6, 150);
             this.lblGeneralReleaseName.Name = "lblGeneralReleaseName";
             this.lblGeneralReleaseName.Size = new System.Drawing.Size(68, 12);
@@ -323,8 +324,8 @@
             // 
             // txtGeneralReleaseName
             // 
-            this.txtGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 147);
             this.txtGeneralReleaseName.Name = "txtGeneralReleaseName";
             this.txtGeneralReleaseName.Size = new System.Drawing.Size(492, 21);
@@ -460,8 +461,8 @@
             // 
             // txtIMDb
             // 
-            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIMDb.Location = new System.Drawing.Point(83, 41);
             this.txtIMDb.Name = "txtIMDb";
             this.txtIMDb.Size = new System.Drawing.Size(573, 21);
@@ -478,8 +479,8 @@
             // 
             // txtGeneralTitle
             // 
-            this.txtGeneralTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGeneralTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGeneralTitle.Location = new System.Drawing.Point(83, 14);
             this.txtGeneralTitle.Name = "txtGeneralTitle";
             this.txtGeneralTitle.Size = new System.Drawing.Size(573, 21);
@@ -496,9 +497,9 @@
             // 
             // grpAudio
             // 
-            this.grpAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAudio.Controls.Add(this.chkAudioCommentary);
             this.grpAudio.Controls.Add(this.btnAudioDown);
             this.grpAudio.Controls.Add(this.btnAudioUp);
@@ -565,9 +566,9 @@
             // 
             // lstAudio
             // 
-            this.lstAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstAudio.FormattingEnabled = true;
             this.lstAudio.HorizontalScrollbar = true;
             this.lstAudio.ItemHeight = 12;
@@ -579,8 +580,8 @@
             // 
             // txtAudioCommentaryBy
             // 
-            this.txtAudioCommentaryBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAudioCommentaryBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAudioCommentaryBy.Location = new System.Drawing.Point(98, 68);
             this.txtAudioCommentaryBy.Name = "txtAudioCommentaryBy";
             this.txtAudioCommentaryBy.Size = new System.Drawing.Size(217, 21);
@@ -657,9 +658,9 @@
             // 
             // grpSubtitle
             // 
-            this.grpSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSubtitle.Controls.Add(this.btnSubtitleEdit);
             this.grpSubtitle.Controls.Add(this.lstSubtitle);
             this.grpSubtitle.Controls.Add(this.txtSubtitleComment);
@@ -689,9 +690,9 @@
             // 
             // lstSubtitle
             // 
-            this.lstSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstSubtitle.FormattingEnabled = true;
             this.lstSubtitle.HorizontalScrollbar = true;
             this.lstSubtitle.ItemHeight = 12;
@@ -703,8 +704,8 @@
             // 
             // txtSubtitleComment
             // 
-            this.txtSubtitleComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubtitleComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleComment.Location = new System.Drawing.Point(83, 68);
             this.txtSubtitleComment.Name = "txtSubtitleComment";
             this.txtSubtitleComment.Size = new System.Drawing.Size(233, 21);
@@ -712,8 +713,8 @@
             // 
             // txtSubtitleFormat
             // 
-            this.txtSubtitleFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubtitleFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleFormat.Location = new System.Drawing.Point(83, 41);
             this.txtSubtitleFormat.Name = "txtSubtitleFormat";
             this.txtSubtitleFormat.Size = new System.Drawing.Size(155, 21);
@@ -739,8 +740,8 @@
             // 
             // txtSubtitleLanguage
             // 
-            this.txtSubtitleLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubtitleLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleLanguage.Location = new System.Drawing.Point(83, 14);
             this.txtSubtitleLanguage.Name = "txtSubtitleLanguage";
             this.txtSubtitleLanguage.Size = new System.Drawing.Size(155, 21);
@@ -779,10 +780,11 @@
             // 
             // txtTargetLocation
             // 
-            this.txtTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTargetLocation.Location = new System.Drawing.Point(125, 670);
             this.txtTargetLocation.Name = "txtTargetLocation";
+            this.txtTargetLocation.ReadOnly = true;
             this.txtTargetLocation.Size = new System.Drawing.Size(381, 21);
             this.txtTargetLocation.TabIndex = 0;
             // 
@@ -833,9 +835,9 @@
             // 
             // txtVideoNote
             // 
-            this.txtVideoNote.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtVideoNote.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtVideoNote.Location = new System.Drawing.Point(377, 19);
             this.txtVideoNote.Multiline = true;
             this.txtVideoNote.Name = "txtVideoNote";
@@ -861,8 +863,8 @@
             // 
             // grpVideo
             // 
-            this.grpVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpVideo.Controls.Add(this.cmbVideoCodec);
             this.grpVideo.Controls.Add(this.txtVideoDAR);
             this.grpVideo.Controls.Add(this.lblVideoDAR);
@@ -956,7 +958,7 @@
             // 
             this.btnProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnProcess.Enabled = false;
-            this.btnProcess.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnProcess.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnProcess.Location = new System.Drawing.Point(593, 669);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 21);
@@ -978,8 +980,8 @@
             // 
             // grpSource
             // 
-            this.grpSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSource.Controls.Add(this.cmbSourceResolution);
             this.grpSource.Controls.Add(this.cmbSourceType);
             this.grpSource.Controls.Add(this.lblSourceType);
@@ -1059,8 +1061,8 @@
             // 
             // txtSourceName
             // 
-            this.txtSourceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSourceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSourceName.Location = new System.Drawing.Point(83, 14);
             this.txtSourceName.Name = "txtSourceName";
             this.txtSourceName.Size = new System.Drawing.Size(492, 21);
@@ -1183,15 +1185,15 @@
             // mnsHelpAboutUs
             // 
             this.mnsHelpAboutUs.Name = "mnsHelpAboutUs";
-            this.mnsHelpAboutUs.Size = new System.Drawing.Size(152, 22);
+            this.mnsHelpAboutUs.Size = new System.Drawing.Size(130, 22);
             this.mnsHelpAboutUs.Text = "About Us";
             this.mnsHelpAboutUs.Click += new System.EventHandler(this.mnsHelpAboutUs_Click);
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(12, 448);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -1210,7 +1212,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 694);
+            this.ClientSize = new System.Drawing.Size(686, 695);
             this.Controls.Add(this.grpSource);
             this.Controls.Add(this.btnTargetBrowse);
             this.Controls.Add(this.btnProcess);
