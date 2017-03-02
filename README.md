@@ -5,4 +5,4 @@ dev    : [![Build Status](https://travis-ci.org/metesa/NFOGenerator.svg?branch=d
 
 An internal tool which can generate NFO with specific form automatically.
 
-![screens](Screenshot_v1.png)
+![screens](Screenshot_v2.png)
