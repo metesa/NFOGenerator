@@ -275,5 +275,65 @@ namespace NFOGenerator.Forms
             FrmImageUploader imageUp = new FrmImageUploader();
             imageUp.Show();
         }
+
+        private void btnProcess_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Combine all the audio info's into one string.
+                string audioCombined;
+                for (int i = 0; i < this.lstAudio.Items.Count; i++)
+                {
+                    audioCombined += this.lstAudio.GetItemText(i);
+                }
+
+                // Combine all the subtitle info's into one string.
+                string subCombined;
+                for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
+                {
+                    subCombined += this.lstSubtitle.GetItemText(i);
+                }
+
+                // Convert chapters info.
+                string chapters;
+                if (this.chkGeneralChaptersIncluded.Checked)
+                {
+                    if (this.chkGeneralChaptersNamed.Checked)
+                    {
+                        chapters = "Included & Named";
+                    }
+                    else
+                    {
+                        chapters = "Included & Unnamed";
+                    }
+                }
+                else
+                {
+                    chapters = "Not Included";
+                }
+
+                NFOStyle style = NFOStyle.ImportTemplate(@"./Templates/TAiCHi.tpl");
+                NFOInfo info = new NFOInfo(this.txtGeneralReleaseName.Text,
+                    Model.General.Alignment.Left,
+                    this.txtIMDb.Text,
+                    this.txtSourceName.Text + " - Thanks!",
+                    this.txtGeneralSize.Text,
+                    this.txtGeneralDuration,
+                    this.txtVideoBitrate.Text,
+                    this.txtVideoWidth.Text + " x " + this.txtVideoHeight.Text,
+                    this.txtVideoFramerate.Text,
+                    audioCombined,
+                    subCombined,
+                    chapters,
+                    this.txtVideoNote.Text
+                );
+                NFO nfo = new NFO(info, style);
+                nfo.WriteNfoFile(this.txtTargetLocation.Text + @"\" + this.txtGeneralReleaseName.Text + ".nfo");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There is an exception when generating NFO: " + Environment.NewLine + ex.StackTrace, "Error: " + ex.Message);
+            }
+        }
     }
 }

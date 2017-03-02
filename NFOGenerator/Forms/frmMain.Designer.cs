@@ -54,6 +54,8 @@
             this.txtGeneralDuration = new System.Windows.Forms.TextBox();
             this.lblGeneralEdition = new System.Windows.Forms.Label();
             this.txtGeneralSize = new System.Windows.Forms.TextBox();
+            this.txtIMDb = new System.Windows.Forms.TextBox();
+            this.lblIMDb = new System.Windows.Forms.Label();
             this.txtGeneralTitle = new System.Windows.Forms.TextBox();
             this.lblGeneralTitle = new System.Windows.Forms.Label();
             this.grpAudio = new System.Windows.Forms.GroupBox();
@@ -124,8 +126,6 @@
             this.mnsHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsHelpAboutUs = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lblIMDb = new System.Windows.Forms.Label();
-            this.txtIMDb = new System.Windows.Forms.TextBox();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -454,6 +454,24 @@
             this.txtGeneralSize.ReadOnly = true;
             this.txtGeneralSize.Size = new System.Drawing.Size(91, 21);
             this.txtGeneralSize.TabIndex = 5;
+            // 
+            // txtIMDb
+            // 
+            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIMDb.Location = new System.Drawing.Point(83, 41);
+            this.txtIMDb.Name = "txtIMDb";
+            this.txtIMDb.Size = new System.Drawing.Size(573, 21);
+            this.txtIMDb.TabIndex = 1;
+            // 
+            // lblIMDb
+            // 
+            this.lblIMDb.AutoSize = true;
+            this.lblIMDb.Location = new System.Drawing.Point(6, 44);
+            this.lblIMDb.Name = "lblIMDb";
+            this.lblIMDb.Size = new System.Drawing.Size(65, 12);
+            this.lblIMDb.TabIndex = 0;
+            this.lblIMDb.Text = "IMDb Link:";
             // 
             // txtGeneralTitle
             // 
@@ -942,6 +960,7 @@
             this.btnProcess.TabIndex = 3;
             this.btnProcess.Text = "GO!";
             this.btnProcess.UseVisualStyleBackColor = true;
+            this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
             // 
             // btnTargetBrowse
             // 
@@ -1183,24 +1202,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(662, 215);
             this.splitContainer1.SplitterDistance = 330;
             this.splitContainer1.TabIndex = 18;
-            // 
-            // lblIMDb
-            // 
-            this.lblIMDb.AutoSize = true;
-            this.lblIMDb.Location = new System.Drawing.Point(6, 44);
-            this.lblIMDb.Name = "lblIMDb";
-            this.lblIMDb.Size = new System.Drawing.Size(65, 12);
-            this.lblIMDb.TabIndex = 0;
-            this.lblIMDb.Text = "IMDb Link:";
-            // 
-            // txtIMDb
-            // 
-            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIMDb.Location = new System.Drawing.Point(83, 41);
-            this.txtIMDb.Name = "txtIMDb";
-            this.txtIMDb.Size = new System.Drawing.Size(573, 21);
-            this.txtIMDb.TabIndex = 1;
             // 
             // FrmMain
             // 
