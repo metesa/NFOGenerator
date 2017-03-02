@@ -167,6 +167,9 @@ namespace NFOGenerator.Forms
             {
                 this.lstSubtitle.Items.Add(this.releaseInfo.SI[i].subInfoFull);
             }
+
+            // Add default output folder
+            txtTargetLocation.Text = new FileInfo(this.txtInputFile.Text).DirectoryName;
         }
 
         private void mnsHelpAboutUs_Click(object sender, EventArgs e)
