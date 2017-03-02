@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{62E6921F-3E37-4C90-9B76-63E9FB53DFFC}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFOGenerator</RootNamespace>
     <AssemblyName>NFOGenerator</AssemblyName>
@@ -82,7 +82,7 @@
     <Compile Include="Model\NFO\Line\ImmutableLine.cs" />
     <Compile Include="Model\NFO\Line\Line.cs" />
     <Compile Include="Model\NFO\Line\MutableLine.cs" />
- 	<Compile Include="Model\NFO\NFODocument.cs" />
+    <Compile Include="Model\NFO\NFODocument.cs" />
     <Compile Include="Model\NFO\NFOInfo.cs" />
     <Compile Include="Model\NFO\NFOStyle.cs" />
     <Compile Include="Tools\Zones\ZonesCommand.cs" />
@@ -130,6 +130,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Templates\TAiCHi.tpl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MediaInfo.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

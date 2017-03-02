@@ -287,14 +287,14 @@ namespace NFOGenerator.Forms
                 string audioCombined = "";
                 for (int i = 0; i < this.lstAudio.Items.Count; i++)
                 {
-                    audioCombined += this.lstAudio.GetItemText(i);
+                    audioCombined += this.lstAudio.Items[i].ToString() + Environment.NewLine;
                 }
 
                 // Combine all the subtitle info's into one string.
                 string subCombined = "";
                 for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
                 {
-                    subCombined += this.lstSubtitle.GetItemText(i);
+                    subCombined += this.lstSubtitle.Items[i].ToString() + ", ";
                 }
 
                 // Convert chapters info.
@@ -336,6 +336,24 @@ namespace NFOGenerator.Forms
             catch (Exception ex)
             {
                 MessageBox.Show("There is an exception when generating NFO: " + Environment.NewLine + ex.StackTrace, "Error: " + ex.Message);
+            }
+        }
+
+        private void grpInput_DragDrop(object sender, DragEventArgs e)
+        {
+            Array aryFiles = ((System.Array)e.Data.GetData(DataFormats.FileDrop));
+            txtInputFile.Text = aryFiles.GetValue(0).ToString();
+        }
+
+        private void grpInput_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
             }
         }
     }

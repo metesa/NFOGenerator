@@ -160,6 +160,9 @@
             this.grpInput.TabIndex = 1;
             this.grpInput.TabStop = false;
             this.grpInput.Text = "Input";
+            this.grpInput.AllowDrop = true;
+            this.grpInput.DragDrop += new System.Windows.Forms.DragEventHandler(grpInput_DragDrop);
+            this.grpInput.DragEnter += new System.Windows.Forms.DragEventHandler(grpInput_DragEnter);
             // 
             // lblInputFile
             // 
