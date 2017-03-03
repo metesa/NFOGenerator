@@ -5,13 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using NFOGenerator.Model.FileInfo;
-using NFOGenerator.Util;
-using MediaInfoLib;
 
+using MediaInfoLib;
+using NFOGenerator.Model.FileInfo;
 using NFOGenerator.Model.General;
 using NFOGenerator.Model.NFO;
+using NFOGenerator.Util;
 
 namespace NFOGenerator.Forms
 {
@@ -20,12 +21,14 @@ namespace NFOGenerator.Forms
 
         // Create streamInfo to read info's from the file.
         ReleaseInfo releaseInfo = new ReleaseInfo();
+        private bool autoGenerate = false;
 
         public FrmMain()
         {
             InitializeComponent();
         }
 
+        #region Protected Methods
         /*-------------------------------------------------------------------------
          * Protected custom methods down below
          * ------------------------------------------------------------------------*/
@@ -73,11 +76,13 @@ namespace NFOGenerator.Forms
         /*-------------------------------------------------------------------------
          * Protected custom methods up above
          * ------------------------------------------------------------------------*/
+        #endregion
 
+        #region Load & Dispose
         private void frmMain_Load(object sender, EventArgs e)
         {
             // Initialize form.
-
+            
             // Add items to general year comboBox and set default to current year
             int currentYear = DateTime.Now.Year;
             while (currentYear >= 1900)
@@ -107,44 +112,31 @@ namespace NFOGenerator.Forms
                 }
             }
         }
+        #endregion
 
-        private void btnGeneralGenerate_Click(object sender, EventArgs e)
+        #region Input & Output
+        private void grpInput_DragDrop(object sender, DragEventArgs e)
         {
-            // Load form infomation into releaseInfo.GI container.
-            this.releaseInfo.GI.imdbLink = this.txtIMDb.Text;
-            this.releaseInfo.GI.nameTitle = this.txtGeneralTitle.Text;
-            this.releaseInfo.GI.nameYear = this.cmbGeneralYear.Text;
-            this.releaseInfo.GI.nameEdition = this.cmbGeneralEdition.Text;
-            this.releaseInfo.GI.nameHybrid = this.cmbGeneralHybrid.Text;
-            this.releaseInfo.GI.nameProper = this.cmbGeneralProper.Text;
-            this.releaseInfo.GI.nameResolution = this.cmbGeneralResolution.Text;
-            this.releaseInfo.GI.nameSource = this.cmbSourceType.Text;
-            this.releaseInfo.GI.nameAudio = this.cmbGeneralAudio.Text;
-            this.releaseInfo.GI.nameVideo = this.cmbVideoCodec.Text;
-            this.releaseInfo.GI.releaseNameSrc = this.txtSourceName.Text;
-
-            // Generate the release name
-            this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName();
-            
-            // Enable process button after generating release name
-            this.btnProcess.Enabled = true;
+            Array aryFiles = ((System.Array)e.Data.GetData(DataFormats.FileDrop));
+            txtInputFile.Text = aryFiles.GetValue(0).ToString();
         }
 
-        private void btnTargetBrowse_Click(object sender, EventArgs e)
+        private void grpInput_DragEnter(object sender, DragEventArgs e)
         {
-            // Displays a FolderBrowserDialog so the user can select a location to put the NFO
-            FolderBrowserDialog selectTargetLocation = new FolderBrowserDialog();
-            
-            // Show the dialog.
-            // When the user selected a folder, send the location to target location textBox.
-            if (selectTargetLocation.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                this.txtTargetLocation.Text = selectTargetLocation.SelectedPath;
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
             }
         }
 
         private void txtInputFile_TextChanged(object sender, EventArgs e)
         {
+            autoGenerate = false;
+
             // Do nothing if the input file is empty.
             if (this.txtInputFile.Text == "")
             {
@@ -188,8 +180,27 @@ namespace NFOGenerator.Forms
 
             // Add default output folder
             txtTargetLocation.Text = new FileInfo(this.txtInputFile.Text).DirectoryName;
+
+            guessReleaseNameFromFilename(this.txtInputFile.Text);
+            updateReleaseName();
+            autoGenerate = true;
         }
 
+        private void btnTargetBrowse_Click(object sender, EventArgs e)
+        {
+            // Displays a FolderBrowserDialog so the user can select a location to put the NFO
+            FolderBrowserDialog selectTargetLocation = new FolderBrowserDialog();
+            
+            // Show the dialog.
+            // When the user selected a folder, send the location to target location textBox.
+            if (selectTargetLocation.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                this.txtTargetLocation.Text = selectTargetLocation.SelectedPath;
+            }
+        }
+        #endregion
+
+        #region MenuStrip
         private void mnsHelpAboutUs_Click(object sender, EventArgs e)
         {
             FrmAboutUs dialogAbout = new FrmAboutUs();
@@ -226,6 +237,14 @@ namespace NFOGenerator.Forms
             }
         }
 
+        private void mnsToolsImageUploader_Click(object sender, EventArgs e)
+        {
+            FrmImageUploader imageUp = new FrmImageUploader();
+            imageUp.ShowDialog();
+        }
+        #endregion
+
+        #region Audio & Subtitle
         private void chkAudioCommentary_CheckedChanged(object sender, EventArgs e)
         {
             if (this.chkAudioCommentary.Checked)
@@ -313,7 +332,9 @@ namespace NFOGenerator.Forms
                 this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[editIndex].subInfoFull);
             }
         }
+        #endregion
 
+        #region Process
         private void btnProcess_Click(object sender, EventArgs e)
         {
             if (this.cmbNfoTemplate.Items.Count < 1)
@@ -389,29 +410,518 @@ namespace NFOGenerator.Forms
                 }
             }
         }
+        #endregion
 
-        private void grpInput_DragDrop(object sender, DragEventArgs e)
+        #region Status Strip
+        private void SetStatus(string status)
         {
-            Array aryFiles = ((System.Array)e.Data.GetData(DataFormats.FileDrop));
-            txtInputFile.Text = aryFiles.GetValue(0).ToString();
+            stsStatusLabel.Text = status;
         }
+        #endregion
 
-        private void grpInput_DragEnter(object sender, DragEventArgs e)
+        #region Auto Generate Release Name
+        /// <summary>
+        /// Video Codec  : x264 H.264 x265 MPEG2 VC-1 AVC XviD
+        /// Audio Codec  : DTS DTS-ES DD-EX DD5.1 DD2.1 DD2.0 AAC2.0 AAC1.0 FLAC2.0 FLAC1.0
+        /// Source Media : BluRay HDDVD DVDRip WEB-DL WEBRip HDTV
+        /// Edition Info : PROPER REPACK PROPER.REPACK REPACK.PROPER
+        ///                Theatrical.Cut Director's.Cut Extended.Cut Unrated Criterion
+        ///                Hybrid
+        /// </summary>
+        /// <param name="filename"></param>
+        private void guessReleaseNameFromFilename(string filename)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            try
             {
-                e.Effect = DragDropEffects.Move;
+                string name = Path.GetFileNameWithoutExtension(filename);
+                string lower = name.ToLower();
+                int firstIndex = lower.Length;
+                Match m;
+                
+                Regex yearRgx = new Regex(@"((19)|(20))\d{2}");
+                Regex resolutionRgx = new Regex(@"[0-9]{2,3}0p");
+                
+                Regex sourceRgx = new Regex(@"(bluray)|(blu-ray)|(hddvd)|(hd-dvd)|(dvdrip)|(web-dl)|(webrip)|(hdtv)");
+                Regex specialEditionRgx = new Regex(@"(tc)|(dc)|(theatrical)|(extended)|(theatrical cut)|(extended cut)|(theatrical.cut)|(extended.cut)|(cc)|(criterion collection)|(criterion.collection)|(criterion)|(unrated)|(directors cut)|(directors.cut)|(director's cut)|(directors's.cut)|(directors)|(director's)");
+                Regex videoRgx = new Regex(@"(x264)|(h264)|(h.264)|(h 264)|(x265)|(xvid)|(mpeg2)|(mpeg-2)|(mpeg 2)|(avc)|(vc1)|(vc 1)|(vc-1)");
+
+                Regex properRgx = new Regex(@"proper");
+                Regex repackRgx = new Regex(@"repack");
+                Regex hybridRgx = new Regex(@"hybrid");
+
+                Regex audioWithChRgx = new Regex(@"(?<codec>(dts)|(dts-es)|(dd)|(ac3)|(dd-ex)|(aac)|(flac))(?<channel>[0-9]{0-1}.[0-9])");
+                Regex audioWithoutChRgx = new Regex(@"(dts)|(dts-es)|(dd)|(ac3)|(dd-ex)|(aac)|(flac)");
+
+                //Year
+                MatchCollection yearMC = yearRgx.Matches(lower);
+                int yearIndexFirst = -1;
+                int yearIndexSelect = -1;
+                int yearCount = 0;
+                string yearValue = "";
+                if (yearMC != null)
+                {
+                    yearCount = yearMC.Count;
+                    if (yearCount > 0)
+                    {
+                        yearIndexFirst = yearMC[0].Index;
+                        yearIndexSelect = yearMC[yearCount - 1].Index;
+                        yearValue = yearMC[yearCount - 1].Value;
+                        firstIndex = Math.Min(firstIndex, yearIndexSelect);
+                        this.cmbGeneralYear.SelectedIndex = this.cmbGeneralYear.FindStringExact(yearValue);
+                    }
+                }
+
+                //Resolution
+                MatchCollection resolutionMC = resolutionRgx.Matches(lower);
+                int resolutionIndexFirst = -1;
+                int resolutionIndexSelect = -1;
+                int resolutionCount = 0;
+                string resolutionValue = "";
+                if (resolutionMC != null)
+                {
+                    resolutionCount = resolutionMC.Count;
+                    if (resolutionCount > 0)
+                    {
+                        resolutionIndexFirst = resolutionMC[0].Index;
+                        resolutionIndexSelect = resolutionMC[resolutionCount - 1].Index;
+                        resolutionValue = resolutionMC[resolutionCount - 1].Value;
+                        firstIndex = Math.Min(firstIndex, resolutionIndexSelect);
+                        this.cmbGeneralResolution.SelectedIndex = this.cmbGeneralResolution.FindString(resolutionValue);
+                    }
+                }
+
+                //Source
+                MatchCollection sourceMC = sourceRgx.Matches(lower);
+                int sourceIndexFirst = -1;
+                int sourceIndexSelect = -1;
+                int sourceCount = 0;
+                string sourceValue = "";
+                if (sourceMC != null)
+                {
+                    sourceCount = sourceMC.Count;
+                    if (sourceCount > 0)
+                    {
+                        sourceIndexFirst = sourceMC[0].Index;
+                        sourceIndexSelect = sourceMC[sourceCount - 1].Index;
+                        sourceValue = sourceMC[sourceCount - 1].Value;
+                        firstIndex = Math.Min(firstIndex, sourceIndexSelect);
+                        switch (sourceValue)
+                        {
+                            case "bluray":
+                                sourceValue = "BluRay";
+                                break;
+                            case "blu-ray":
+                                sourceValue = "BluRay";
+                                break;
+                            case "hddvd":
+                                sourceValue = "HDDVD";
+                                break;
+                            case "hd-dvd":
+                                sourceValue = "HDDVD";
+                                break;
+                            case "dvdrip":
+                                sourceValue = "DVDRip";
+                                break;
+                            case "web-dl":
+                                sourceValue = "WEB-DL";
+                                break;
+                            case "webrip":
+                                sourceValue = "WEBRip";
+                                break;
+                            case "hdtv":
+                                sourceValue = "HDTV";
+                                break;
+                        }
+                        this.cmbSourceType.SelectedIndex = this.cmbSourceType.FindStringExact(sourceValue);
+                    }
+                }
+
+                //Video
+                MatchCollection videoMC = videoRgx.Matches(lower);
+                int videoIndexFirst = -1;
+                int videoIndexSelect = -1;
+                int videoCount = 0;
+                string videoValue = "";
+                if (videoMC != null)
+                {
+                    videoCount = videoMC.Count;
+                    if (videoCount > 0)
+                    {
+                        videoIndexFirst = videoMC[0].Index;
+                        videoIndexSelect = videoMC[videoCount - 1].Index;
+                        videoValue = videoMC[videoCount - 1].Value;
+                        firstIndex = Math.Min(firstIndex, videoIndexSelect);
+                        switch (videoValue)
+                        {
+                            case "x264":
+                                videoValue = "x264";
+                                break;
+                            case "h264":
+                                videoValue = "H.264";
+                                break;
+                            case "h.264":
+                                videoValue = "H.264";
+                                break;
+                            case "h 264":
+                                videoValue = "H.264";
+                                break;
+                            case "x265":
+                                videoValue = "x265";
+                                break;
+                            case "xvid":
+                                videoValue = "XviD";
+                                break;
+                            case "mpeg2":
+                                videoValue = "MPEG-2";
+                                break;
+                            case "mpeg-2":
+                                videoValue = "MPEG-2";
+                                break;
+                            case "mpeg 2":
+                                videoValue = "MPEG-2";
+                                break;
+                            case "avc":
+                                videoValue = "AVC";
+                                break;
+                            case "vc1":
+                                videoValue = "x264";
+                                break;
+                            case "vc 1":
+                                videoValue = "VC-1";
+                                break;
+                            case "vc-1":
+                                videoValue = "VC-1";
+                                break;
+                        }
+                        this.cmbVideoCodec.SelectedIndex = this.cmbVideoCodec.FindStringExact(videoValue);
+                    }
+                }
+
+                //Audio
+                MatchCollection audioWithChMC = audioWithChRgx.Matches(lower);
+                int audioIndexFirst = -1;
+                int audioIndexSelect = -1;
+                int audioCount = 0;
+                string audioCodec = "";
+                string audioChannel = "";
+                string audioValue = "";
+                if (audioWithChMC != null)
+                {
+                    audioCount = audioWithChMC.Count;
+                    if (audioCount > 0)
+                    {
+                        m = audioWithChMC[audioCount - 1];
+                        audioIndexFirst = audioWithChMC[0].Index;
+                        audioIndexSelect = m.Index;
+                        audioChannel = m.Groups["channel"].Value;
+                        audioCodec = m.Groups["codec"].Value;
+                        audioValue = audioWithChMC[audioCount - 1].Value;
+                        firstIndex = Math.Min(firstIndex, audioIndexSelect);
+                        switch (audioCodec)
+                        {
+                            //DTS  DTS-ES  DD5.1  DD2.1  DD2.0  AAC2.0  AAC1.0  FLAC2.0  FLAC1.0
+                            case "dts":
+                                audioCodec = "DTS";
+                                audioValue = "DTS";
+                                break;
+                            case "dts-es":
+                                audioCodec = "DTS-ES";
+                                audioValue = "DTS-ES";
+                                break;
+                            case "dd":
+                                audioCodec = "DD";
+                                audioValue = "DD" + audioChannel;
+                                break;
+                            case "ac3":
+                                audioCodec = "DD";
+                                audioValue = "DD" + audioChannel;
+                                break;
+                            case "dd-ex":
+                                audioCodec = "DD-EX";
+                                audioValue = "DD-EX";
+                                break;
+                            case "aac":
+                                audioCodec = "AAC";
+                                audioValue = "AAC" + audioChannel;
+                                break;
+                            case "flac":
+                                audioCodec = "FLAC";
+                                audioValue = "FLAC" + audioChannel;
+                                break;
+                        }
+                        this.cmbGeneralAudio.SelectedIndex = this.cmbGeneralAudio.FindString(audioValue);
+                    }
+                }
+                else
+                {
+                    MatchCollection audioWithoutChMC = audioWithoutChRgx.Matches(lower);
+                    if (audioWithoutChMC != null)
+                    {
+                        audioCount = audioWithoutChMC.Count;
+                        if (audioCount > 0)
+                        {
+                            audioIndexFirst = audioWithoutChMC[0].Index;
+                            audioIndexSelect = audioWithoutChMC[audioCount - 1].Index;
+                            audioValue = audioWithoutChMC[audioCount - 1].Value;
+                            if (audioValue == "dts" || audioValue == "dts-es" || audioValue == "dd-ex")
+                            {
+                                firstIndex = Math.Min(firstIndex, audioIndexSelect);
+                                audioValue = audioValue.ToUpper();
+                                this.cmbGeneralAudio.SelectedIndex = this.cmbGeneralAudio.FindString(audioValue);
+                            }
+                        }
+                    }
+                }
+
+                //Special Edition
+                MatchCollection specialEditionMC = specialEditionRgx.Matches(lower);
+                int specialEditionIndexFirst = -1;
+                int specialEditionIndexSelect = -1;
+                int specialEditionCount = 0;
+                string specialEditionValue = "";
+                if (specialEditionMC != null)
+                {
+                    specialEditionCount = specialEditionMC.Count;
+                    if (videoCount > 0)
+                    {
+                        specialEditionIndexFirst = specialEditionMC[0].Index;
+                        specialEditionIndexSelect = specialEditionMC[specialEditionCount - 1].Index;
+                        specialEditionValue = specialEditionMC[specialEditionCount - 1].Value;
+                        firstIndex = Math.Min(firstIndex, specialEditionIndexSelect);
+                        switch (specialEditionValue)
+                        {
+                            case "tc":
+                                specialEditionValue = "Theatrical Cut";
+                                break;
+                            case "theatrical":
+                                specialEditionValue = "Theatrical Cut";
+                                break;
+                            case "theatrical cut":
+                                specialEditionValue = "Theatrical Cut";
+                                break;
+                            case "theatrical.cut":
+                                specialEditionValue = "Theatrical Cut";
+                                break;
+                            case "dc":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "directors cut":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "directors.cut":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "director's cut":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "directors's.cut":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "directors":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "director's":
+                                specialEditionValue = "Director's Cut";
+                                break;
+                            case "extended":
+                                specialEditionValue = "Extended Cut";
+                                break;
+                            case "extended cut":
+                                specialEditionValue = "Extended Cut";
+                                break;
+                            case "extended.cut":
+                                specialEditionValue = "Extended Cut";
+                                break;
+                            case "cc":
+                                specialEditionValue = "Criterion";
+                                break;
+                            case "criterion collection":
+                                specialEditionValue = "Criterion";
+                                break;
+                            case "criterion.collection":
+                                specialEditionValue = "Criterion";
+                                break;
+                            case "criterion":
+                                specialEditionValue = "Criterion";
+                                break;
+                            case "unrated":
+                                specialEditionValue = "Unrated";
+                                break;
+                        }
+                        this.cmbGeneralEdition.SelectedIndex = this.cmbGeneralEdition.FindStringExact(specialEditionValue);
+                    }
+                }
+
+                //Additional
+                MatchCollection properMC = properRgx.Matches(lower);
+                MatchCollection repackMC = repackRgx.Matches(lower);
+                MatchCollection hybridMC = hybridRgx.Matches(lower);
+                int properCount = 0;
+                int repackCount = 0;
+                if (properMC != null)
+                {
+                    properCount = properMC.Count;
+                    if (properCount > 0 && firstIndex > properMC[properCount - 1].Index)
+                    {
+                        properCount = 0;
+                    }
+                }
+                if (repackMC != null)
+                {
+                    repackCount = repackMC.Count;
+                    if (repackCount > 0 && firstIndex > repackMC[repackCount - 1].Index)
+                    {
+                        repackCount = 0;
+                    }
+                }
+                if (properCount < 1)
+                {
+                    if (repackCount < 1)
+                    {
+                        this.cmbGeneralProper.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        this.cmbGeneralProper.SelectedIndex = 2;
+                    }
+                }
+                else
+                {
+                    if (repackCount < 1)
+                    {
+                        this.cmbGeneralProper.SelectedIndex = 1;
+                    }
+                    else
+                    {
+                        this.cmbGeneralProper.SelectedIndex = 3;
+                    }
+                }
+                int hybridIndexFirst = -1;
+                int hybridIndexSelect = -1;
+                int hybridCount = 0;
+                string hybridValue = "";
+                if (hybridMC != null)
+                {
+                    hybridCount = hybridMC.Count;
+                    if (hybridCount > 0)
+                    {
+                        hybridIndexFirst = properMC[0].Index;
+                        hybridIndexSelect = properMC[hybridCount - 1].Index;
+                        hybridValue = properMC[hybridCount - 1].Value;
+                        if (firstIndex < hybridIndexSelect)
+                        {
+                            this.cmbGeneralHybrid.SelectedIndex = 1;
+                        }
+                        else
+                        {
+                            this.cmbGeneralHybrid.SelectedIndex = 0;
+                        }
+                    }
+                }
+
+                //Movie name
+                if (firstIndex > 0)
+                {
+                    this.txtGeneralTitle.Text = name.Substring(0, firstIndex).Replace('.', ' ').Trim().Replace("  ", " ");
+                }
+                
             }
-            else
+            catch
             {
-                e.Effect = DragDropEffects.None;
+                SetStatus("Failed to guess release name from file name. Please set them manually");
             }
         }
 
-        private void mnsToolsImageUploader_Click(object sender, EventArgs e)
+        private void updateReleaseName()
         {
-            FrmImageUploader imageUp = new FrmImageUploader();
-            imageUp.ShowDialog();
+            // Load form infomation into releaseInfo.GI container.
+            this.releaseInfo.GI.imdbLink = this.txtIMDb.Text;
+            this.releaseInfo.GI.nameTitle = this.txtGeneralTitle.Text;
+            this.releaseInfo.GI.nameYear = this.cmbGeneralYear.Text;
+            this.releaseInfo.GI.nameEdition = this.cmbGeneralEdition.Text;
+            this.releaseInfo.GI.nameHybrid = this.cmbGeneralHybrid.Text;
+            this.releaseInfo.GI.nameProper = this.cmbGeneralProper.Text;
+            this.releaseInfo.GI.nameResolution = this.cmbGeneralResolution.Text;
+            this.releaseInfo.GI.nameSource = this.cmbSourceType.Text;
+            this.releaseInfo.GI.nameAudio = this.cmbGeneralAudio.Text;
+            this.releaseInfo.GI.nameVideo = this.cmbVideoCodec.Text;
+            this.releaseInfo.GI.releaseNameSrc = this.txtSourceName.Text;
+
+            // Generate the release name
+            this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName();
         }
+
+        private void txtGeneralTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName(); 
+            }
+        }
+
+        private void cmbGeneralYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbGeneralEdition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbGeneralResolution_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbGeneralHybrid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbGeneralProper_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbGeneralAudio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbSourceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
+        private void cmbVideoCodec_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+        #endregion
     }
 }
