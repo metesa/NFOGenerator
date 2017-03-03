@@ -94,7 +94,6 @@ namespace NFOGenerator.Forms
             this.cmbGeneralResolution.SelectedIndex = 1;
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
-            this.cmbVideoCodec.SelectedIndex = 0;
 
             // Check all available template
             this.cmbNfoTemplate.Items.Clear();
@@ -163,6 +162,7 @@ namespace NFOGenerator.Forms
             this.txtVideoDAR.Text = this.releaseInfo.VI.displayAR;
             this.txtVideoFramerate.Text = this.releaseInfo.VI.framerate;
             this.txtVideoBitrate.Text = this.releaseInfo.VI.bitrate;
+            this.cmbVideoCodec.Text = this.releaseInfo.VI.codec;
 
             // Display audio info.
             this.lstAudio.Items.Clear();
