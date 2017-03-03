@@ -87,7 +87,9 @@ namespace NFOGenerator.Forms
             }
             this.cmbGeneralYear.SelectedIndex = 0;
             this.cmbGeneralResolution.SelectedIndex = 1;
+            this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
+            this.cmbVideoCodec.SelectedIndex = 0;
         }
 
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
@@ -270,16 +272,30 @@ namespace NFOGenerator.Forms
                 this.releaseInfo.AI[editIndex].audioComm = this.chkAudioCommentary.Checked;
                 this.releaseInfo.AI[editIndex].audioCommentator = this.txtAudioCommentaryBy.Text;
                 this.releaseInfo.AI[editIndex].UpdateAudioInfo();
-                //this.lstAudio.SelectedItem = this.releaseInfo.AI[editIndex].audioInfoFull;
                 this.lstAudio.Items.RemoveAt(editIndex);
                 this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].audioInfoFull);
             }
         }
 
-        private void mnsToolsImageUpImagebam_Click(object sender, EventArgs e)
+        private void btnSubtitleEdit_Click(object sender, EventArgs e)
         {
-            FrmImageUploader imageUp = new FrmImageUploader();
-            imageUp.Show();
+            int editIndex = this.lstSubtitle.SelectedIndex;
+
+            if (editIndex < 0 || editIndex >= this.lstSubtitle.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                this.releaseInfo.SI[editIndex].subLang = this.txtSubtitleLanguage.Text;
+                this.releaseInfo.SI[editIndex].subFormat = this.txtSubtitleFormat.Text;
+                this.releaseInfo.SI[editIndex].subComment = this.txtSubtitleComment.Text;
+                this.releaseInfo.SI[editIndex].subForced = this.chkSubtitleForced.Checked;
+                this.releaseInfo.SI[editIndex].subSDH = this.chkSubtitleSDH.Checked;
+                this.releaseInfo.SI[editIndex].UpdateSubtitleInfo();
+                this.lstSubtitle.Items.RemoveAt(editIndex);
+                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[editIndex].subInfoFull);
+            }
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
@@ -358,6 +374,12 @@ namespace NFOGenerator.Forms
             {
                 e.Effect = DragDropEffects.None;
             }
+        }
+
+        private void mnsToolsImageUploader_Click(object sender, EventArgs e)
+        {
+            FrmImageUploader imageUp = new FrmImageUploader();
+            imageUp.ShowDialog();
         }
     }
 }

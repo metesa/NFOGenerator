@@ -60,29 +60,7 @@ namespace NFOGenerator.Model.FileInfo
                 this.SI[i].subForced = (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || 
                     this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced"));
                 this.SI[i].subSDH = this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "SDH");
-
-                if (this.SI[i].subSDH)
-                {
-                    if (this.SI[i].subForced)
-                    {
-                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ", SDH, Forced)";
-                    }
-                    else
-                    {
-                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ", SDH)";
-                    }
-                }
-                else
-                {
-                    if (this.SI[i].subForced)
-                    {
-                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ", Forced)";
-                    }
-                    else
-                    {
-                        this.SI[i].subInfoFull = this.SI[i].subLang + " (" + this.SI[i].subFormat + ")";
-                    }
-                }
+                this.SI[i].UpdateSubtitleInfo();
             }
         }
 
