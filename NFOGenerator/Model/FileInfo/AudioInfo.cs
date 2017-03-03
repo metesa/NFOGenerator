@@ -29,8 +29,8 @@ namespace NFOGenerator.Model.FileInfo
         {
             if (this.audioComm)
             {
-                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + this.audioChan + 
-                    ", " + this.audioBitr + ", " + this.audioCommentator;
+                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + this.audioChan +
+                    ", " + this.audioBitr + Environment.NewLine + "  (" + this.audioCommentator + ")";
             }
             else
             {

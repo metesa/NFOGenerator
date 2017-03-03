@@ -90,6 +90,22 @@ namespace NFOGenerator.Forms
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
             this.cmbVideoCodec.SelectedIndex = 0;
+
+            // Check all available template
+            this.cmbNfoTemplate.Items.Clear();
+            DirectoryInfo di = new DirectoryInfo(@".\Templates");
+            if (di.Exists)
+            {
+                FileInfo[] fis = di.GetFiles("*.tpl", SearchOption.AllDirectories);
+                if (fis.Length > 0)
+                {
+                    foreach (FileInfo item in fis)
+                    {
+                        this.cmbNfoTemplate.Items.Add(item.Name);
+                    }
+                    this.cmbNfoTemplate.SelectedIndex = 0;
+                }
+            }
         }
 
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
@@ -300,61 +316,77 @@ namespace NFOGenerator.Forms
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
-            try
+            if (this.cmbNfoTemplate.Items.Count < 1)
             {
-                // Combine all the audio info's into one string.
+                MessageBox.Show(@"Cannot find any template on '.\Template\' folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
                 string audioCombined = "";
-                for (int i = 0; i < this.lstAudio.Items.Count; i++)
-                {
-                    audioCombined += this.lstAudio.Items[i].ToString() + Environment.NewLine;
-                }
-
-                // Combine all the subtitle info's into one string.
                 string subCombined = "";
-                for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
-                {
-                    subCombined += this.lstSubtitle.Items[i].ToString() + ", ";
-                }
+                string chapters = "";
 
-                // Convert chapters info.
-                string chapters;
-                if (this.chkGeneralChaptersIncluded.Checked)
+                try
                 {
-                    if (this.chkGeneralChaptersNamed.Checked)
+                    // Combine all the audio info's into one string.
+                    for (int i = 0; i < this.lstAudio.Items.Count; i++)
                     {
-                        chapters = "Included & Named";
+                        audioCombined += this.lstAudio.Items[i].ToString() + Environment.NewLine;
+                    }
+
+                    // Combine all the subtitle info's into one string.
+                    for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
+                    {
+                        subCombined += this.lstSubtitle.Items[i].ToString() + ", ";
+                    }
+
+                    // Convert chapters info.
+                    if (this.chkGeneralChaptersIncluded.Checked)
+                    {
+                        if (this.chkGeneralChaptersNamed.Checked)
+                        {
+                            chapters = "Included & Named";
+                        }
+                        else
+                        {
+                            chapters = "Included & Unnamed";
+                        }
                     }
                     else
                     {
-                        chapters = "Included & Unnamed";
+                        chapters = "Not Included";
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    chapters = "Not Included";
+                    MessageBox.Show(ExceptionUtil.FullMessage(ex) + "There is an exception when gathering info from the Window: " + Environment.NewLine + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                NFOStyle style = NFOStyle.ImportTemplate(@"./Templates/TAiCHi.tpl");
-                NFOInfo info = new NFOInfo(this.txtGeneralReleaseName.Text,
-                    Alignment.Left,
-                    this.txtIMDb.Text,
-                    this.txtSourceName.Text + " - Thanks!",
-                    this.txtGeneralSize.Text,
-                    this.txtGeneralDuration.Text,
-                    this.txtVideoBitrate.Text,
-                    this.txtVideoWidth.Text + " x " + this.txtVideoHeight.Text,
-                    this.txtVideoFramerate.Text,
-                    audioCombined,
-                    subCombined,
-                    chapters,
-                    this.txtVideoNote.Text
-                );
-                NFODocument nfo = new NFODocument(info, style);
-                nfo.WriteNfoFile(this.txtTargetLocation.Text + @"\" + this.txtGeneralReleaseName.Text + ".nfo");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("There is an exception when generating NFO: " + Environment.NewLine + ex.StackTrace, "Error: " + ex.Message);
+                try
+                {
+                    NFOStyle style = NFOStyle.ImportTemplate(@"./Templates/" + cmbNfoTemplate.SelectedItem.ToString());
+                    NFOInfo info = new NFOInfo(this.txtGeneralReleaseName.Text,
+                        Alignment.Left,
+                        this.txtIMDb.Text == "" ? "N/A" : this.txtIMDb.Text,
+                        this.txtSourceName.Text == "" ? "N/A" : (this.txtSourceName.Text + " - Thanks!"),
+                        this.txtGeneralSize.Text,
+                        this.txtGeneralDuration.Text,
+                        this.txtVideoBitrate.Text,
+                        this.txtVideoWidth.Text + " x " + this.txtVideoHeight.Text,
+                        this.txtVideoFramerate.Text,
+                        audioCombined == "" ? "N/A" : audioCombined,
+                        subCombined == "" ? "N/A" : subCombined,
+                        chapters,
+                        this.txtVideoNote.Text
+                    );
+                    NFODocument nfo = new NFODocument(info, style);
+                    nfo.WriteNfoFile(this.txtTargetLocation.Text + @"\" + this.txtGeneralReleaseName.Text + ".nfo");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ExceptionUtil.FullMessage(ex) + "There is an exception when generating NFO: " + Environment.NewLine + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
