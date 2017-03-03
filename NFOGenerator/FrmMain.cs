@@ -94,6 +94,7 @@ namespace NFOGenerator.Forms
             this.cmbGeneralResolution.SelectedIndex = 1;
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
+            this.cmbSeparateChar.SelectedIndex = 0;
 
             // Check all available template
             this.cmbNfoTemplate.Items.Clear();
@@ -150,6 +151,8 @@ namespace NFOGenerator.Forms
                 return;
             }
 
+            guessReleaseNameFromFilename(this.txtInputFile.Text);
+            
             this.releaseInfo.ReadMediaInfo(this.txtInputFile.Text);
 
             // Display general info.
@@ -181,7 +184,6 @@ namespace NFOGenerator.Forms
             // Add default output folder
             txtTargetLocation.Text = new FileInfo(this.txtInputFile.Text).DirectoryName;
 
-            guessReleaseNameFromFilename(this.txtInputFile.Text);
             updateReleaseName();
             autoGenerate = true;
         }
@@ -403,6 +405,7 @@ namespace NFOGenerator.Forms
                     );
                     NFODocument nfo = new NFODocument(info, style);
                     nfo.WriteNfoFile(this.txtTargetLocation.Text + @"\" + this.txtGeneralReleaseName.Text + ".nfo");
+                    SetStatus("File saved! " + this.txtTargetLocation.Text + @"\" + this.txtGeneralReleaseName.Text + ".nfo");
                 }
                 catch (Exception ex)
                 {
@@ -437,6 +440,7 @@ namespace NFOGenerator.Forms
                 string lower = name.ToLower();
                 int firstIndex = lower.Length;
                 Match m;
+                int comboBoxIndex = -1;
 
                 Regex yearRgx = new Regex(@"((19)|(20))\d{2}");
                 Regex resolutionRgx = new Regex(@"[0-9]{2,3}0p");
@@ -449,7 +453,7 @@ namespace NFOGenerator.Forms
                 Regex repackRgx = new Regex(@"repack");
                 Regex hybridRgx = new Regex(@"hybrid");
 
-                Regex audioWithChRgx = new Regex(@"(?<codec>(dts)|(dts-es)|(dd)|(ac3)|(dd-ex)|(aac)|(flac))(?<channel>[0-9]{0-1}.[0-9])");
+                Regex audioWithChRgx = new Regex(@"(?<codec>(dts)|(dts-es)|(dd)|(ac3)|(dd-ex)|(aac)|(flac))(?<channel>[0-9]{1,2}.[0-9])");
                 Regex audioWithoutChRgx = new Regex(@"(dts)|(dts-es)|(dd)|(ac3)|(dd-ex)|(aac)|(flac)");
 
                 //Year
@@ -467,7 +471,16 @@ namespace NFOGenerator.Forms
                         yearIndexSelect = yearMC[yearCount - 1].Index;
                         yearValue = yearMC[yearCount - 1].Value;
                         firstIndex = Math.Min(firstIndex, yearIndexSelect);
-                        this.cmbGeneralYear.SelectedIndex = this.cmbGeneralYear.FindStringExact(yearValue);
+                        try
+                        {
+                            comboBoxIndex = this.cmbGeneralYear.FindStringExact(yearValue);
+                            this.cmbGeneralYear.SelectedIndex = comboBoxIndex;
+                        }
+                        catch
+                        {
+                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                        }
+                        
                     }
                 }
 
@@ -486,7 +499,15 @@ namespace NFOGenerator.Forms
                         resolutionIndexSelect = resolutionMC[resolutionCount - 1].Index;
                         resolutionValue = resolutionMC[resolutionCount - 1].Value;
                         firstIndex = Math.Min(firstIndex, resolutionIndexSelect);
-                        this.cmbGeneralResolution.SelectedIndex = this.cmbGeneralResolution.FindString(resolutionValue);
+                        try
+                        {
+                            comboBoxIndex = this.cmbGeneralResolution.FindString(resolutionValue);
+                            this.cmbGeneralResolution.SelectedIndex = comboBoxIndex;
+                        }
+                        catch
+                        {
+                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                        }
                     }
                 }
 
@@ -532,7 +553,15 @@ namespace NFOGenerator.Forms
                                 sourceValue = "HDTV";
                                 break;
                         }
-                        this.cmbSourceType.SelectedIndex = this.cmbSourceType.FindStringExact(sourceValue);
+                        try
+                        {
+                            comboBoxIndex = this.cmbSourceType.FindStringExact(sourceValue);
+                            this.cmbSourceType.SelectedIndex = comboBoxIndex;
+                        }
+                        catch
+                        {
+                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                        }
                     }
                 }
 
@@ -593,7 +622,15 @@ namespace NFOGenerator.Forms
                                 videoValue = "VC-1";
                                 break;
                         }
-                        this.cmbVideoCodec.SelectedIndex = this.cmbVideoCodec.FindStringExact(videoValue);
+                        try
+                        {
+                            comboBoxIndex = this.cmbVideoCodec.FindStringExact(videoValue);
+                            this.cmbVideoCodec.SelectedIndex = comboBoxIndex;
+                        }
+                        catch
+                        {
+                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                        }
                     }
                 }
 
@@ -649,7 +686,15 @@ namespace NFOGenerator.Forms
                                 audioValue = "FLAC" + audioChannel;
                                 break;
                         }
-                        this.cmbGeneralAudio.SelectedIndex = this.cmbGeneralAudio.FindString(audioValue);
+                        try
+                        {
+                            comboBoxIndex = this.cmbGeneralAudio.FindStringExact(audioValue);
+                            this.cmbGeneralAudio.SelectedIndex = comboBoxIndex;
+                        }
+                        catch
+                        {
+                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                        }
                     }
                 }
                 else
@@ -667,7 +712,15 @@ namespace NFOGenerator.Forms
                             {
                                 firstIndex = Math.Min(firstIndex, audioIndexSelect);
                                 audioValue = audioValue.ToUpper();
-                                this.cmbGeneralAudio.SelectedIndex = this.cmbGeneralAudio.FindString(audioValue);
+                                try
+                                {
+                                    comboBoxIndex = this.cmbGeneralAudio.FindStringExact(audioValue);
+                                    this.cmbGeneralAudio.SelectedIndex = comboBoxIndex;
+                                }
+                                catch
+                                {
+                                    SetStatus("Failed to guess some info from file name. Please set them manually");
+                                }
                             }
                         }
                     }
@@ -682,7 +735,7 @@ namespace NFOGenerator.Forms
                 if (specialEditionMC != null)
                 {
                     specialEditionCount = specialEditionMC.Count;
-                    if (videoCount > 0)
+                    if (specialEditionCount > 0)
                     {
                         specialEditionIndexFirst = specialEditionMC[0].Index;
                         specialEditionIndexSelect = specialEditionMC[specialEditionCount - 1].Index;
@@ -748,7 +801,15 @@ namespace NFOGenerator.Forms
                                 specialEditionValue = "Unrated";
                                 break;
                         }
-                        this.cmbGeneralEdition.SelectedIndex = this.cmbGeneralEdition.FindStringExact(specialEditionValue);
+                        try
+                        {
+                            comboBoxIndex = this.cmbGeneralEdition.FindStringExact(specialEditionValue);
+                            this.cmbGeneralEdition.SelectedIndex = comboBoxIndex;
+                        }
+                        catch
+                        {
+                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                        }
                     }
                 }
 
@@ -817,6 +878,10 @@ namespace NFOGenerator.Forms
                             this.cmbGeneralHybrid.SelectedIndex = 0;
                         }
                     }
+                    else
+                    {
+                        this.cmbGeneralHybrid.SelectedIndex = 0;
+                    }
                 }
 
                 //Movie name
@@ -848,7 +913,9 @@ namespace NFOGenerator.Forms
             this.releaseInfo.GI.releaseNameSrc = this.txtSourceName.Text;
 
             // Generate the release name
-            this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName();
+            string sep = this.cmbSeparateChar.SelectedIndex == 0 ? " " : ".";
+            string group = this.cmbNfoTemplate.Text == "" ? "TAiCHi" : this.cmbNfoTemplate.Text.Replace(".tpl", "");
+            this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName(sep, group);
         }
 
         private void txtGeneralTitle_TextChanged(object sender, EventArgs e)
@@ -922,6 +989,12 @@ namespace NFOGenerator.Forms
                 updateReleaseName();
             }
         }
+
+        private void cmbSeparateChar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
         #endregion
+
     }
 }

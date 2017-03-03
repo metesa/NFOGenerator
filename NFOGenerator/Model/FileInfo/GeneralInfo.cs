@@ -71,11 +71,11 @@ namespace NFOGenerator.Model.FileInfo
         /// Generate a complete release name.
         /// </summary>
         /// <returns>release name</returns>
-        public string GenerateRLZName()
+        public string GenerateRLZName(string separate, string groupName)
         {
-            this.releaseName = this.nameTitle + "." + this.nameYear + this.RemoveDotIfEmpty(this.nameEdition) + 
-                this.RemoveDotIfEmpty(this.nameHybrid) + this.RemoveDotIfEmpty(this.nameProper) + "." + 
-                this.nameResolution + "." + this.nameSource + "." + this.nameAudio + "." + this.nameVideo + "-TAiCHi";
+            this.releaseName = this.nameTitle + separate + this.nameYear + this.RemoveSepIfEmpty(this.nameEdition, separate) +
+                this.RemoveSepIfEmpty(this.nameHybrid, separate) + this.RemoveSepIfEmpty(this.nameProper, separate) + separate +
+                this.nameResolution + separate + this.nameSource + separate + this.nameAudio + separate + this.nameVideo + "-" + groupName;
             return this.releaseName;
         }
         
@@ -100,7 +100,7 @@ namespace NFOGenerator.Model.FileInfo
         /// </summary>
         /// <param name="paraStr"></param>
         /// <returns>".OPTION" if option is filled, otherwise blank.</returns>
-        protected string RemoveDotIfEmpty(string paraStr)
+        protected string RemoveSepIfEmpty(string paraStr, string separate)
         {
             string result;
             if (paraStr == "")
@@ -109,7 +109,7 @@ namespace NFOGenerator.Model.FileInfo
             }
             else
             {
-                result = "." + paraStr;
+                result = separate + paraStr;
             }
             return result;
         }
