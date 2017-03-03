@@ -893,11 +893,12 @@
             this.cmbVideoCodec.Items.AddRange(new object[] {
             "x264",
             "H.264",
-            "x265",
+            "HEVC",
             "MPEG2",
             "VC-1",
             "AVC",
-            "XviD"});
+            "XviD",
+            "UNKNOWN"});
             this.cmbVideoCodec.Location = new System.Drawing.Point(227, 76);
             this.cmbVideoCodec.Name = "cmbVideoCodec";
             this.cmbVideoCodec.Size = new System.Drawing.Size(88, 20);

@@ -1,4 +1,18 @@
-﻿using System;
+﻿/// Copyright 2017 Troy Lewis, Jevenski C. Woodsmann. All Rights Reserved
+/// 
+/// Licensed under the Apache License, Version 2.0 (the "License");
+/// you may not use this file except in compliance with the License.
+/// You may obtain a copy of the License at
+/// 
+///     http://www.apache.org/licenses/LICENSE-2.0
+/// 
+/// Unless required by applicable law or agreed to in writing, software
+/// distributed under the License is distributed on an "AS IS" BASIS,
+/// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+/// See the License for the specific language governing permissions and
+/// limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -89,7 +103,7 @@ namespace NFOGenerator.Forms
             this.cmbGeneralResolution.SelectedIndex = 1;
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
-            this.cmbVideoCodec.SelectedIndex = 0;
+            //this.cmbVideoCodec.SelectedIndex = 0;
         }
 
         private void btnGeneralGenerate_Click(object sender, EventArgs e)
@@ -152,9 +166,10 @@ namespace NFOGenerator.Forms
             // Display video info.
             this.txtVideoWidth.Text = this.releaseInfo.VI.width;
             this.txtVideoHeight.Text = this.releaseInfo.VI.height;
-            this.txtVideoDAR.Text = this.releaseInfo.VI.displayAR;
+            this.txtVideoDAR.Text = this.releaseInfo.VI.displayAR + ":1";
             this.txtVideoFramerate.Text = this.releaseInfo.VI.framerate;
             this.txtVideoBitrate.Text = this.releaseInfo.VI.bitrate;
+            this.cmbVideoCodec.Text = this.releaseInfo.VI.codec;
 
             // Display audio info.
             this.lstAudio.Items.Clear();

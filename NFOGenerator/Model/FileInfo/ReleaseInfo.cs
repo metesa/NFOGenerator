@@ -1,4 +1,18 @@
-﻿using System;
+﻿/// Copyright 2017 Jevenski C. Woodsmann. All Rights Reserved
+/// 
+/// Licensed under the Apache License, Version 2.0 (the "License");
+/// you may not use this file except in compliance with the License.
+/// You may obtain a copy of the License at
+/// 
+///     http://www.apache.org/licenses/LICENSE-2.0
+/// 
+/// Unless required by applicable law or agreed to in writing, software
+/// distributed under the License is distributed on an "AS IS" BASIS,
+/// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+/// See the License for the specific language governing permissions and
+/// limitations under the License.
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using NFOGenerator.Util;
@@ -26,11 +40,43 @@ namespace NFOGenerator.Model.FileInfo
             this.GI.fileSize = this.GetFileSize(this.MI.Get(StreamKind.General, 0, "FileSize"));
             this.GI.duration = this.GetDuration(this.MI.Get(StreamKind.General, 0, "Duration"));
 
+            // Get video info.
             this.VI.width = this.MI.Get(StreamKind.Video, 0, "Width");
             this.VI.height = this.MI.Get(StreamKind.Video, 0, "Height");
             this.VI.displayAR = this.MI.Get(StreamKind.Video, 0, "DisplayAspectRatio");
             this.VI.framerate = this.MI.Get(StreamKind.Video, 0, "FrameRate") + " FPS";
             this.VI.bitrate = this.GetBitrate(this.MI.Get(StreamKind.Video, 0, "BitRate"));
+
+            // Switch among video codecs.
+            string videoFormat = this.MI.Get(StreamKind.Video, 0, "Format");
+            switch (videoFormat)
+            {
+                case "AVC":
+                    if (this.MI.Inform().Contains("x264"))
+                    {
+                        this.VI.codec = "x264";
+                    }
+                    else
+                    {
+                        this.VI.codec = "H.264";
+                    }
+                    break;
+                case "HEVC":
+                    this.VI.codec = "HEVC";
+                    break;
+                case "MPEG Video":
+                    this.VI.codec = "MPEG-2";
+                    break;
+                case "VC-1":
+                    this.VI.codec = "VC-1";
+                    break;
+                case "MPEG-4 Visual":
+                    this.VI.codec = "XviD";
+                    break;
+                default:
+                    this.VI.codec = "UNKNOWN";
+                    break;
+            }
 
             // Create a language name dictionary for both audio and subtitle lookup.
             LangDic languageName = new LangDic();
