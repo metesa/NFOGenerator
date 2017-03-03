@@ -47,20 +47,29 @@ namespace NFOGenerator.Model.NFO.Line
             this.key = dataPair.Key;
             this.value = dataPair.Value;
 
-            List<string> lines = SplitByLength(value, style.LineLength);
-            int count = lines.Count;
-            if (count > 0)
+            if (this.value == "")
             {
-                base.byteList.AddRange(GenerateDictionaryLine(style, key, lines[0], true));
-                if (count > 1)
-                {
-                    for (int i = 1; i < count; i++)
-                    {
-                        base.byteList.AddRange(GenerateDictionaryLine(style, key, lines[i], false));
-                    }
-                }
+                base.byteList.AddRange(GenerateDictionaryLine(style, key, "", true));
                 base.bytes = byteList.ToArray();
                 base.line = Encoding.Default.GetString(bytes);
+            }
+            else
+            {
+                List<string> lines = SplitByLength(value, style.LineLength);
+                int count = lines.Count;
+                if (count > 0)
+                {
+                    base.byteList.AddRange(GenerateDictionaryLine(style, key, lines[0], true));
+                    if (count > 1)
+                    {
+                        for (int i = 1; i < count; i++)
+                        {
+                            base.byteList.AddRange(GenerateDictionaryLine(style, key, lines[i], false));
+                        }
+                    }
+                    base.bytes = byteList.ToArray();
+                    base.line = Encoding.Default.GetString(bytes);
+                }
             }
         }
         #endregion

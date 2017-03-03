@@ -86,7 +86,7 @@ namespace NFOGenerator.Model.FileInfo
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
             {
                 // Get the language code and look it up in the dictionary.
-                this.AI[i] = new AudioInfo(this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title"), "Commentary"));
+                this.AI[i] = new AudioInfo(this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"));
                 this.AI[i].audioLang = languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language"));
                 this.AI[i].audioCodec = this.MI.Get(StreamKind.Audio, i, "Format");
                 this.AI[i].audioChan = this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)"));
