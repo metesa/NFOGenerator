@@ -128,6 +128,14 @@
             this.mnsHelpAboutUs = new System.Windows.Forms.ToolStripMenuItem();
             this.stsStatus = new System.Windows.Forms.StatusStrip();
             this.stsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tblAudioAndSubtitle = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlMovieEncode = new System.Windows.Forms.Panel();
+            this.pnlOutput = new System.Windows.Forms.Panel();
+            this.lblReleaseCategory = new System.Windows.Forms.Label();
+            this.cmbReleaseCategory = new System.Windows.Forms.ComboBox();
+            this.cmbReleaseMedium = new System.Windows.Forms.ComboBox();
+            this.lblReleaseMedium = new System.Windows.Forms.Label();
+            this.pnlReleaseType = new System.Windows.Forms.Panel();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -136,12 +144,16 @@
             this.grpSource.SuspendLayout();
             this.mnsMain.SuspendLayout();
             this.stsStatus.SuspendLayout();
+            this.tblAudioAndSubtitle.SuspendLayout();
+            this.pnlMovieEncode.SuspendLayout();
+            this.pnlOutput.SuspendLayout();
+            this.pnlReleaseType.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInputFile
             // 
-            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInputFile.Location = new System.Drawing.Point(83, 20);
             this.txtInputFile.Name = "txtInputFile";
             this.txtInputFile.ReadOnly = true;
@@ -152,15 +164,15 @@
             // grpInput
             // 
             this.grpInput.AllowDrop = true;
-            this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpInput.Controls.Add(this.lblInputFile);
             this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Controls.Add(this.cmbNfoTemplate);
             this.grpInput.Controls.Add(this.lblNfoTemplate);
-            this.grpInput.Location = new System.Drawing.Point(12, 28);
+            this.grpInput.Location = new System.Drawing.Point(3, 3);
             this.grpInput.Name = "grpInput";
-            this.grpInput.Size = new System.Drawing.Size(662, 53);
+            this.grpInput.Size = new System.Drawing.Size(662, 54);
             this.grpInput.TabIndex = 1;
             this.grpInput.TabStop = false;
             this.grpInput.Text = "Input";
@@ -198,8 +210,8 @@
             // 
             // grpGeneral
             // 
-            this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGeneral.Controls.Add(this.cmbGeneralProper);
             this.grpGeneral.Controls.Add(this.cmbGeneralHybrid);
             this.grpGeneral.Controls.Add(this.cmbGeneralEdition);
@@ -226,9 +238,9 @@
             this.grpGeneral.Controls.Add(this.lblIMDb);
             this.grpGeneral.Controls.Add(this.txtGeneralTitle);
             this.grpGeneral.Controls.Add(this.lblGeneralTitle);
-            this.grpGeneral.Location = new System.Drawing.Point(12, 87);
+            this.grpGeneral.Location = new System.Drawing.Point(3, 62);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(662, 173);
+            this.grpGeneral.Size = new System.Drawing.Size(662, 174);
             this.grpGeneral.TabIndex = 2;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "General";
@@ -344,8 +356,8 @@
             // 
             this.lblGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblGeneralReleaseName.AutoSize = true;
-            this.lblGeneralReleaseName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblGeneralReleaseName.Location = new System.Drawing.Point(6, 150);
+            this.lblGeneralReleaseName.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblGeneralReleaseName.Location = new System.Drawing.Point(6, 151);
             this.lblGeneralReleaseName.Name = "lblGeneralReleaseName";
             this.lblGeneralReleaseName.Size = new System.Drawing.Size(68, 12);
             this.lblGeneralReleaseName.TabIndex = 7;
@@ -364,9 +376,9 @@
             // 
             // txtGeneralReleaseName
             // 
-            this.txtGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 147);
+            this.txtGeneralReleaseName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 148);
             this.txtGeneralReleaseName.Name = "txtGeneralReleaseName";
             this.txtGeneralReleaseName.Size = new System.Drawing.Size(435, 21);
             this.txtGeneralReleaseName.TabIndex = 6;
@@ -490,8 +502,8 @@
             // 
             // txtIMDb
             // 
-            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIMDb.Location = new System.Drawing.Point(83, 41);
             this.txtIMDb.Name = "txtIMDb";
             this.txtIMDb.Size = new System.Drawing.Size(573, 21);
@@ -508,8 +520,8 @@
             // 
             // txtGeneralTitle
             // 
-            this.txtGeneralTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGeneralTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGeneralTitle.Location = new System.Drawing.Point(83, 14);
             this.txtGeneralTitle.Name = "txtGeneralTitle";
             this.txtGeneralTitle.Size = new System.Drawing.Size(573, 21);
@@ -527,9 +539,6 @@
             // 
             // grpAudio
             // 
-            this.grpAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAudio.Controls.Add(this.chkAudioCommentary);
             this.grpAudio.Controls.Add(this.btnAudioDown);
             this.grpAudio.Controls.Add(this.btnAudioUp);
@@ -544,9 +553,10 @@
             this.grpAudio.Controls.Add(this.lblAudioCodec);
             this.grpAudio.Controls.Add(this.txtAudioLanguage);
             this.grpAudio.Controls.Add(this.lblAudioLanguage);
-            this.grpAudio.Location = new System.Drawing.Point(12, 448);
+            this.grpAudio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpAudio.Location = new System.Drawing.Point(3, 3);
             this.grpAudio.Name = "grpAudio";
-            this.grpAudio.Size = new System.Drawing.Size(324, 195);
+            this.grpAudio.Size = new System.Drawing.Size(325, 172);
             this.grpAudio.TabIndex = 11;
             this.grpAudio.TabStop = false;
             this.grpAudio.Text = "Audio";
@@ -586,7 +596,7 @@
             // btnAudioEdit
             // 
             this.btnAudioEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAudioEdit.Location = new System.Drawing.Point(226, 95);
+            this.btnAudioEdit.Location = new System.Drawing.Point(227, 95);
             this.btnAudioEdit.Name = "btnAudioEdit";
             this.btnAudioEdit.Size = new System.Drawing.Size(89, 21);
             this.btnAudioEdit.TabIndex = 7;
@@ -596,32 +606,32 @@
             // 
             // lstAudio
             // 
-            this.lstAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lstAudio.FormattingEnabled = true;
             this.lstAudio.HorizontalScrollbar = true;
             this.lstAudio.ItemHeight = 12;
             this.lstAudio.Location = new System.Drawing.Point(8, 125);
             this.lstAudio.Name = "lstAudio";
-            this.lstAudio.Size = new System.Drawing.Size(307, 52);
+            this.lstAudio.Size = new System.Drawing.Size(308, 40);
             this.lstAudio.TabIndex = 6;
             this.lstAudio.SelectedIndexChanged += new System.EventHandler(this.lstAudio_SelectedIndexChanged);
             // 
             // txtAudioCommentaryBy
             // 
-            this.txtAudioCommentaryBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAudioCommentaryBy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAudioCommentaryBy.Location = new System.Drawing.Point(98, 68);
             this.txtAudioCommentaryBy.Name = "txtAudioCommentaryBy";
-            this.txtAudioCommentaryBy.Size = new System.Drawing.Size(217, 21);
+            this.txtAudioCommentaryBy.Size = new System.Drawing.Size(218, 21);
             this.txtAudioCommentaryBy.TabIndex = 5;
             this.txtAudioCommentaryBy.Visible = false;
             // 
             // txtAudioBitrate
             // 
             this.txtAudioBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAudioBitrate.Location = new System.Drawing.Point(227, 41);
+            this.txtAudioBitrate.Location = new System.Drawing.Point(228, 41);
             this.txtAudioBitrate.Name = "txtAudioBitrate";
             this.txtAudioBitrate.Size = new System.Drawing.Size(88, 21);
             this.txtAudioBitrate.TabIndex = 5;
@@ -629,7 +639,7 @@
             // txtAudioChannels
             // 
             this.txtAudioChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAudioChannels.Location = new System.Drawing.Point(227, 14);
+            this.txtAudioChannels.Location = new System.Drawing.Point(228, 14);
             this.txtAudioChannels.Name = "txtAudioChannels";
             this.txtAudioChannels.Size = new System.Drawing.Size(88, 21);
             this.txtAudioChannels.TabIndex = 5;
@@ -638,7 +648,7 @@
             // 
             this.lblAudioBitrate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAudioBitrate.AutoSize = true;
-            this.lblAudioBitrate.Location = new System.Drawing.Point(162, 44);
+            this.lblAudioBitrate.Location = new System.Drawing.Point(163, 44);
             this.lblAudioBitrate.Name = "lblAudioBitrate";
             this.lblAudioBitrate.Size = new System.Drawing.Size(53, 12);
             this.lblAudioBitrate.TabIndex = 4;
@@ -655,7 +665,7 @@
             // 
             this.lblAudioChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAudioChannels.AutoSize = true;
-            this.lblAudioChannels.Location = new System.Drawing.Point(162, 17);
+            this.lblAudioChannels.Location = new System.Drawing.Point(163, 17);
             this.lblAudioChannels.Name = "lblAudioChannels";
             this.lblAudioChannels.Size = new System.Drawing.Size(59, 12);
             this.lblAudioChannels.TabIndex = 4;
@@ -688,9 +698,6 @@
             // 
             // grpSubtitle
             // 
-            this.grpSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSubtitle.Controls.Add(this.btnSubtitleEdit);
             this.grpSubtitle.Controls.Add(this.lstSubtitle);
             this.grpSubtitle.Controls.Add(this.txtSubtitleComment);
@@ -701,9 +708,10 @@
             this.grpSubtitle.Controls.Add(this.chkSubtitleSDH);
             this.grpSubtitle.Controls.Add(this.lblSubtitleLanguage);
             this.grpSubtitle.Controls.Add(this.chkSubtitleForced);
-            this.grpSubtitle.Location = new System.Drawing.Point(352, 448);
+            this.grpSubtitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpSubtitle.Location = new System.Drawing.Point(334, 3);
             this.grpSubtitle.Name = "grpSubtitle";
-            this.grpSubtitle.Size = new System.Drawing.Size(322, 195);
+            this.grpSubtitle.Size = new System.Drawing.Size(325, 172);
             this.grpSubtitle.TabIndex = 12;
             this.grpSubtitle.TabStop = false;
             this.grpSubtitle.Text = "Subtitle";
@@ -711,9 +719,9 @@
             // btnSubtitleEdit
             // 
             this.btnSubtitleEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSubtitleEdit.Location = new System.Drawing.Point(238, 95);
+            this.btnSubtitleEdit.Location = new System.Drawing.Point(249, 68);
             this.btnSubtitleEdit.Name = "btnSubtitleEdit";
-            this.btnSubtitleEdit.Size = new System.Drawing.Size(78, 21);
+            this.btnSubtitleEdit.Size = new System.Drawing.Size(70, 21);
             this.btnSubtitleEdit.TabIndex = 7;
             this.btnSubtitleEdit.Text = "Edit";
             this.btnSubtitleEdit.UseVisualStyleBackColor = true;
@@ -721,34 +729,34 @@
             // 
             // lstSubtitle
             // 
-            this.lstSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lstSubtitle.FormattingEnabled = true;
             this.lstSubtitle.HorizontalScrollbar = true;
             this.lstSubtitle.ItemHeight = 12;
-            this.lstSubtitle.Location = new System.Drawing.Point(6, 125);
+            this.lstSubtitle.Location = new System.Drawing.Point(6, 101);
             this.lstSubtitle.Name = "lstSubtitle";
-            this.lstSubtitle.Size = new System.Drawing.Size(310, 52);
+            this.lstSubtitle.Size = new System.Drawing.Size(313, 64);
             this.lstSubtitle.TabIndex = 6;
             this.lstSubtitle.SelectedIndexChanged += new System.EventHandler(this.lstSubtitle_SelectedIndexChanged);
             // 
             // txtSubtitleComment
             // 
-            this.txtSubtitleComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubtitleComment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleComment.Location = new System.Drawing.Point(83, 68);
             this.txtSubtitleComment.Name = "txtSubtitleComment";
-            this.txtSubtitleComment.Size = new System.Drawing.Size(233, 21);
+            this.txtSubtitleComment.Size = new System.Drawing.Size(158, 21);
             this.txtSubtitleComment.TabIndex = 5;
             // 
             // txtSubtitleFormat
             // 
-            this.txtSubtitleFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubtitleFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleFormat.Location = new System.Drawing.Point(83, 41);
             this.txtSubtitleFormat.Name = "txtSubtitleFormat";
-            this.txtSubtitleFormat.Size = new System.Drawing.Size(155, 21);
+            this.txtSubtitleFormat.Size = new System.Drawing.Size(158, 21);
             this.txtSubtitleFormat.TabIndex = 5;
             // 
             // lblSubtitleComment
@@ -771,18 +779,18 @@
             // 
             // txtSubtitleLanguage
             // 
-            this.txtSubtitleLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSubtitleLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleLanguage.Location = new System.Drawing.Point(83, 14);
             this.txtSubtitleLanguage.Name = "txtSubtitleLanguage";
-            this.txtSubtitleLanguage.Size = new System.Drawing.Size(155, 21);
+            this.txtSubtitleLanguage.Size = new System.Drawing.Size(158, 21);
             this.txtSubtitleLanguage.TabIndex = 1;
             // 
             // chkSubtitleSDH
             // 
             this.chkSubtitleSDH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkSubtitleSDH.AutoSize = true;
-            this.chkSubtitleSDH.Location = new System.Drawing.Point(245, 43);
+            this.chkSubtitleSDH.Location = new System.Drawing.Point(248, 43);
             this.chkSubtitleSDH.Name = "chkSubtitleSDH";
             this.chkSubtitleSDH.Size = new System.Drawing.Size(42, 16);
             this.chkSubtitleSDH.TabIndex = 10;
@@ -802,7 +810,7 @@
             // 
             this.chkSubtitleForced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkSubtitleForced.AutoSize = true;
-            this.chkSubtitleForced.Location = new System.Drawing.Point(245, 16);
+            this.chkSubtitleForced.Location = new System.Drawing.Point(248, 16);
             this.chkSubtitleForced.Name = "chkSubtitleForced";
             this.chkSubtitleForced.Size = new System.Drawing.Size(60, 16);
             this.chkSubtitleForced.TabIndex = 10;
@@ -811,19 +819,18 @@
             // 
             // txtTargetLocation
             // 
-            this.txtTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTargetLocation.Location = new System.Drawing.Point(129, 649);
+            this.txtTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTargetLocation.Location = new System.Drawing.Point(110, 4);
             this.txtTargetLocation.Name = "txtTargetLocation";
             this.txtTargetLocation.ReadOnly = true;
-            this.txtTargetLocation.Size = new System.Drawing.Size(381, 21);
+            this.txtTargetLocation.Size = new System.Drawing.Size(394, 21);
             this.txtTargetLocation.TabIndex = 0;
             // 
             // lblTargetLocation
             // 
-            this.lblTargetLocation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTargetLocation.AutoSize = true;
-            this.lblTargetLocation.Location = new System.Drawing.Point(22, 652);
+            this.lblTargetLocation.Location = new System.Drawing.Point(3, 7);
             this.lblTargetLocation.Name = "lblTargetLocation";
             this.lblTargetLocation.Size = new System.Drawing.Size(101, 12);
             this.lblTargetLocation.TabIndex = 1;
@@ -866,13 +873,14 @@
             // 
             // txtVideoNote
             // 
-            this.txtVideoNote.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtVideoNote.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtVideoNote.Location = new System.Drawing.Point(377, 19);
             this.txtVideoNote.Multiline = true;
             this.txtVideoNote.Name = "txtVideoNote";
-            this.txtVideoNote.Size = new System.Drawing.Size(279, 77);
+            this.txtVideoNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtVideoNote.Size = new System.Drawing.Size(279, 78);
             this.txtVideoNote.TabIndex = 6;
             // 
             // lblVideoWidth
@@ -894,8 +902,8 @@
             // 
             // grpVideo
             // 
-            this.grpVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpVideo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpVideo.Controls.Add(this.cmbVideoCodec);
             this.grpVideo.Controls.Add(this.txtVideoDAR);
             this.grpVideo.Controls.Add(this.lblVideoDAR);
@@ -910,9 +918,9 @@
             this.grpVideo.Controls.Add(this.lblVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoBitrate);
-            this.grpVideo.Location = new System.Drawing.Point(12, 339);
+            this.grpVideo.Location = new System.Drawing.Point(3, 314);
             this.grpVideo.Name = "grpVideo";
-            this.grpVideo.Size = new System.Drawing.Size(662, 103);
+            this.grpVideo.Size = new System.Drawing.Size(662, 104);
             this.grpVideo.TabIndex = 15;
             this.grpVideo.TabStop = false;
             this.grpVideo.Text = "Video";
@@ -989,10 +997,9 @@
             // 
             // btnProcess
             // 
-            this.btnProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProcess.Enabled = true;
-            this.btnProcess.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnProcess.Location = new System.Drawing.Point(597, 648);
+            this.btnProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnProcess.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnProcess.Location = new System.Drawing.Point(591, 4);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 21);
             this.btnProcess.TabIndex = 3;
@@ -1002,8 +1009,8 @@
             // 
             // btnTargetBrowse
             // 
-            this.btnTargetBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTargetBrowse.Location = new System.Drawing.Point(516, 648);
+            this.btnTargetBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTargetBrowse.Location = new System.Drawing.Point(510, 4);
             this.btnTargetBrowse.Name = "btnTargetBrowse";
             this.btnTargetBrowse.Size = new System.Drawing.Size(75, 21);
             this.btnTargetBrowse.TabIndex = 3;
@@ -1013,8 +1020,8 @@
             // 
             // grpSource
             // 
-            this.grpSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpSource.Controls.Add(this.cmbSourceResolution);
             this.grpSource.Controls.Add(this.cmbSourceType);
             this.grpSource.Controls.Add(this.lblSourceType);
@@ -1022,9 +1029,9 @@
             this.grpSource.Controls.Add(this.btnSourceGuess);
             this.grpSource.Controls.Add(this.txtSourceName);
             this.grpSource.Controls.Add(this.lblSourceResolution);
-            this.grpSource.Location = new System.Drawing.Point(12, 266);
+            this.grpSource.Location = new System.Drawing.Point(3, 241);
             this.grpSource.Name = "grpSource";
-            this.grpSource.Size = new System.Drawing.Size(662, 67);
+            this.grpSource.Size = new System.Drawing.Size(662, 68);
             this.grpSource.TabIndex = 16;
             this.grpSource.TabStop = false;
             this.grpSource.Text = "Source";
@@ -1041,7 +1048,7 @@
             "1080i",
             "720p",
             "720i"});
-            this.cmbSourceResolution.Location = new System.Drawing.Point(421, 42);
+            this.cmbSourceResolution.Location = new System.Drawing.Point(421, 43);
             this.cmbSourceResolution.Name = "cmbSourceResolution";
             this.cmbSourceResolution.Size = new System.Drawing.Size(126, 20);
             this.cmbSourceResolution.TabIndex = 8;
@@ -1058,7 +1065,7 @@
             "WEB-DL",
             "WEBRip",
             "HDTV"});
-            this.cmbSourceType.Location = new System.Drawing.Point(83, 42);
+            this.cmbSourceType.Location = new System.Drawing.Point(83, 43);
             this.cmbSourceType.Name = "cmbSourceType";
             this.cmbSourceType.Size = new System.Drawing.Size(126, 20);
             this.cmbSourceType.TabIndex = 8;
@@ -1068,7 +1075,7 @@
             // 
             this.lblSourceType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblSourceType.AutoSize = true;
-            this.lblSourceType.Location = new System.Drawing.Point(6, 45);
+            this.lblSourceType.Location = new System.Drawing.Point(6, 46);
             this.lblSourceType.Name = "lblSourceType";
             this.lblSourceType.Size = new System.Drawing.Size(35, 12);
             this.lblSourceType.TabIndex = 8;
@@ -1095,8 +1102,8 @@
             // 
             // txtSourceName
             // 
-            this.txtSourceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSourceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSourceName.Location = new System.Drawing.Point(83, 14);
             this.txtSourceName.Name = "txtSourceName";
             this.txtSourceName.Size = new System.Drawing.Size(492, 21);
@@ -1106,7 +1113,7 @@
             // 
             this.lblSourceResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSourceResolution.AutoSize = true;
-            this.lblSourceResolution.Location = new System.Drawing.Point(344, 45);
+            this.lblSourceResolution.Location = new System.Drawing.Point(344, 46);
             this.lblSourceResolution.Name = "lblSourceResolution";
             this.lblSourceResolution.Size = new System.Drawing.Size(71, 12);
             this.lblSourceResolution.TabIndex = 4;
@@ -1120,7 +1127,7 @@
             this.mnsHelp});
             this.mnsMain.Location = new System.Drawing.Point(0, 0);
             this.mnsMain.Name = "mnsMain";
-            this.mnsMain.Size = new System.Drawing.Size(686, 25);
+            this.mnsMain.Size = new System.Drawing.Size(678, 25);
             this.mnsMain.TabIndex = 17;
             this.mnsMain.Text = "menuStrip1";
             // 
@@ -1219,9 +1226,9 @@
             // 
             this.stsStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stsStatusLabel});
-            this.stsStatus.Location = new System.Drawing.Point(0, 673);
+            this.stsStatus.Location = new System.Drawing.Point(0, 693);
             this.stsStatus.Name = "stsStatus";
-            this.stsStatus.Size = new System.Drawing.Size(686, 22);
+            this.stsStatus.Size = new System.Drawing.Size(678, 22);
             this.stsStatus.TabIndex = 19;
             this.stsStatus.Text = "statusStrip1";
             // 
@@ -1230,26 +1237,125 @@
             this.stsStatusLabel.Name = "stsStatusLabel";
             this.stsStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // tblAudioAndSubtitle
+            // 
+            this.tblAudioAndSubtitle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tblAudioAndSubtitle.ColumnCount = 2;
+            this.tblAudioAndSubtitle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblAudioAndSubtitle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblAudioAndSubtitle.Controls.Add(this.grpSubtitle, 1, 0);
+            this.tblAudioAndSubtitle.Controls.Add(this.grpAudio, 0, 0);
+            this.tblAudioAndSubtitle.Location = new System.Drawing.Point(3, 423);
+            this.tblAudioAndSubtitle.Name = "tblAudioAndSubtitle";
+            this.tblAudioAndSubtitle.RowCount = 1;
+            this.tblAudioAndSubtitle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tblAudioAndSubtitle.Size = new System.Drawing.Size(662, 178);
+            this.tblAudioAndSubtitle.TabIndex = 20;
+            // 
+            // pnlMovieEncode
+            // 
+            this.pnlMovieEncode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlMovieEncode.Controls.Add(this.grpInput);
+            this.pnlMovieEncode.Controls.Add(this.tblAudioAndSubtitle);
+            this.pnlMovieEncode.Controls.Add(this.grpSource);
+            this.pnlMovieEncode.Controls.Add(this.grpGeneral);
+            this.pnlMovieEncode.Controls.Add(this.grpVideo);
+            this.pnlMovieEncode.Location = new System.Drawing.Point(5, 55);
+            this.pnlMovieEncode.Name = "pnlMovieEncode";
+            this.pnlMovieEncode.Size = new System.Drawing.Size(668, 604);
+            this.pnlMovieEncode.TabIndex = 21;
+            // 
+            // pnlOutput
+            // 
+            this.pnlOutput.Controls.Add(this.lblTargetLocation);
+            this.pnlOutput.Controls.Add(this.txtTargetLocation);
+            this.pnlOutput.Controls.Add(this.btnTargetBrowse);
+            this.pnlOutput.Controls.Add(this.btnProcess);
+            this.pnlOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlOutput.Location = new System.Drawing.Point(0, 665);
+            this.pnlOutput.Name = "pnlOutput";
+            this.pnlOutput.Size = new System.Drawing.Size(678, 28);
+            this.pnlOutput.TabIndex = 11;
+            // 
+            // lblReleaseCategory
+            // 
+            this.lblReleaseCategory.AutoSize = true;
+            this.lblReleaseCategory.Location = new System.Drawing.Point(4, 4);
+            this.lblReleaseCategory.Name = "lblReleaseCategory";
+            this.lblReleaseCategory.Size = new System.Drawing.Size(59, 12);
+            this.lblReleaseCategory.TabIndex = 0;
+            this.lblReleaseCategory.Text = "Category:";
+            // 
+            // cmbReleaseCategory
+            // 
+            this.cmbReleaseCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReleaseCategory.FormattingEnabled = true;
+            this.cmbReleaseCategory.Items.AddRange(new object[] {
+            "Movie",
+            "TV",
+            "Documentary",
+            "Sport",
+            "Music",
+            "XXX"});
+            this.cmbReleaseCategory.Location = new System.Drawing.Point(69, 1);
+            this.cmbReleaseCategory.Name = "cmbReleaseCategory";
+            this.cmbReleaseCategory.Size = new System.Drawing.Size(95, 20);
+            this.cmbReleaseCategory.TabIndex = 1;
+            this.cmbReleaseCategory.SelectedIndexChanged += new System.EventHandler(this.cmbReleaseCategory_SelectedIndexChanged);
+            // 
+            // cmbReleaseMedium
+            // 
+            this.cmbReleaseMedium.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReleaseMedium.FormattingEnabled = true;
+            this.cmbReleaseMedium.Items.AddRange(new object[] {
+            "BluRay",
+            "Encode",
+            "Remux",
+            "WEB-DL",
+            "Capture"});
+            this.cmbReleaseMedium.Location = new System.Drawing.Point(223, 1);
+            this.cmbReleaseMedium.Name = "cmbReleaseMedium";
+            this.cmbReleaseMedium.Size = new System.Drawing.Size(95, 20);
+            this.cmbReleaseMedium.TabIndex = 1;
+            // 
+            // lblReleaseMedium
+            // 
+            this.lblReleaseMedium.AutoSize = true;
+            this.lblReleaseMedium.Location = new System.Drawing.Point(170, 4);
+            this.lblReleaseMedium.Name = "lblReleaseMedium";
+            this.lblReleaseMedium.Size = new System.Drawing.Size(47, 12);
+            this.lblReleaseMedium.TabIndex = 2;
+            this.lblReleaseMedium.Text = "Medium:";
+            // 
+            // pnlReleaseType
+            // 
+            this.pnlReleaseType.Controls.Add(this.lblReleaseMedium);
+            this.pnlReleaseType.Controls.Add(this.cmbReleaseMedium);
+            this.pnlReleaseType.Controls.Add(this.cmbReleaseCategory);
+            this.pnlReleaseType.Controls.Add(this.lblReleaseCategory);
+            this.pnlReleaseType.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlReleaseType.Location = new System.Drawing.Point(0, 25);
+            this.pnlReleaseType.Name = "pnlReleaseType";
+            this.pnlReleaseType.Size = new System.Drawing.Size(678, 24);
+            this.pnlReleaseType.TabIndex = 22;
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 695);
-            this.Controls.Add(this.grpSubtitle);
+            this.ClientSize = new System.Drawing.Size(678, 715);
+            this.Controls.Add(this.pnlReleaseType);
+            this.Controls.Add(this.pnlOutput);
+            this.Controls.Add(this.pnlMovieEncode);
             this.Controls.Add(this.stsStatus);
-            this.Controls.Add(this.grpAudio);
-            this.Controls.Add(this.grpSource);
-            this.Controls.Add(this.btnTargetBrowse);
-            this.Controls.Add(this.btnProcess);
-            this.Controls.Add(this.grpVideo);
-            this.Controls.Add(this.lblTargetLocation);
-            this.Controls.Add(this.txtTargetLocation);
-            this.Controls.Add(this.grpGeneral);
-            this.Controls.Add(this.grpInput);
             this.Controls.Add(this.mnsMain);
             this.MainMenuStrip = this.mnsMain;
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(702, 733);
+            this.MinimumSize = new System.Drawing.Size(694, 733);
             this.Name = "FrmMain";
             this.Text = "TAiCHi NFO Generator";
             this.Load += new System.EventHandler(this.frmMain_Load);
@@ -1269,6 +1375,12 @@
             this.mnsMain.PerformLayout();
             this.stsStatus.ResumeLayout(false);
             this.stsStatus.PerformLayout();
+            this.tblAudioAndSubtitle.ResumeLayout(false);
+            this.pnlMovieEncode.ResumeLayout(false);
+            this.pnlOutput.ResumeLayout(false);
+            this.pnlOutput.PerformLayout();
+            this.pnlReleaseType.ResumeLayout(false);
+            this.pnlReleaseType.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1376,5 +1488,13 @@
         private System.Windows.Forms.StatusStrip stsStatus;
         private System.Windows.Forms.ToolStripStatusLabel stsStatusLabel;
         private System.Windows.Forms.ComboBox cmbSeparateChar;
+        private System.Windows.Forms.TableLayoutPanel tblAudioAndSubtitle;
+        private System.Windows.Forms.Panel pnlMovieEncode;
+        private System.Windows.Forms.Panel pnlOutput;
+        private System.Windows.Forms.Label lblReleaseCategory;
+        private System.Windows.Forms.ComboBox cmbReleaseCategory;
+        private System.Windows.Forms.ComboBox cmbReleaseMedium;
+        private System.Windows.Forms.Label lblReleaseMedium;
+        private System.Windows.Forms.Panel pnlReleaseType;
     }
 }

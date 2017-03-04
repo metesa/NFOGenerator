@@ -95,6 +95,8 @@ namespace NFOGenerator.Forms
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
             this.cmbSeparateChar.SelectedIndex = 0;
+            this.cmbReleaseCategory.SelectedIndex = 0;
+            this.cmbReleaseMedium.SelectedIndex = 0;
 
             // Check all available template
             this.cmbNfoTemplate.Items.Clear();
@@ -995,6 +997,32 @@ namespace NFOGenerator.Forms
 
         }
         #endregion
+
+        private void cmbReleaseCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.cmbReleaseCategory.SelectedIndex)
+            {
+                // TO-DO: Define a function to switch between panels
+                case 0: // Movie
+                    this.pnlMovieEncode.Show();
+                    break;
+                case 1: // TV
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 2: // Documentary
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 3: // Sport
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 4: // Music
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 5: /// XXX
+                    this.pnlMovieEncode.Hide();
+                    break;
+            }
+        }
 
     }
 }
