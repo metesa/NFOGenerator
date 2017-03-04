@@ -1024,5 +1024,30 @@ namespace NFOGenerator.Forms
             }
         }
 
+        private void btnSearchIMDb_Click(object sender, EventArgs e)
+        {
+            IMDbReader IMDb = new IMDbReader();
+            IMDb.title = this.txtGeneralTitle.Text;
+            IMDb.SendIMDbRequest();
+            IMDb.ReadIMDbID();
+            this.txtIMDb.Text = "http://www.imdb.com/title/" + IMDb.IMDbID + "/";
+        }
+
+        private void txtIMDb_TextChanged(object sender, EventArgs e)
+        {
+            if (this.txtIMDb.Text == "")
+            {
+                this.btnOpenIMDb.Enabled = false;
+            }
+            else
+            {
+                this.btnOpenIMDb.Enabled = true;
+            }
+        }
+
+        private void btnOpenIMDb_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.txtIMDb.Text);
+        }
     }
 }

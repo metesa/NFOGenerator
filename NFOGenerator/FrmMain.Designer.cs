@@ -136,6 +136,8 @@
             this.cmbReleaseMedium = new System.Windows.Forms.ComboBox();
             this.lblReleaseMedium = new System.Windows.Forms.Label();
             this.pnlReleaseType = new System.Windows.Forms.Panel();
+            this.btnSearchIMDb = new System.Windows.Forms.Button();
+            this.btnOpenIMDb = new System.Windows.Forms.Button();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -157,7 +159,7 @@
             this.txtInputFile.Location = new System.Drawing.Point(83, 20);
             this.txtInputFile.Name = "txtInputFile";
             this.txtInputFile.ReadOnly = true;
-            this.txtInputFile.Size = new System.Drawing.Size(358, 21);
+            this.txtInputFile.Size = new System.Drawing.Size(370, 21);
             this.txtInputFile.TabIndex = 0;
             this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
             // 
@@ -212,6 +214,8 @@
             // 
             this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpGeneral.Controls.Add(this.btnOpenIMDb);
+            this.grpGeneral.Controls.Add(this.btnSearchIMDb);
             this.grpGeneral.Controls.Add(this.cmbGeneralProper);
             this.grpGeneral.Controls.Add(this.cmbGeneralHybrid);
             this.grpGeneral.Controls.Add(this.cmbGeneralEdition);
@@ -506,8 +510,9 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIMDb.Location = new System.Drawing.Point(83, 41);
             this.txtIMDb.Name = "txtIMDb";
-            this.txtIMDb.Size = new System.Drawing.Size(573, 21);
+            this.txtIMDb.Size = new System.Drawing.Size(370, 21);
             this.txtIMDb.TabIndex = 1;
+            this.txtIMDb.TextChanged += new System.EventHandler(this.txtIMDb_TextChanged);
             // 
             // lblIMDb
             // 
@@ -1342,6 +1347,26 @@
             this.pnlReleaseType.Size = new System.Drawing.Size(678, 24);
             this.pnlReleaseType.TabIndex = 22;
             // 
+            // btnSearchIMDb
+            // 
+            this.btnSearchIMDb.Location = new System.Drawing.Point(459, 39);
+            this.btnSearchIMDb.Name = "btnSearchIMDb";
+            this.btnSearchIMDb.Size = new System.Drawing.Size(116, 23);
+            this.btnSearchIMDb.TabIndex = 3;
+            this.btnSearchIMDb.Text = "Search by Title";
+            this.btnSearchIMDb.UseVisualStyleBackColor = true;
+            this.btnSearchIMDb.Click += new System.EventHandler(this.btnSearchIMDb_Click);
+            // 
+            // btnOpenIMDb
+            // 
+            this.btnOpenIMDb.Location = new System.Drawing.Point(581, 39);
+            this.btnOpenIMDb.Name = "btnOpenIMDb";
+            this.btnOpenIMDb.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenIMDb.TabIndex = 11;
+            this.btnOpenIMDb.Text = "Open";
+            this.btnOpenIMDb.UseVisualStyleBackColor = true;
+            this.btnOpenIMDb.Click += new System.EventHandler(this.btnOpenIMDb_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1496,5 +1521,7 @@
         private System.Windows.Forms.ComboBox cmbReleaseMedium;
         private System.Windows.Forms.Label lblReleaseMedium;
         private System.Windows.Forms.Panel pnlReleaseType;
+        private System.Windows.Forms.Button btnSearchIMDb;
+        private System.Windows.Forms.Button btnOpenIMDb;
     }
 }

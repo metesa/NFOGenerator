@@ -92,6 +92,7 @@
     <Compile Include="Util\CryptographUtil.cs" />
     <Compile Include="Util\EnumUtil.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
+    <Compile Include="Util\IMDbReader.cs" />
     <Compile Include="Util\IOUtil.cs" />
     <Compile Include="Util\LangDic.cs" />
     <Compile Include="Util\MediaInfoDLL.cs" />
