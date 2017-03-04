@@ -170,7 +170,7 @@
             this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Controls.Add(this.cmbNfoTemplate);
             this.grpInput.Controls.Add(this.lblNfoTemplate);
-            this.grpInput.Location = new System.Drawing.Point(3, 3);
+            this.grpInput.Location = new System.Drawing.Point(9, 52);
             this.grpInput.Name = "grpInput";
             this.grpInput.Size = new System.Drawing.Size(662, 54);
             this.grpInput.TabIndex = 1;
@@ -238,7 +238,7 @@
             this.grpGeneral.Controls.Add(this.lblIMDb);
             this.grpGeneral.Controls.Add(this.txtGeneralTitle);
             this.grpGeneral.Controls.Add(this.lblGeneralTitle);
-            this.grpGeneral.Location = new System.Drawing.Point(3, 62);
+            this.grpGeneral.Location = new System.Drawing.Point(3, 5);
             this.grpGeneral.Name = "grpGeneral";
             this.grpGeneral.Size = new System.Drawing.Size(662, 174);
             this.grpGeneral.TabIndex = 2;
@@ -556,7 +556,7 @@
             this.grpAudio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpAudio.Location = new System.Drawing.Point(3, 3);
             this.grpAudio.Name = "grpAudio";
-            this.grpAudio.Size = new System.Drawing.Size(325, 172);
+            this.grpAudio.Size = new System.Drawing.Size(325, 179);
             this.grpAudio.TabIndex = 11;
             this.grpAudio.TabStop = false;
             this.grpAudio.Text = "Audio";
@@ -711,7 +711,7 @@
             this.grpSubtitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSubtitle.Location = new System.Drawing.Point(334, 3);
             this.grpSubtitle.Name = "grpSubtitle";
-            this.grpSubtitle.Size = new System.Drawing.Size(325, 172);
+            this.grpSubtitle.Size = new System.Drawing.Size(325, 179);
             this.grpSubtitle.TabIndex = 12;
             this.grpSubtitle.TabStop = false;
             this.grpSubtitle.Text = "Subtitle";
@@ -918,7 +918,7 @@
             this.grpVideo.Controls.Add(this.lblVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoFramerate);
             this.grpVideo.Controls.Add(this.txtVideoBitrate);
-            this.grpVideo.Location = new System.Drawing.Point(3, 314);
+            this.grpVideo.Location = new System.Drawing.Point(3, 257);
             this.grpVideo.Name = "grpVideo";
             this.grpVideo.Size = new System.Drawing.Size(662, 104);
             this.grpVideo.TabIndex = 15;
@@ -1029,7 +1029,7 @@
             this.grpSource.Controls.Add(this.btnSourceGuess);
             this.grpSource.Controls.Add(this.txtSourceName);
             this.grpSource.Controls.Add(this.lblSourceResolution);
-            this.grpSource.Location = new System.Drawing.Point(3, 241);
+            this.grpSource.Location = new System.Drawing.Point(3, 184);
             this.grpSource.Name = "grpSource";
             this.grpSource.Size = new System.Drawing.Size(662, 68);
             this.grpSource.TabIndex = 16;
@@ -1247,11 +1247,11 @@
             this.tblAudioAndSubtitle.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tblAudioAndSubtitle.Controls.Add(this.grpSubtitle, 1, 0);
             this.tblAudioAndSubtitle.Controls.Add(this.grpAudio, 0, 0);
-            this.tblAudioAndSubtitle.Location = new System.Drawing.Point(3, 423);
+            this.tblAudioAndSubtitle.Location = new System.Drawing.Point(3, 366);
             this.tblAudioAndSubtitle.Name = "tblAudioAndSubtitle";
             this.tblAudioAndSubtitle.RowCount = 1;
             this.tblAudioAndSubtitle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblAudioAndSubtitle.Size = new System.Drawing.Size(662, 178);
+            this.tblAudioAndSubtitle.Size = new System.Drawing.Size(662, 185);
             this.tblAudioAndSubtitle.TabIndex = 20;
             // 
             // pnlMovieEncode
@@ -1259,14 +1259,13 @@
             this.pnlMovieEncode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlMovieEncode.Controls.Add(this.grpInput);
             this.pnlMovieEncode.Controls.Add(this.tblAudioAndSubtitle);
             this.pnlMovieEncode.Controls.Add(this.grpSource);
             this.pnlMovieEncode.Controls.Add(this.grpGeneral);
             this.pnlMovieEncode.Controls.Add(this.grpVideo);
-            this.pnlMovieEncode.Location = new System.Drawing.Point(5, 55);
+            this.pnlMovieEncode.Location = new System.Drawing.Point(6, 112);
             this.pnlMovieEncode.Name = "pnlMovieEncode";
-            this.pnlMovieEncode.Size = new System.Drawing.Size(668, 604);
+            this.pnlMovieEncode.Size = new System.Drawing.Size(668, 551);
             this.pnlMovieEncode.TabIndex = 21;
             // 
             // pnlOutput
@@ -1348,6 +1347,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 715);
+            this.Controls.Add(this.grpInput);
             this.Controls.Add(this.pnlReleaseType);
             this.Controls.Add(this.pnlOutput);
             this.Controls.Add(this.pnlMovieEncode);
