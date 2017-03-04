@@ -899,6 +899,14 @@ namespace NFOGenerator.Forms
             }
         }
 
+        private void cmbSeparateChar_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+        }
+
         private void updateReleaseName()
         {
             // Load form infomation into releaseInfo.GI container.
@@ -998,6 +1006,7 @@ namespace NFOGenerator.Forms
         }
         #endregion
 
+        #region Release Category
         private void cmbReleaseCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (this.cmbReleaseCategory.SelectedIndex)
@@ -1023,7 +1032,9 @@ namespace NFOGenerator.Forms
                     break;
             }
         }
+        #endregion
 
+        #region IMDB
         private void btnSearchIMDb_Click(object sender, EventArgs e)
         {
             IMDbReader IMDb = new IMDbReader();
@@ -1049,5 +1060,6 @@ namespace NFOGenerator.Forms
         {
             System.Diagnostics.Process.Start(this.txtIMDb.Text);
         }
+        #endregion
     }
 }
