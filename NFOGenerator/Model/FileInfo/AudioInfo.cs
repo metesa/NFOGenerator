@@ -21,14 +21,17 @@ namespace NFOGenerator.Model.FileInfo
 {
     public class AudioInfo
     {
-        public string audioLang;
-        public string audioCodec;
-        public string audioChan;
-        public string audioBitr;
-        public bool audioComm;
-        public string audioCommentator;
-        public string audioInfoFull;
+        #region Private Fields
+        private string audioLang;
+        private string audioCodec;
+        private string audioChan;
+        private string audioBitr;
+        private bool audioComm;
+        private string audioCommentator;
+        private string audioInfoFull;
+        #endregion
 
+        #region Constructors
         public AudioInfo(bool isCommentary)
         {
             this.audioComm = isCommentary;
@@ -38,7 +41,9 @@ namespace NFOGenerator.Model.FileInfo
         {
             this.audioComm = false;
         }
+        #endregion
 
+        #region Public Methods
         public void UpdateAudioInfo()
         {
             if (this.audioComm)
@@ -52,6 +57,89 @@ namespace NFOGenerator.Model.FileInfo
                     ", " + this.audioBitr;
             }
         }
+        #endregion
+
+        #region Properties
+        public string AudioLanguage
+        {
+            get
+            {
+                return audioLang;
+            }
+            set
+            {
+                audioLang = value;
+            }
+        }
+
+        public string AudioCodec
+        {
+            get
+            {
+                return audioCodec;
+            }
+            set
+            {
+                audioCodec = value;
+            }
+        }
+
+        public string AudioChannel
+        {
+            get
+            {
+                return audioChan;
+            }
+            set
+            {
+                audioChan = value;
+            }
+        }
+
+        public string AudioBitrate
+        {
+            get
+            {
+                return audioBitr;
+            }
+            set
+            {
+                audioBitr = value;
+            }
+        }
+
+        public bool AudioCommentary
+        {
+            get
+            {
+                return audioComm;
+            }
+            set
+            {
+                audioComm = value;
+            }
+        }
+
+        public string AudioCommentator
+        {
+            get
+            {
+                return audioCommentator;
+            }
+            set
+            {
+                audioCommentator = value;
+            }
+        }
+
+        public readonly string AudioInfoFull
+        {
+            get
+            {
+                return audioInfoFull;
+            }
+        }
+        #endregion
     }
 
     /*

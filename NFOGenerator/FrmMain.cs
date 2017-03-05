@@ -173,7 +173,7 @@ namespace NFOGenerator.Forms
             this.lstAudio.Items.Clear();
             for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Audio); i++)
             {
-                this.lstAudio.Items.Add(this.releaseInfo.AI[i].audioInfoFull);
+                this.lstAudio.Items.Add(this.releaseInfo.AI[i].AudioInfoFull);
             }
 
             // Display subtitle info.
@@ -269,12 +269,12 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioLang;
-                this.txtAudioCodec.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioCodec;
-                this.txtAudioChannels.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioChan;
-                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioBitr;
-                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioComm;
-                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].audioCommentator;
+                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioLanguage;
+                this.txtAudioCodec.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioCodec;
+                this.txtAudioChannels.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioChannel;
+                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioBitrate;
+                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioCommentary;
+                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioCommentator;
             }
         }
 
@@ -304,15 +304,15 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.releaseInfo.AI[editIndex].audioLang = this.txtAudioLanguage.Text;
-                this.releaseInfo.AI[editIndex].audioCodec = this.txtAudioCodec.Text;
-                this.releaseInfo.AI[editIndex].audioChan = this.txtAudioChannels.Text;
-                this.releaseInfo.AI[editIndex].audioBitr = this.txtAudioBitrate.Text;
-                this.releaseInfo.AI[editIndex].audioComm = this.chkAudioCommentary.Checked;
-                this.releaseInfo.AI[editIndex].audioCommentator = this.txtAudioCommentaryBy.Text;
+                this.releaseInfo.AI[editIndex].AudioLanguage = this.txtAudioLanguage.Text;
+                this.releaseInfo.AI[editIndex].AudioCodec = this.txtAudioCodec.Text;
+                this.releaseInfo.AI[editIndex].AudioChannel = this.txtAudioChannels.Text;
+                this.releaseInfo.AI[editIndex].AudioBitrate = this.txtAudioBitrate.Text;
+                this.releaseInfo.AI[editIndex].AudioCommentary = this.chkAudioCommentary.Checked;
+                this.releaseInfo.AI[editIndex].AudioCommentator = this.txtAudioCommentaryBy.Text;
                 this.releaseInfo.AI[editIndex].UpdateAudioInfo();
                 this.lstAudio.Items.RemoveAt(editIndex);
-                this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].audioInfoFull);
+                this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].AudioInfoFull);
             }
         }
 

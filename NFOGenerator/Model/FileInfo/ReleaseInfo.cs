@@ -87,11 +87,11 @@ namespace NFOGenerator.Model.FileInfo
             {
                 // Get the language code and look it up in the dictionary.
                 this.AI[i] = new AudioInfo(this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"));
-                this.AI[i].audioLang = languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language"));
-                this.AI[i].audioCodec = this.MI.Get(StreamKind.Audio, i, "Format");
-                this.AI[i].audioChan = this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)"));
-                this.AI[i].audioBitr = this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate"));
-                this.AI[i].audioCommentator = this.MI.Get(StreamKind.Audio, i, "Title");
+                this.AI[i].AudioLanguage = languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language"));
+                this.AI[i].AudioCodec = this.MI.Get(StreamKind.Audio, i, "Format");
+                this.AI[i].AudioChannel = this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)"));
+                this.AI[i].AudioBitrate = this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate"));
+                this.AI[i].AudioCommentator = this.MI.Get(StreamKind.Audio, i, "Title");
                 this.AI[i].UpdateAudioInfo();
             }
 
