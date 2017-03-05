@@ -86,13 +86,14 @@ namespace NFOGenerator.Model.FileInfo
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
             {
                 // Get the language code and look it up in the dictionary.
-                this.AI[i] = new AudioInfo(this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"));
-                this.AI[i].AudioLanguage = languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language"));
-                this.AI[i].AudioCodec = this.MI.Get(StreamKind.Audio, i, "Format");
-                this.AI[i].AudioChannel = this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)"));
-                this.AI[i].AudioBitrate = this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate"));
-                this.AI[i].AudioCommentator = this.MI.Get(StreamKind.Audio, i, "Title");
-                this.AI[i].UpdateAudioInfo();
+                this.AI[i] = new AudioInfo(
+                    languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language")),
+                    this.MI.Get(StreamKind.Audio, i, "Format"),
+                    this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)")),
+                    this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate")),
+                    this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"),
+                    this.MI.Get(StreamKind.Audio, i, "Title")
+                );
             }
 
             this.SI = new SubtitleInfo[this.MI.Count_Get(StreamKind.Text)];
@@ -196,6 +197,7 @@ namespace NFOGenerator.Model.FileInfo
         protected string GetChannels(string paraChan)
         {
             string result;
+            //TODO: There are cases that same channel count have many different layouts.
             switch (paraChan)
             {
                 case "1":
@@ -223,7 +225,7 @@ namespace NFOGenerator.Model.FileInfo
                     result = "Unknown";
                     break;
             }
-            return result + " channels";
+            return result;
         }
 
         /// <summary>

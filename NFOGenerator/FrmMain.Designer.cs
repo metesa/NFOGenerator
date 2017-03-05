@@ -30,6 +30,7 @@
         {
             this.txtInputFile = new System.Windows.Forms.TextBox();
             this.grpInput = new System.Windows.Forms.GroupBox();
+            this.btnInputBrowse = new System.Windows.Forms.Button();
             this.lblInputFile = new System.Windows.Forms.Label();
             this.cmbNfoTemplate = new System.Windows.Forms.ComboBox();
             this.lblNfoTemplate = new System.Windows.Forms.Label();
@@ -159,7 +160,7 @@
             this.txtInputFile.Location = new System.Drawing.Point(83, 20);
             this.txtInputFile.Name = "txtInputFile";
             this.txtInputFile.ReadOnly = true;
-            this.txtInputFile.Size = new System.Drawing.Size(370, 21);
+            this.txtInputFile.Size = new System.Drawing.Size(289, 21);
             this.txtInputFile.TabIndex = 0;
             this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
             // 
@@ -168,6 +169,7 @@
             this.grpInput.AllowDrop = true;
             this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpInput.Controls.Add(this.btnInputBrowse);
             this.grpInput.Controls.Add(this.lblInputFile);
             this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Controls.Add(this.cmbNfoTemplate);
@@ -180,6 +182,16 @@
             this.grpInput.Text = "Input";
             this.grpInput.DragDrop += new System.Windows.Forms.DragEventHandler(this.grpInput_DragDrop);
             this.grpInput.DragEnter += new System.Windows.Forms.DragEventHandler(this.grpInput_DragEnter);
+            // 
+            // btnInputBrowse
+            // 
+            this.btnInputBrowse.Location = new System.Drawing.Point(378, 19);
+            this.btnInputBrowse.Name = "btnInputBrowse";
+            this.btnInputBrowse.Size = new System.Drawing.Size(75, 21);
+            this.btnInputBrowse.TabIndex = 9;
+            this.btnInputBrowse.Text = "Browse";
+            this.btnInputBrowse.UseVisualStyleBackColor = true;
+            this.btnInputBrowse.Click += new System.EventHandler(this.btnInputBrowse_Click);
             // 
             // lblInputFile
             // 
@@ -334,16 +346,15 @@
             this.cmbSeparateChar.Items.AddRange(new object[] {
             "Space",
             "Dot"});
-            this.cmbSeparateChar.Location = new System.Drawing.Point(536, 147);
+            this.cmbSeparateChar.Location = new System.Drawing.Point(581, 147);
             this.cmbSeparateChar.Name = "cmbSeparateChar";
-            this.cmbSeparateChar.Size = new System.Drawing.Size(120, 20);
+            this.cmbSeparateChar.Size = new System.Drawing.Size(75, 20);
             this.cmbSeparateChar.TabIndex = 8;
             this.cmbSeparateChar.SelectedIndexChanged += new System.EventHandler(this.cmbSeparateChar_SelectedIndexChanged_1);
             // 
             // cmbGeneralAudio
             // 
             this.cmbGeneralAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbGeneralAudio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralAudio.FormattingEnabled = true;
             this.cmbGeneralAudio.Items.AddRange(new object[] {
             "DTS",
@@ -359,6 +370,7 @@
             this.cmbGeneralAudio.Name = "cmbGeneralAudio";
             this.cmbGeneralAudio.Size = new System.Drawing.Size(120, 20);
             this.cmbGeneralAudio.TabIndex = 8;
+            this.cmbGeneralAudio.TextChanged += new System.EventHandler(this.cmbGeneralAudio_TextChanged);
             this.cmbGeneralAudio.SelectedIndexChanged += new System.EventHandler(this.cmbGeneralAudio_SelectedIndexChanged);
             // 
             // cmbGeneralResolution
@@ -367,6 +379,7 @@
             this.cmbGeneralResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGeneralResolution.FormattingEnabled = true;
             this.cmbGeneralResolution.Items.AddRange(new object[] {
+            "2160p",
             "1080p",
             "720p",
             "576p",
@@ -405,7 +418,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGeneralReleaseName.Location = new System.Drawing.Point(83, 148);
             this.txtGeneralReleaseName.Name = "txtGeneralReleaseName";
-            this.txtGeneralReleaseName.Size = new System.Drawing.Size(447, 21);
+            this.txtGeneralReleaseName.Size = new System.Drawing.Size(492, 21);
             this.txtGeneralReleaseName.TabIndex = 6;
             // 
             // chkGeneralChaptersIncluded
@@ -435,6 +448,7 @@
             // 
             this.lblGeneralAudio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGeneralAudio.AutoSize = true;
+            this.lblGeneralAudio.ForeColor = System.Drawing.Color.Black;
             this.lblGeneralAudio.Location = new System.Drawing.Point(459, 97);
             this.lblGeneralAudio.Name = "lblGeneralAudio";
             this.lblGeneralAudio.Size = new System.Drawing.Size(41, 12);
@@ -538,6 +552,7 @@
             // lblIMDb
             // 
             this.lblIMDb.AutoSize = true;
+            this.lblIMDb.ForeColor = System.Drawing.Color.Black;
             this.lblIMDb.Location = new System.Drawing.Point(6, 44);
             this.lblIMDb.Name = "lblIMDb";
             this.lblIMDb.Size = new System.Drawing.Size(65, 12);
@@ -557,6 +572,7 @@
             // lblGeneralTitle
             // 
             this.lblGeneralTitle.AutoSize = true;
+            this.lblGeneralTitle.ForeColor = System.Drawing.Color.Black;
             this.lblGeneralTitle.Location = new System.Drawing.Point(6, 17);
             this.lblGeneralTitle.Name = "lblGeneralTitle";
             this.lblGeneralTitle.Size = new System.Drawing.Size(41, 12);
@@ -1007,6 +1023,7 @@
             // lblVideoCodec
             // 
             this.lblVideoCodec.AutoSize = true;
+            this.lblVideoCodec.ForeColor = System.Drawing.Color.Black;
             this.lblVideoCodec.Location = new System.Drawing.Point(162, 79);
             this.lblVideoCodec.Name = "lblVideoCodec";
             this.lblVideoCodec.Size = new System.Drawing.Size(41, 12);
@@ -1309,7 +1326,7 @@
             // lblReleaseCategory
             // 
             this.lblReleaseCategory.AutoSize = true;
-            this.lblReleaseCategory.Location = new System.Drawing.Point(4, 4);
+            this.lblReleaseCategory.Location = new System.Drawing.Point(14, 5);
             this.lblReleaseCategory.Name = "lblReleaseCategory";
             this.lblReleaseCategory.Size = new System.Drawing.Size(59, 12);
             this.lblReleaseCategory.TabIndex = 0;
@@ -1326,7 +1343,7 @@
             "Sport",
             "Music",
             "XXX"});
-            this.cmbReleaseCategory.Location = new System.Drawing.Point(69, 1);
+            this.cmbReleaseCategory.Location = new System.Drawing.Point(79, 2);
             this.cmbReleaseCategory.Name = "cmbReleaseCategory";
             this.cmbReleaseCategory.Size = new System.Drawing.Size(95, 20);
             this.cmbReleaseCategory.TabIndex = 1;
@@ -1342,7 +1359,7 @@
             "Remux",
             "WEB-DL",
             "Capture"});
-            this.cmbReleaseMedium.Location = new System.Drawing.Point(223, 1);
+            this.cmbReleaseMedium.Location = new System.Drawing.Point(233, 2);
             this.cmbReleaseMedium.Name = "cmbReleaseMedium";
             this.cmbReleaseMedium.Size = new System.Drawing.Size(95, 20);
             this.cmbReleaseMedium.TabIndex = 1;
@@ -1350,7 +1367,7 @@
             // lblReleaseMedium
             // 
             this.lblReleaseMedium.AutoSize = true;
-            this.lblReleaseMedium.Location = new System.Drawing.Point(170, 4);
+            this.lblReleaseMedium.Location = new System.Drawing.Point(180, 5);
             this.lblReleaseMedium.Name = "lblReleaseMedium";
             this.lblReleaseMedium.Size = new System.Drawing.Size(47, 12);
             this.lblReleaseMedium.TabIndex = 2;
@@ -1524,5 +1541,6 @@
         private System.Windows.Forms.Panel pnlReleaseType;
         private System.Windows.Forms.Button btnSearchIMDb;
         private System.Windows.Forms.Button btnOpenIMDb;
+        private System.Windows.Forms.Button btnInputBrowse;
     }
 }

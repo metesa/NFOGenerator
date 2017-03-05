@@ -82,7 +82,7 @@ namespace NFOGenerator.Forms
         private void frmMain_Load(object sender, EventArgs e)
         {
             // Initialize form.
-
+            
             // Add items to general year comboBox and set default to current year
             int currentYear = DateTime.Now.Year;
             while (currentYear >= 1900)
@@ -170,10 +170,16 @@ namespace NFOGenerator.Forms
             this.cmbVideoCodec.Text = this.releaseInfo.VI.codec;
 
             // Display audio info.
+            bool haventFoundMainAudio = true;
             this.lstAudio.Items.Clear();
             for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Audio); i++)
             {
-                this.lstAudio.Items.Add(this.releaseInfo.AI[i].AudioInfoFull);
+                if (haventFoundMainAudio && !this.releaseInfo.AI[i].AudioCommentary)
+                {
+                    this.cmbGeneralAudio.Text = this.releaseInfo.AI[0].AudioTitleInfo;
+                    haventFoundMainAudio = false;
+                }
+                this.lstAudio.Items.Add(this.releaseInfo.AI[i].ToString());
             }
 
             // Display subtitle info.
@@ -188,12 +194,44 @@ namespace NFOGenerator.Forms
 
             updateReleaseName();
             autoGenerate = true;
+
+            // Update label colors and set the color of empty items to red
+            txtGeneralTitle_TextChanged(this, null);
+            cmbGeneralAudio_TextChanged(this, null);
+            cmbVideoCodec_SelectedIndexChanged(this, null);
+            txtIMDb_TextChanged(this, null);
+        }
+
+        private void btnInputBrowse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Filter = "mkv media file(*.mkv)|*.mkv|mp4 media file(*.mp4)|*.mp4|all files|*.*";
+            ofd.ValidateNames = true;
+            ofd.CheckPathExists = true;
+            ofd.CheckFileExists = true;
+            if (txtInputFile.Text != "")
+            {
+                ofd.InitialDirectory = Path.GetDirectoryName(txtInputFile.Text);
+                ofd.FileName = Path.GetFileName(txtInputFile.Text);
+            }
+            
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                txtInputFile.Text = ofd.FileName;
+            }
         }
 
         private void btnTargetBrowse_Click(object sender, EventArgs e)
         {
             // Displays a FolderBrowserDialog so the user can select a location to put the NFO
             FolderBrowserDialog selectTargetLocation = new FolderBrowserDialog();
+
+            // Set default path if there is an existing path.
+            if (txtTargetLocation.Text != "")
+            {
+                selectTargetLocation.SelectedPath = txtTargetLocation.Text;
+            }
 
             // Show the dialog.
             // When the user selected a folder, send the location to target location textBox.
@@ -304,15 +342,15 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.releaseInfo.AI[editIndex].AudioLanguage = this.txtAudioLanguage.Text;
-                this.releaseInfo.AI[editIndex].AudioCodec = this.txtAudioCodec.Text;
-                this.releaseInfo.AI[editIndex].AudioChannel = this.txtAudioChannels.Text;
-                this.releaseInfo.AI[editIndex].AudioBitrate = this.txtAudioBitrate.Text;
-                this.releaseInfo.AI[editIndex].AudioCommentary = this.chkAudioCommentary.Checked;
-                this.releaseInfo.AI[editIndex].AudioCommentator = this.txtAudioCommentaryBy.Text;
-                this.releaseInfo.AI[editIndex].UpdateAudioInfo();
+                this.releaseInfo.AI[editIndex].UpdateAudioInfo(
+                    this.txtAudioLanguage.Text, 
+                    this.txtAudioCodec.Text,
+                    this.txtAudioChannels.Text, 
+                    this.txtAudioBitrate.Text, 
+                    this.chkAudioCommentary.Checked,
+                    this.txtAudioCommentaryBy.Text);
                 this.lstAudio.Items.RemoveAt(editIndex);
-                this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].AudioInfoFull);
+                this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].ToString());
             }
         }
 
@@ -339,6 +377,51 @@ namespace NFOGenerator.Forms
         #endregion
 
         #region Process
+        private bool containsUnknownItems()
+        {
+            for (int i = 0; i < this.lstAudio.Items.Count; i++)
+            {
+                if (this.lstAudio.Items[i].ToString().ToLower().Contains("unknown"))
+                {
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
+            {
+                if (this.lstSubtitle.Items[i].ToString().ToLower().Contains("unknown"))
+                {
+                    return true;
+                }
+            }
+
+            if (this.txtGeneralTitle.Text == "")
+            {
+                return true;
+            }
+
+            if (this.txtIMDb.Text == "")
+            {
+                return true;
+            }
+
+            if (this.cmbGeneralAudio.Text == "")
+            {
+                return true;
+            }
+
+            if (this.cmbSourceType.Text == "")
+            {
+                return true;
+            }
+
+            if (this.cmbVideoCodec.Text == "")
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void btnProcess_Click(object sender, EventArgs e)
         {
             if (this.cmbNfoTemplate.Items.Count < 1)
@@ -347,6 +430,14 @@ namespace NFOGenerator.Forms
             }
             else
             {
+                if (containsUnknownItems())
+                {
+                    if (MessageBox.Show("There are some \"Unknown\" items. Do you want to continue?", "", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+
                 string audioCombined = "";
                 string subCombined = "";
                 string chapters = "";
@@ -445,7 +536,7 @@ namespace NFOGenerator.Forms
                 int comboBoxIndex = -1;
 
                 Regex yearRgx = new Regex(@"((19)|(20))\d{2}");
-                Regex resolutionRgx = new Regex(@"[0-9]{2,3}0p");
+                Regex resolutionRgx = new Regex(@"(576)|([0-9]{2,3}0)p");
 
                 Regex sourceRgx = new Regex(@"(bluray)|(blu-ray)|(hddvd)|(hd-dvd)|(dvdrip)|(web-dl)|(webrip)|(hdtv)");
                 Regex specialEditionRgx = new Regex(@"(tc)|(dc)|(theatrical)|(extended)|(theatrical cut)|(extended cut)|(theatrical.cut)|(extended.cut)|(cc)|(criterion collection)|(criterion.collection)|(criterion)|(unrated)|(directors cut)|(directors.cut)|(director's cut)|(directors's.cut)|(directors)|(director's)");
@@ -934,6 +1025,14 @@ namespace NFOGenerator.Forms
             {
                 updateReleaseName();
             }
+            if (txtInputFile.Text != "" && txtGeneralTitle.Text == "")
+            {
+                lblGeneralTitle.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblGeneralTitle.ForeColor = Color.Black;
+            }
         }
 
         private void cmbGeneralYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -976,6 +1075,18 @@ namespace NFOGenerator.Forms
             }
         }
 
+        private void cmbGeneralAudio_TextChanged(object sender, EventArgs e)
+        {
+            if (txtInputFile.Text != "" && cmbGeneralAudio.Text == "")
+            {
+                lblGeneralAudio.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblGeneralAudio.ForeColor = Color.Black;
+            }
+        }
+
         private void cmbGeneralAudio_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (autoGenerate)
@@ -997,6 +1108,14 @@ namespace NFOGenerator.Forms
             if (autoGenerate)
             {
                 updateReleaseName();
+            }
+            if (txtInputFile.Text != "" && cmbVideoCodec.Text == "UNKNOWN")
+            {
+                lblGeneralAudio.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblGeneralAudio.ForeColor = Color.Black;
             }
         }
 
@@ -1053,6 +1172,14 @@ namespace NFOGenerator.Forms
             else
             {
                 this.btnOpenIMDb.Enabled = true;
+            }
+            if (txtInputFile.Text != "" && txtIMDb.Text == "")
+            {
+                lblIMDb.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblIMDb.ForeColor = Color.Black;
             }
         }
 

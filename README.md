@@ -2,10 +2,9 @@
 [![](https://img.shields.io/badge/TAiCHi-encoding-brightgreen.svg?style=flat)](https://github.com/metesa/NFOGenerator)
 [![GitHub version](https://badge.fury.io/gh/metesa%2FNFOGenerator.svg)](https://badge.fury.io/gh/metesa%2FNFOGenerator)
 
-Building Status
-
 master : [![Build Status](https://travis-ci.org/metesa/NFOGenerator.svg?branch=master)](https://travis-ci.org/metesa/NFOGenerator)
 dev    : [![Build Status](https://travis-ci.org/metesa/NFOGenerator.svg?branch=dev)](https://travis-ci.org/metesa/NFOGenerator)
+
 ---
 An internal tool which can generate NFO with specific form automatically.
 

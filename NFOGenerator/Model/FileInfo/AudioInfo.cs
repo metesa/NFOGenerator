@@ -29,6 +29,8 @@ namespace NFOGenerator.Model.FileInfo
         private bool audioComm;
         private string audioCommentator;
         private string audioInfoFull;
+
+        private bool containsUnknownItem;
         #endregion
 
         #region Constructors
@@ -41,10 +43,36 @@ namespace NFOGenerator.Model.FileInfo
         {
             this.audioComm = false;
         }
+
+        public AudioInfo(string language, string codec, string channel, string bitrate, bool commentary, string commentator)
+        {
+            UpdateAudioInfo(language, codec, channel, bitrate, commentary, commentator);
+        }
         #endregion
 
         #region Public Methods
-        public void UpdateAudioInfo()
+        public void UpdateAudioInfo(string language, string codec, string channel, string bitrate, bool commentary, string commentator)
+        {
+            this.audioLang = language;
+            this.audioCodec = parseCodec(codec);
+            this.audioChan = channel;
+            this.audioBitr = bitrate;
+            this.audioComm = commentary;
+            this.audioCommentator = commentator;
+            if (language == "Unknown" || audioChan == "Unknown" || audioBitr == "")
+            {
+                containsUnknownItem = true;
+            }
+            else
+            {
+                containsUnknownItem = false;
+            }
+            UpdateAudioText();
+        }
+        #endregion
+
+        #region Private Methods
+        private void UpdateAudioText()
         {
             if (this.audioComm)
             {
@@ -53,8 +81,19 @@ namespace NFOGenerator.Model.FileInfo
             }
             else
             {
-                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + this.audioChan + 
+                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + this.audioChan +
                     ", " + this.audioBitr;
+            }
+        }
+        
+        private string parseCodec(string text)
+        {
+            switch (text)
+            {
+                case "AC-3":
+                    return "DD";
+                default:
+                    return text;
             }
         }
         #endregion
@@ -69,6 +108,7 @@ namespace NFOGenerator.Model.FileInfo
             set
             {
                 audioLang = value;
+                UpdateAudioText();
             }
         }
 
@@ -80,7 +120,8 @@ namespace NFOGenerator.Model.FileInfo
             }
             set
             {
-                audioCodec = value;
+                audioCodec = parseCodec(value);
+                UpdateAudioText();
             }
         }
 
@@ -88,11 +129,19 @@ namespace NFOGenerator.Model.FileInfo
         {
             get
             {
-                return audioChan;
+                if (audioChan == "1.0")
+                {
+                    return audioChan + " channel";
+                }
+                else
+                {
+                    return audioChan + " channels";
+                }
             }
             set
             {
                 audioChan = value;
+                UpdateAudioText();
             }
         }
 
@@ -105,6 +154,7 @@ namespace NFOGenerator.Model.FileInfo
             set
             {
                 audioBitr = value;
+                UpdateAudioText();
             }
         }
 
@@ -117,6 +167,7 @@ namespace NFOGenerator.Model.FileInfo
             set
             {
                 audioComm = value;
+                UpdateAudioText();
             }
         }
 
@@ -129,15 +180,41 @@ namespace NFOGenerator.Model.FileInfo
             set
             {
                 audioCommentator = value;
+                UpdateAudioText();
             }
         }
 
-        public readonly string AudioInfoFull
+        public string AudioTitleInfo
         {
             get
             {
-                return audioInfoFull;
+                switch (audioCodec)
+                {
+                    case "DTS-ES":
+                        return AudioCodec;
+                    case "DD-EX":
+                        return AudioCodec;
+                    case "DTS":
+                        return AudioCodec;
+                    default:
+                        return AudioCodec + audioChan;
+                }
             }
+        }
+
+        public bool ContainsUnknowItem
+        {
+            get
+            {
+                return containsUnknownItem;
+            }
+        }
+        #endregion
+
+        #region Object Members
+        public override string ToString()
+        {
+            return audioInfoFull;
         }
         #endregion
     }
