@@ -181,25 +181,42 @@ namespace NFOGenerator.Forms
                 }
                 this.lstAudio.Items.Add(this.releaseInfo.AI[i].ToString());
             }
+            if (this.releaseInfo.AudioContainsUnknownItem())
+            {
+                grpAudio.ForeColor = Color.Red;
+            }
+            else
+            {
+                grpAudio.ForeColor = Color.Black;
+            }
 
             // Display subtitle info.
             this.lstSubtitle.Items.Clear();
             for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Text); i++)
             {
-                this.lstSubtitle.Items.Add(this.releaseInfo.SI[i].subInfoFull);
+                this.lstSubtitle.Items.Add(this.releaseInfo.SI[i].ToString());
+            }
+            if (this.releaseInfo.SubtitleContainsUnknownItem())
+            {
+                grpSubtitle.ForeColor = Color.Red;
+            }
+            else
+            {
+                grpSubtitle.ForeColor = Color.Black;
             }
 
             // Add default output folder
             txtTargetLocation.Text = new FileInfo(this.txtInputFile.Text).DirectoryName;
 
             updateReleaseName();
-            autoGenerate = true;
 
             // Update label colors and set the color of empty items to red
             txtGeneralTitle_TextChanged(this, null);
             cmbGeneralAudio_TextChanged(this, null);
             cmbVideoCodec_SelectedIndexChanged(this, null);
             txtIMDb_TextChanged(this, null);
+
+            autoGenerate = true;
         }
 
         private void btnInputBrowse_Click(object sender, EventArgs e)
@@ -324,11 +341,11 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subLang;
-                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subFormat;
-                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subComment;
-                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subForced;
-                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].subSDH;
+                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleLanguage;
+                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleFormat;
+                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleComment;
+                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleForced;
+                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleSDH;
             }
         }
 
@@ -351,6 +368,14 @@ namespace NFOGenerator.Forms
                     this.txtAudioCommentaryBy.Text);
                 this.lstAudio.Items.RemoveAt(editIndex);
                 this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].ToString());
+                if (this.releaseInfo.AudioContainsUnknownItem())
+                {
+                    grpAudio.ForeColor = Color.Red;
+                }
+                else
+                {
+                    grpAudio.ForeColor = Color.Black;
+                }
             }
         }
 
@@ -364,14 +389,23 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.releaseInfo.SI[editIndex].subLang = this.txtSubtitleLanguage.Text;
-                this.releaseInfo.SI[editIndex].subFormat = this.txtSubtitleFormat.Text;
-                this.releaseInfo.SI[editIndex].subComment = this.txtSubtitleComment.Text;
-                this.releaseInfo.SI[editIndex].subForced = this.chkSubtitleForced.Checked;
-                this.releaseInfo.SI[editIndex].subSDH = this.chkSubtitleSDH.Checked;
-                this.releaseInfo.SI[editIndex].UpdateSubtitleInfo();
+                this.releaseInfo.SI[editIndex].UpdateSubtitleInfo(
+                    this.txtSubtitleLanguage.Text,
+                    this.txtSubtitleFormat.Text,
+                    this.txtSubtitleComment.Text,
+                    this.chkSubtitleForced.Checked,
+                    this.chkSubtitleSDH.Checked
+                );
                 this.lstSubtitle.Items.RemoveAt(editIndex);
-                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[editIndex].subInfoFull);
+                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[editIndex].ToString());
+                if (this.releaseInfo.SubtitleContainsUnknownItem())
+                {
+                    grpSubtitle.ForeColor = Color.Red;
+                }
+                else
+                {
+                    grpSubtitle.ForeColor = Color.Black;
+                }
             }
         }
         #endregion
@@ -379,42 +413,32 @@ namespace NFOGenerator.Forms
         #region Process
         private bool containsUnknownItems()
         {
-            for (int i = 0; i < this.lstAudio.Items.Count; i++)
+            if (this.releaseInfo.AudioContainsUnknownItem())
             {
-                if (this.lstAudio.Items[i].ToString().ToLower().Contains("unknown"))
-                {
-                    return true;
-                }
+                return true;
             }
 
-            for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
+            if (this.releaseInfo.SubtitleContainsUnknownItem())
             {
-                if (this.lstSubtitle.Items[i].ToString().ToLower().Contains("unknown"))
-                {
-                    return true;
-                }
+                return true;
             }
 
             if (this.txtGeneralTitle.Text == "")
             {
                 return true;
             }
-
             if (this.txtIMDb.Text == "")
             {
                 return true;
             }
-
             if (this.cmbGeneralAudio.Text == "")
             {
                 return true;
             }
-
             if (this.cmbSourceType.Text == "")
             {
                 return true;
             }
-
             if (this.cmbVideoCodec.Text == "")
             {
                 return true;
@@ -990,14 +1014,6 @@ namespace NFOGenerator.Forms
             }
         }
 
-        private void cmbSeparateChar_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (autoGenerate)
-            {
-                updateReleaseName();
-            }
-        }
-
         private void updateReleaseName()
         {
             // Load form infomation into releaseInfo.GI container.
@@ -1111,17 +1127,20 @@ namespace NFOGenerator.Forms
             }
             if (txtInputFile.Text != "" && cmbVideoCodec.Text == "UNKNOWN")
             {
-                lblGeneralAudio.ForeColor = Color.Red;
+                lblVideoCodec.ForeColor = Color.Red;
             }
             else
             {
-                lblGeneralAudio.ForeColor = Color.Black;
+                lblVideoCodec.ForeColor = Color.Black;
             }
         }
 
         private void cmbSeparateChar_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
         }
         #endregion
 

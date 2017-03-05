@@ -350,7 +350,7 @@
             this.cmbSeparateChar.Name = "cmbSeparateChar";
             this.cmbSeparateChar.Size = new System.Drawing.Size(75, 20);
             this.cmbSeparateChar.TabIndex = 8;
-            this.cmbSeparateChar.SelectedIndexChanged += new System.EventHandler(this.cmbSeparateChar_SelectedIndexChanged_1);
+            this.cmbSeparateChar.SelectedIndexChanged += new System.EventHandler(this.cmbSeparateChar_SelectedIndexChanged);
             // 
             // cmbGeneralAudio
             // 
@@ -370,8 +370,8 @@
             this.cmbGeneralAudio.Name = "cmbGeneralAudio";
             this.cmbGeneralAudio.Size = new System.Drawing.Size(120, 20);
             this.cmbGeneralAudio.TabIndex = 8;
-            this.cmbGeneralAudio.TextChanged += new System.EventHandler(this.cmbGeneralAudio_TextChanged);
             this.cmbGeneralAudio.SelectedIndexChanged += new System.EventHandler(this.cmbGeneralAudio_SelectedIndexChanged);
+            this.cmbGeneralAudio.TextChanged += new System.EventHandler(this.cmbGeneralAudio_TextChanged);
             // 
             // cmbGeneralResolution
             // 
@@ -596,6 +596,7 @@
             this.grpAudio.Controls.Add(this.txtAudioLanguage);
             this.grpAudio.Controls.Add(this.lblAudioLanguage);
             this.grpAudio.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpAudio.ForeColor = System.Drawing.Color.Black;
             this.grpAudio.Location = new System.Drawing.Point(3, 3);
             this.grpAudio.Name = "grpAudio";
             this.grpAudio.Size = new System.Drawing.Size(325, 179);

@@ -100,17 +100,43 @@ namespace NFOGenerator.Model.FileInfo
 
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
             {
-                this.SI[i] = new SubtitleInfo();
-                this.SI[i].subLang = languageName.GetFullName(this.MI.Get(StreamKind.Text, i, "Language"));
-                this.SI[i].subFormat = this.MI.Get(StreamKind.Text, i, "Format");
-                this.SI[i].subComment = this.MI.Get(StreamKind.Text, 0, "Title");
-                this.SI[i].subForced = (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || 
-                    this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced"));
-                this.SI[i].subSDH = this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "SDH");
-                this.SI[i].UpdateSubtitleInfo();
+                this.SI[i] = new SubtitleInfo(
+                    languageName.GetFullName(this.MI.Get(StreamKind.Text, i, "Language")),
+                    this.MI.Get(StreamKind.Text, i, "Format"),
+                    this.MI.Get(StreamKind.Text, 0, "Title"),
+                    (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced")),
+                    this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "SDH")
+                );
             }
         }
 
+        public bool AudioContainsUnknownItem()
+        {
+            bool containsUnknownItem = false;
+            for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
+            {
+                if (this.AI[i].ContainsUnknowItem)
+                {
+                    containsUnknownItem = true;
+                    break;
+                }
+            }
+            return containsUnknownItem;
+        }
+
+        public bool SubtitleContainsUnknownItem()
+        {
+            bool containsUnknownItem = false;
+            for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
+            {
+                if (this.AI[i].ContainsUnknowItem)
+                {
+                    containsUnknownItem = true;
+                    break;
+                }
+            }
+            return containsUnknownItem;
+        }
         /*-------------------------------------------------------------------------
          * Protected custom methods down below
          * ------------------------------------------------------------------------*/

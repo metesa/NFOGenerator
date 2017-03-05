@@ -133,6 +133,10 @@ namespace NFOGenerator.Model.FileInfo
                 {
                     return audioChan + " channel";
                 }
+                else if (audioChan.EndsWith(" channels"))
+                {
+                    return audioChan;
+                }
                 else
                 {
                     return audioChan + " channels";

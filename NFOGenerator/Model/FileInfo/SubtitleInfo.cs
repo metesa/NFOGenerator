@@ -20,12 +20,14 @@ namespace NFOGenerator.Model.FileInfo
 {
     public class SubtitleInfo
     {
-        public string subLang;
-        public string subFormat;
-        public string subComment;
-        public bool subForced;
-        public bool subSDH;
-        public string subInfoFull;
+        private string subLang;
+        private string subFormat;
+        private string subComment;
+        private bool subForced;
+        private bool subSDH;
+        private string subInfoFull;
+
+        private bool containsUnknownItem;
 
         public SubtitleInfo(bool isForced, bool isSDH)
        {
@@ -39,7 +41,30 @@ namespace NFOGenerator.Model.FileInfo
             this.subSDH = false;
         }
 
-        public void UpdateSubtitleInfo()
+        public SubtitleInfo(string language, string format, string comment, bool forced, bool sdh)
+        {
+            UpdateSubtitleInfo(language, format, comment, forced, sdh);
+        }
+
+        public void UpdateSubtitleInfo(string language, string format, string comment, bool forced, bool sdh)
+        {
+            this.subLang = language;
+            this.subFormat = format;
+            this.subComment = comment;
+            this.subForced = forced;
+            this.subSDH = sdh;
+            if (language == "Unknown")
+            {
+                containsUnknownItem = true;
+            }
+            else
+            {
+                containsUnknownItem = false;
+            }
+            UpdateSubtitleText();
+        }
+
+        private void UpdateSubtitleText()
         {
             if (this.subSDH)
             {
@@ -62,6 +87,79 @@ namespace NFOGenerator.Model.FileInfo
                 {
                     this.subInfoFull = this.subLang + " (" + this.subFormat + ")";
                 }
+            }
+        }
+
+        public string SubtitleLanguage
+        {
+            get
+            {
+                return subLang;
+            }
+            set
+            {
+                subLang = value;
+            }
+        }
+
+        public string SubtitleFormat
+        {
+            get
+            {
+                return subFormat;
+            }
+            set
+            {
+                subFormat = value;
+            }
+        }
+
+        public string SubtitleComment
+        {
+            get
+            {
+                return subComment;
+            }
+            set
+            {
+                subComment = value;
+            }
+        }
+
+        public bool SubtitleForced
+        {
+            get
+            {
+                return subForced;
+            }
+            set
+            {
+                subForced = value;
+            }
+        }
+
+        public bool SubtitleSDH
+        {
+            get
+            {
+                return subSDH;
+            }
+            set
+            {
+                subSDH = value;
+            }
+        }
+
+        public override string ToString()
+        {
+            return this.subInfoFull;
+        }
+
+        public bool ContainsUnknowItem
+        {
+            get
+            {
+                return containsUnknownItem;
             }
         }
     }
