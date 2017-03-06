@@ -1,22 +1,26 @@
 # Changelog
 ---
 
-### NFOGenerator v0.6.6-Alpha  (Mar. 05, 2017)
+### NFOGenerator v0.6.7-Alpha  (Mar. 06, 2017)
 
 **"Ubiquitous Tribble"**
 
-Features:
+Features (1):
 
 > * Search for imdb id base on title
 
-Bugfix:
+Bugfixes (3):
 
 > * Fix the bug that the title doesn't update when separate char changes
-> * Add the file input dialog back as an alternative input method
 > * Fix the bug that display "1.0 channel" as "1.0 channels"
-> * Add support for 576p resolution
 > * Fix the audio info bug so that info extracted by mediainfo can be used to generate release name
-> * Add "Unknown" item check before generating, now it'll prompt if there are "Unknown" items
+
+Tweaks (4):
+
+> * Add the file input dialog back as an alternative input method
+> * Label turns red if there are "Unknown" items, also the program will prompt when you click the process button
+> * Add support for 576p resolution
+> * Use a more precise method to determine channel layout
 
 ### NFOGenerator v0.5.0-Alpha  (Mar. 03, 2017)
 

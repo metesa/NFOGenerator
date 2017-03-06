@@ -76,12 +76,12 @@ namespace NFOGenerator.Model.FileInfo
         {
             if (this.audioComm)
             {
-                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + this.audioChan +
+                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + AudioChannel +
                     ", " + this.audioBitr + Environment.NewLine + "  (" + this.audioCommentator + ")";
             }
             else
             {
-                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + this.audioChan +
+                this.audioInfoFull = this.audioLang + ", " + this.audioCodec + ", " + AudioChannel +
                     ", " + this.audioBitr;
             }
         }

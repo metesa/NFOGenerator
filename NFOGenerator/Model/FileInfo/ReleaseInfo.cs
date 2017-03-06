@@ -89,7 +89,10 @@ namespace NFOGenerator.Model.FileInfo
                 this.AI[i] = new AudioInfo(
                     languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language")),
                     this.MI.Get(StreamKind.Audio, i, "Format"),
-                    this.GetChannels(this.MI.Get(StreamKind.Audio, i, "Channel(s)")),
+                    this.GetChannels(
+                        this.MI.Get(StreamKind.Audio, i, "ChannelPositions/String2"),
+                        this.MI.Get(StreamKind.Audio, i, "Channel(s)")
+                    ),
                     this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate")),
                     this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"),
                     this.MI.Get(StreamKind.Audio, i, "Title")
@@ -129,7 +132,7 @@ namespace NFOGenerator.Model.FileInfo
             bool containsUnknownItem = false;
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
             {
-                if (this.AI[i].ContainsUnknowItem)
+                if (this.SI[i].ContainsUnknowItem)
                 {
                     containsUnknownItem = true;
                     break;
@@ -220,38 +223,66 @@ namespace NFOGenerator.Model.FileInfo
             return result;
         }
 
-        protected string GetChannels(string paraChan)
+        protected string GetChannels(string paraChanPos, string paraChanCount)
         {
             string result;
-            //TODO: There are cases that same channel count have many different layouts.
-            switch (paraChan)
+            string firstPart = "";
+            string secondPart = "";
+            if (paraChanPos.Contains("."))
             {
-                case "1":
-                    result = "1.0";
-                    break;
-                case "2":
-                    result = "2.0";
-                    break;
-                case "3":
-                    result = "2.1";
-                    break;
-                case "4":
-                    result = "4.0";
-                    break;
-                case "5":
-                    result = "4.1";
-                    break;
-                case "6":
-                    result = "5.1";
-                    break;
-                case "8":
-                    result = "7.1";
-                    break;
-                default:
-                    result = "Unknown";
-                    break;
+                string[] chanStr = paraChanPos.Split(new char[]{'.'}, StringSplitOptions.RemoveEmptyEntries);
+                if (chanStr.Length < 2)
+                {
+                    firstPart = paraChanPos;
+                    secondPart = "0";
+                }
+                else
+                {
+                    firstPart = chanStr[0];
+                    secondPart = chanStr[1];
+                }
             }
-            return result;
+            else
+            {
+                firstPart = paraChanPos;
+                secondPart = "0";
+            }
+
+            firstPart = GetSumOfDigitalString(firstPart, "/").ToString();
+
+            if (firstPart == "-1")
+            {
+                throw new Exception("Unrecognized channel positions: " + paraChanPos);
+            }
+
+            result = firstPart + "." + secondPart;
+            if (GetSumOfDigitalString(result, ".").ToString() == paraChanCount)
+            {
+                return result;
+            }
+            else
+            {
+                return "Unknown";
+            }
+        }
+
+        protected int GetSumOfDigitalString(string digitalString, string splitTag)
+        {
+            string[] strings = digitalString.Split(new string[]{splitTag}, StringSplitOptions.RemoveEmptyEntries);
+            int sum = 0;
+            int digital = 0;
+            foreach (string item in strings)
+            {
+                if (Int32.TryParse(item, out digital))
+                {
+                    sum += digital;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            return sum;
         }
 
         /// <summary>
