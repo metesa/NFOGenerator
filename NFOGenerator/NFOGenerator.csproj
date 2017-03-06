@@ -72,6 +72,18 @@
     <Compile Include="FrmZones.Designer.cs">
       <DependentUpon>FrmZones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\IMDb\IMDbResult.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Main\IMDb\IMDbResult.designer.cs">
+      <DependentUpon>IMDbResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\IMDb\SearchResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\IMDb\SearchResults.designer.cs">
+      <DependentUpon>SearchResults.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\FileInfo\AudioInfo.cs" />
     <Compile Include="Model\FileInfo\GeneralInfo.cs" />
     <Compile Include="Model\FileInfo\ReleaseInfo.cs" />
@@ -92,7 +104,7 @@
     <Compile Include="Util\CryptographUtil.cs" />
     <Compile Include="Util\EnumUtil.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
-    <Compile Include="Util\IMDbReader.cs" />
+    <Compile Include="Main\IMDb\IMDbReader.cs" />
     <Compile Include="Util\IOUtil.cs" />
     <Compile Include="Util\LangDic.cs" />
     <Compile Include="Util\MediaInfoDLL.cs" />
@@ -107,6 +119,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmZones.resx">
       <DependentUpon>FrmZones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\IMDb\IMDbResult.resx">
+      <DependentUpon>IMDbResult.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\IMDb\SearchResults.resx">
+      <DependentUpon>SearchResults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

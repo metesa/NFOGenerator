@@ -97,7 +97,7 @@
             this.llbOfficalSite.Text = "https://github.com/metesa/NFOGenerator";
             this.llbOfficalSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbOfficalSite_LinkClicked);
             // 
-            // frmAboutUs
+            // FrmAboutUs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,7 +111,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmAboutUs";
+            this.Name = "FrmAboutUs";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

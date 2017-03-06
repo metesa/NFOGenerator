@@ -13,6 +13,7 @@ using NFOGenerator.Model.FileInfo;
 using NFOGenerator.Model.General;
 using NFOGenerator.Model.NFO;
 using NFOGenerator.Util;
+using NFOGenerator.Main.IMDb;
 
 namespace NFOGenerator.Forms
 {
@@ -90,7 +91,7 @@ namespace NFOGenerator.Forms
                 this.cmbGeneralYear.Items.Add(currentYear);
                 currentYear -= 1;
             }
-            this.cmbGeneralYear.SelectedIndex = 0;
+            //this.cmbGeneralYear.SelectedIndex = 0;
             this.cmbGeneralResolution.SelectedIndex = 1;
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
@@ -1176,10 +1177,34 @@ namespace NFOGenerator.Forms
         private void btnSearchIMDb_Click(object sender, EventArgs e)
         {
             IMDbReader IMDb = new IMDbReader();
-            IMDb.title = this.txtGeneralTitle.Text;
-            IMDb.SendIMDbRequest();
-            IMDb.ReadIMDbID();
-            this.txtIMDb.Text = "http://www.imdb.com/title/" + IMDb.IMDbID + "/";
+            IMDb.SearchIMDb(this.txtGeneralTitle.Text, this.cmbGeneralYear.Text);
+            SearchResults resultDialog = new SearchResults();
+
+            for (int i = 0; i < IMDb.resultCount; i++)
+            {
+                IMDbResult result = new IMDbResult();
+                result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
+                if (!IMDb.isResponding)
+                {
+                    result.btnIMDbSelect.Hide();
+                }
+                
+                resultDialog.flpIMDbResult.Controls.Add(result);
+            }
+
+            foreach (IMDbResult result in resultDialog.Controls[0].Controls)
+            {
+                result.IMDbResultSelected += new IMDbResult.IMDbResultSelectedEventHandler(this.LogSelectedMovie);
+            }
+
+            resultDialog.ShowDialog();
+        }
+
+        private void LogSelectedMovie(object sender, IMDbResultSelectedEventArgs e)
+        {
+            this.txtGeneralTitle.Text = e.title;
+            this.cmbGeneralYear.Text = e.year;
+            this.txtIMDb.Text = e.link;
         }
 
         private void txtIMDb_TextChanged(object sender, EventArgs e)
