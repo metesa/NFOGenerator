@@ -1,7 +1,7 @@
 # Changelog
 ---
 
-### NFOGenerator v0.6.7-Alpha  (Mar. 06, 2017)
+### NFOGenerator v0.6.7-Alpha  (Mar. 07, 2017)
 
 **"Ubiquitous Tribble"**
 

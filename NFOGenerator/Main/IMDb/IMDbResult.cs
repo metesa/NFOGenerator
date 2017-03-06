@@ -11,9 +11,12 @@ namespace NFOGenerator.Main.IMDb
 {
     public partial class IMDbResult : UserControl
     {
-        public IMDbResult()
+        private SearchResults sr;
+        
+        public IMDbResult(SearchResults sr)
         {
             InitializeComponent();
+            this.sr = sr;
         }
 
         /// <summary>
@@ -47,7 +50,7 @@ namespace NFOGenerator.Main.IMDb
         {
             IMDbResultSelectedEventArgs args = new IMDbResultSelectedEventArgs(this.txtIMDbTitle.Text, 
                 this.txtIMDbYear.Text, this.lnkIMDbLink.Text);
-            IMDbResultSelected(this, args);
+            IMDbResultSelected(sr, args);
         }
 
         public event IMDbResultSelectedEventHandler IMDbResultSelected;

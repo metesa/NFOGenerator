@@ -1182,7 +1182,7 @@ namespace NFOGenerator.Forms
 
             for (int i = 0; i < IMDb.resultCount; i++)
             {
-                IMDbResult result = new IMDbResult();
+                IMDbResult result = new IMDbResult(resultDialog);
                 result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
                 if (!IMDb.isResponding)
                 {
@@ -1205,6 +1205,8 @@ namespace NFOGenerator.Forms
             this.txtGeneralTitle.Text = e.title;
             this.cmbGeneralYear.Text = e.year;
             this.txtIMDb.Text = e.link;
+
+            ((SearchResults)sender).Close();
         }
 
         private void txtIMDb_TextChanged(object sender, EventArgs e)
