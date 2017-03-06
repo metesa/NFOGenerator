@@ -64,6 +64,7 @@ An internal tool which can generate NFO with specific form automatically.
 ## Miscellaneous
 
 * About standard release name
+
 > For movie, it's like
 > 
 >     [Movie name] [Year] [Resolution] [Source] [Audio] [Video]-[Release Group]
