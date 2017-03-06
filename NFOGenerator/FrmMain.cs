@@ -34,12 +34,18 @@ namespace NFOGenerator.Forms
          * Protected custom methods down below
          * ------------------------------------------------------------------------*/
 
-        // Clear a textBox.
-        protected void ClearTextBox(TextBox boxToClear)
+        protected void ResetWindow()
         {
-            boxToClear.Text = "";
-        }
+            foreach (TextBox txt in this.Controls)
+            {
+                txt.Text = "";
+            }
 
+            foreach (ListBox lst in this.Controls)
+            {
+                lst.Items.Clear();
+            }
+        }
         protected void MoveUp(ListBox paraBox)
         {
             this.MoveItem(paraBox, -1);
@@ -72,7 +78,6 @@ namespace NFOGenerator.Forms
             // Restore selection
             paraBox.SetSelected(newIndex, true);
         }
-
 
         /*-------------------------------------------------------------------------
          * Protected custom methods up above
@@ -143,14 +148,7 @@ namespace NFOGenerator.Forms
             // Do nothing if the input file is empty.
             if (this.txtInputFile.Text == "")
             {
-                this.ClearTextBox(this.txtGeneralSize);
-                this.ClearTextBox(this.txtGeneralDuration);
-
-                this.ClearTextBox(this.txtVideoWidth);
-                this.ClearTextBox(this.txtVideoHeight);
-                this.ClearTextBox(this.txtVideoDAR);
-                this.ClearTextBox(this.txtVideoFramerate);
-                this.ClearTextBox(this.txtVideoBitrate);
+                this.ResetWindow();
                 return;
             }
 
@@ -279,11 +277,7 @@ namespace NFOGenerator.Forms
 
         private void mnsFileClear_Click(object sender, EventArgs e)
         {
-            // Clear textBoxes
-            this.ClearTextBox(this.txtInputFile);
-            this.ClearTextBox(this.txtGeneralReleaseName);
-            this.ClearTextBox(this.txtGeneralTitle);
-            this.ClearTextBox(this.txtTargetLocation);
+            this.ResetWindow();
         }
 
         private void mnsFileOpen_Click(object sender, EventArgs e)
@@ -1244,6 +1238,7 @@ namespace NFOGenerator.Forms
             }
 
             resultDialog.ShowDialog();
+            resultDialog.Close();
         }
 
         private void LogSelectedMovie(object sender, IMDbResultSelectedEventArgs e)
