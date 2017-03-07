@@ -375,7 +375,6 @@
             this.cmbGeneralAudio.Name = "cmbGeneralAudio";
             this.cmbGeneralAudio.Size = new System.Drawing.Size(120, 20);
             this.cmbGeneralAudio.TabIndex = 8;
-            this.cmbGeneralAudio.SelectedIndexChanged += new System.EventHandler(this.cmbGeneralAudio_SelectedIndexChanged);
             this.cmbGeneralAudio.TextChanged += new System.EventHandler(this.cmbGeneralAudio_TextChanged);
             // 
             // cmbGeneralResolution

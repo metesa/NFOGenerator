@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -20,21 +16,23 @@ namespace NFOGenerator.Forms
 {
     public partial class FrmMain : Form
     {
-
-        // Create streamInfo to read info's from the file.
-        ReleaseInfo releaseInfo = new ReleaseInfo();
+        #region Private Fields
+        private ReleaseInfo releaseInfo = new ReleaseInfo();
         private bool autoGenerate = false;
+        #endregion
 
+        #region Constructor
         public FrmMain()
         {
             InitializeComponent();
         }
+        #endregion
 
         #region Protected Methods
         /*-------------------------------------------------------------------------
          * Protected custom methods down below
          * ------------------------------------------------------------------------*/
-
+        #region Any Control Edit Methods
         /// <summary>
         /// Turn the corresponding Label's ForeColor to Red if the TextBox's Text is empty, or unknown.
         /// Otherwise set the ForeColor to Black.
@@ -43,7 +41,12 @@ namespace NFOGenerator.Forms
         /// <param name="lbl">Label control to set ForeColor</param>
         protected void TurnRed(Control txt, Control lbl)
         {
-            if ((this.txtInputFile.Text != "") && (txt.Text == "" || txt.Text == "Unknown" || txt.Text == "UNKNOWN"))
+            TurnRed((this.txtInputFile.Text != "") && (txt.Text == "" || txt.Text.ToLower() == "unknown"), lbl);
+        }
+
+        protected void TurnRed(bool turn, Control lbl)
+        {
+            if (turn)
             {
                 lbl.ForeColor = Color.Red;
             }
@@ -95,49 +98,93 @@ namespace NFOGenerator.Forms
                 }
             }
         }
-        protected void MoveUp(ListBox paraBox)
+        #endregion
+
+        #region ListBox Edit Methods
+        /// <summary>
+        /// Swap two item in a ListBox
+        /// </summary>
+        /// <param name="lb">the ListBox</param>
+        /// <param name="index1">first index</param>
+        /// <param name="index2">second index</param>
+        private void SwapListItem(ListBox lb, int index1, int index2)
         {
-            this.MoveItem(paraBox, -1);
+            if (index1 != index2)
+            {
+                if (index1 < lb.Items.Count && index2 < lb.Items.Count)
+                {
+                    var temp = lb.Items[index1];
+                    lb.Items[index1] = lb.Items[index2];
+                    lb.Items[index2] = temp;
+                }
+            }
         }
-
-        protected void MoveDown(ListBox paraBox)
-        {
-            this.MoveItem(paraBox, 1);
-        }
-
-        protected void MoveItem(ListBox paraBox, int direction)
-        {
-            // Checking selected item
-            if (paraBox.SelectedItem == null || paraBox.SelectedIndex < 0)
-                return; // No selected item - nothing to do
-
-            // Calculate new index using move direction
-            int newIndex = paraBox.SelectedIndex + direction;
-
-            // Checking bounds of the range
-            if (newIndex < 0 || newIndex >= paraBox.Items.Count)
-                return; // Index out of range - nothing to do
-
-            object selected = paraBox.SelectedItem;
-
-            // Removing removable element
-            paraBox.Items.Remove(selected);
-            // Insert it in new position
-            paraBox.Items.Insert(newIndex, selected);
-            // Restore selection
-            paraBox.SetSelected(newIndex, true);
-        }
-
+        #endregion
         /*-------------------------------------------------------------------------
          * Protected custom methods up above
          * ------------------------------------------------------------------------*/
+        #endregion
+
+        #region Release Category
+        private void cmbReleaseCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.cmbReleaseCategory.SelectedIndex)
+            {
+                // TO-DO: Define a function to switch between panels
+                case 0: // Movie
+                    this.pnlMovieEncode.Show();
+                    this.lblSomeDbLink.Text = "IMDb:";
+                    break;
+                case 1: // TV
+                    //this.pnlMovieEncode.Hide();
+                    this.lblSomeDbLink.Text = "TheTVDb:";
+                    break;
+                case 2: // Documentary
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 3: // Sport
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 4: // Music
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 5: /// XXX
+                    this.pnlMovieEncode.Hide();
+                    break;
+            }
+        }
         #endregion
 
         #region Load & Dispose
         private void frmMain_Load(object sender, EventArgs e)
         {
             // Initialize form.
-            
+            switch (this.cmbReleaseCategory.SelectedIndex)
+            {
+                // TO-DO: Define a function to switch between panels
+                case 0: // Movie
+                    LoadMovie();
+                    break;
+                case 1: // TV
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 2: // Documentary
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 3: // Sport
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 4: // Music
+                    this.pnlMovieEncode.Hide();
+                    break;
+                case 5: /// XXX
+                    this.pnlMovieEncode.Hide();
+                    break;
+            }
+        }
+
+        private void LoadMovie()
+        {
             // Add items to general year comboBox and set default to current year
             int currentYear = DateTime.Now.Year;
             while (currentYear >= 1900)
@@ -237,14 +284,7 @@ namespace NFOGenerator.Forms
                 }
                 this.lstAudio.Items.Add(this.releaseInfo.AI[i].ToString());
             }
-            if (this.releaseInfo.AudioContainsUnknownItem)
-            {
-                grpAudio.ForeColor = Color.Red;
-            }
-            else
-            {
-                grpAudio.ForeColor = Color.Black;
-            }
+            this.TurnRed(this.releaseInfo.AudioContainsUnknownItem, grpAudio);
             if (count > 1)
             {
                 this.btnAudioUp.Enabled = true;
@@ -263,14 +303,7 @@ namespace NFOGenerator.Forms
             {
                 this.lstSubtitle.Items.Add(this.releaseInfo.SI[i].ToString());
             }
-            if (this.releaseInfo.SubtitleContainsUnknownItem)
-            {
-                grpSubtitle.ForeColor = Color.Red;
-            }
-            else
-            {
-                grpSubtitle.ForeColor = Color.Black;
-            }
+            this.TurnRed(this.releaseInfo.SubtitleContainsUnknownItem, grpSubtitle);
             if (count > 1)
             {
                 this.btnSubtitleUp.Enabled = true;
@@ -378,231 +411,6 @@ namespace NFOGenerator.Forms
         }
         #endregion
 
-        #region Audio & Subtitle & Chapter
-        private void chkGeneralChaptersIncluded_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.releaseInfo != null)
-            {
-                this.releaseInfo.ChapterIncluded = chkGeneralChaptersIncluded.Checked;
-            }
-        }
-
-        private void chkGeneralChaptersNamed_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.releaseInfo != null)
-            {
-                this.releaseInfo.ChapterNamed = chkGeneralChaptersNamed.Checked;
-            }
-        }
-
-        private void chkAudioCommentary_CheckedChanged(object sender, EventArgs e)
-        {
-            if (this.chkAudioCommentary.Checked)
-            {
-                this.txtAudioCommentaryBy.Visible = true;
-            }
-            else
-            {
-                this.txtAudioCommentaryBy.Visible = false;
-            }
-        }
-
-        private void btnAudioUp_Click(object sender, EventArgs e)
-        {
-            int selected = lstAudio.SelectedIndex;
-            if (selected > -1)
-            {
-                if (selected > 0)
-                {
-                    swapListItem(lstAudio, selected, selected - 1);
-                    this.releaseInfo.SwapIndex(StreamKind.Audio, selected, selected - 1);
-                    lstAudio.SelectedIndex = selected - 1;
-                }
-            }
-        }
-
-        private void btnAudioDown_Click(object sender, EventArgs e)
-        {
-            int selected = lstAudio.SelectedIndex;
-            if (selected > -1)
-            {
-                if (selected < lstAudio.Items.Count - 1)
-                {
-                    swapListItem(lstAudio, selected, selected + 1);
-                    this.releaseInfo.SwapIndex(StreamKind.Audio, selected, selected + 1);
-                    lstAudio.SelectedIndex = selected + 1;
-                }
-            }
-        }
-
-        private void lstAudio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.lstAudio.SelectedIndex < 0 || this.lstAudio.SelectedIndex >= this.lstAudio.Items.Count)
-            {
-                return;
-            }
-            else
-            {
-                if (this.lstAudio.SelectedIndex == 0)
-                {
-                    this.btnAudioUp.Enabled = false;
-                }
-                else
-                {
-                    this.btnAudioUp.Enabled = true;
-                }
-                if (this.lstAudio.SelectedIndex == this.lstAudio.Items.Count - 1)
-                {
-                    this.btnAudioDown.Enabled = false;
-                }
-                else
-                {
-                    this.btnAudioDown.Enabled = true;
-                }
-                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioLanguage;
-                this.txtAudioCodec.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCodec;
-                this.txtAudioChannels.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioChannel;
-                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioBitrate;
-                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCommentary;
-                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCommentator;
-            }
-        }
-
-        private void btnSubtitleUp_Click(object sender, EventArgs e)
-        {
-            int selected = lstSubtitle.SelectedIndex;
-            if (selected > -1)
-            {
-                if (selected > 0)
-                {
-                    swapListItem(lstSubtitle, selected, selected - 1);
-                    this.releaseInfo.SwapIndex(StreamKind.Text, selected, selected - 1);
-                    lstSubtitle.SelectedIndex = selected - 1;
-                }
-            }
-        }
-
-        private void btnSubtitleDown_Click(object sender, EventArgs e)
-        {
-            int selected = lstSubtitle.SelectedIndex;
-            if (selected > -1)
-            {
-                if (selected < lstSubtitle.Items.Count - 1)
-                {
-                    swapListItem(lstSubtitle, selected, selected + 1);
-                    this.releaseInfo.SwapIndex(StreamKind.Text, selected, selected + 1);
-                    lstSubtitle.SelectedIndex = selected + 1;
-                }
-            }
-            
-        }
-
-        private void lstSubtitle_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.lstSubtitle.SelectedIndex < 0 || this.lstSubtitle.SelectedIndex >= this.lstSubtitle.Items.Count)
-            {
-                return;
-            }
-            else
-            {
-                if (this.lstSubtitle.SelectedIndex == 0)
-                {
-                    this.btnSubtitleUp.Enabled = false;
-                }
-                else
-                {
-                    this.btnSubtitleUp.Enabled = true;
-                }
-                if (this.lstSubtitle.SelectedIndex == this.lstSubtitle.Items.Count - 1)
-                {
-                    this.btnSubtitleDown.Enabled = false;
-                }
-                else
-                {
-                    this.btnSubtitleDown.Enabled = true;
-                }
-                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleLanguage;
-                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleFormat;
-                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleComment;
-                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleForced;
-                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleSDH;
-            }
-        }
-
-        private void btnAudioEdit_Click(object sender, EventArgs e)
-        {
-            int editIndex = this.lstAudio.SelectedIndex;
-
-            if (editIndex < 0 || editIndex >= this.lstAudio.Items.Count)
-            {
-                return;
-            }
-            else
-            {
-                try
-                {
-                    this.releaseInfo.AI[this.releaseInfo.audioIndex[editIndex]].UpdateAudioInfo(
-                                       this.txtAudioLanguage.Text,
-                                       this.txtAudioCodec.Text,
-                                       this.txtAudioChannels.Text,
-                                       this.txtAudioBitrate.Text,
-                                       this.chkAudioCommentary.Checked,
-                                       this.txtAudioCommentaryBy.Text);
-                    this.lstAudio.Items.RemoveAt(editIndex);
-                    this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[this.releaseInfo.audioIndex[editIndex]].ToString());
-                    this.lstAudio.SelectedIndex = editIndex;
-                    if (this.releaseInfo.AudioContainsUnknownItem)
-                    {
-                        grpAudio.ForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        grpAudio.ForeColor = Color.Black;
-                    }
-                }
-                catch (ArgumentOutOfRangeException aoore)
-                {
-                    MessageBox.Show(ExceptionUtil.FullMessage(new Exception("[Audio Groupbox Update Error]: Index is out of range when removing or inserting. " + editIndex.ToString() + "vs" + (this.lstAudio.Items.Count - 1).ToString(), aoore)), "Error", MessageBoxButtons.OK);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ExceptionUtil.FullMessage(new Exception("[Audio Groupbox Update Error]: Invalid audio channel. " + this.txtAudioChannels.Text, ex)), "Error", MessageBoxButtons.OK); ;
-                    this.txtAudioChannels.Text = this.releaseInfo.AI[editIndex].AudioChannel;
-                }
-            }
-        }
-
-        private void btnSubtitleEdit_Click(object sender, EventArgs e)
-        {
-            int editIndex = this.lstSubtitle.SelectedIndex;
-
-            if (editIndex < 0 || editIndex >= this.lstSubtitle.Items.Count)
-            {
-                return;
-            }
-            else
-            {
-                this.releaseInfo.SI[this.releaseInfo.subtitleIndex[editIndex]].UpdateSubtitleInfo(
-                    this.txtSubtitleLanguage.Text,
-                    this.txtSubtitleFormat.Text,
-                    this.txtSubtitleComment.Text,
-                    this.chkSubtitleForced.Checked,
-                    this.chkSubtitleSDH.Checked
-                );
-                this.lstSubtitle.Items.RemoveAt(editIndex);
-                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[this.releaseInfo.subtitleIndex[editIndex]].ToString());
-                if (this.releaseInfo.SubtitleContainsUnknownItem)
-                {
-                    grpSubtitle.ForeColor = Color.Red;
-                }
-                else
-                {
-                    grpSubtitle.ForeColor = Color.Black;
-                }
-            }
-        }
-        #endregion
-
         #region Process
         private bool containsUnknownItems()
         {
@@ -703,30 +511,9 @@ namespace NFOGenerator.Forms
                 }
             }
         }
-
-        private void swapListItem(ListBox lb, int index1, int index2)
-        {
-            if (index1 != index2)
-            {
-                if (index1 < lb.Items.Count && index2 < lb.Items.Count)
-                {
-                    var temp = lb.Items[index1];
-                    lb.Items[index1] = lb.Items[index2];
-                    lb.Items[index2] = temp;
-                }
-            }
-        }
-        #endregion
-
-        #region Status Strip
-        private void SetStatus(string status)
-        {
-            stsStatusLabel.Text = status;
-        }
-        #endregion
-
-        #region Auto Generate Release Name
         /// <summary>
+        /// Guess the release name from a release which has possibly standard release name.
+        /// 
         /// Video Codec  : x264 H.264 x265 MPEG2 VC-1 AVC XviD
         /// Audio Codec  : DTS DTS-ES DD-EX DD5.1 DD2.1 DD2.0 AAC2.0 AAC1.0 FLAC2.0 FLAC1.0
         /// Source Media : BluRay HDDVD DVDRip WEB-DL WEBRip HDTV
@@ -783,7 +570,7 @@ namespace NFOGenerator.Forms
                         {
                             SetStatus("Failed to guess some info from file name. Please set them manually");
                         }
-                        
+
                     }
                 }
 
@@ -1218,7 +1005,20 @@ namespace NFOGenerator.Forms
             string group = this.cmbNfoTemplate.Text == "" ? "TAiCHi" : this.cmbNfoTemplate.Text.Replace(".tpl", "");
             this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName(sep, group);
         }
+        #endregion
 
+        #region Status Strip
+        private void SetStatus(string status)
+        {
+            stsStatusLabel.Text = status;
+        }
+        #endregion
+
+        #region Info Edit Event Handler
+
+        #region --Update Release Name and NFO if happen
+
+        #region ----Mandatory (can turn red if empty)
         private void txtGeneralTitle_TextChanged(object sender, EventArgs e)
         {
             if (autoGenerate)
@@ -1226,16 +1026,28 @@ namespace NFOGenerator.Forms
                 updateReleaseName();
             }
             this.TurnRed(this.txtInputFile, lblGeneralTitle);
-            if (txtInputFile.Text != "" && txtGeneralTitle.Text == "")
-            {
-                lblGeneralTitle.ForeColor = Color.Red;
-            }
-            else
-            {
-                lblGeneralTitle.ForeColor = Color.Black;
-            }
         }
 
+        private void cmbGeneralAudio_TextChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+            this.TurnRed(this.cmbGeneralAudio, this.lblGeneralAudio);
+        }
+
+        private void cmbVideoCodec_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (autoGenerate)
+            {
+                updateReleaseName();
+            }
+            this.TurnRed(this.cmbVideoCodec, this.lblVideoCodec);
+        }
+        #endregion
+
+        #region ----Not Mandatory (can't turn red if empty)
         private void cmbGeneralYear_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (autoGenerate)
@@ -1276,34 +1088,12 @@ namespace NFOGenerator.Forms
             }
         }
 
-        private void cmbGeneralAudio_TextChanged(object sender, EventArgs e)
-        {
-            this.TurnRed(this.cmbGeneralAudio, this.lblGeneralAudio);
-        }
-
-        private void cmbGeneralAudio_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (autoGenerate)
-            {
-                updateReleaseName();
-            }
-        }
-
         private void cmbSourceType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (autoGenerate)
             {
                 updateReleaseName();
             }
-        }
-
-        private void cmbVideoCodec_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (autoGenerate)
-            {
-                updateReleaseName();
-            }
-            this.TurnRed(this.cmbVideoCodec, this.lblVideoCodec);
         }
 
         private void cmbSeparateChar_SelectedIndexChanged(object sender, EventArgs e)
@@ -1313,94 +1103,17 @@ namespace NFOGenerator.Forms
                 updateReleaseName();
             }
         }
+        #endregion
 
+        #endregion
+
+        #region --Update NFO only if happen
+
+        #region ----Mandatory (can turn red if empty)
         private void txtSourceName_TextChanged(object sender, EventArgs e)
         {
-            if (txtInputFile.Text != "" && txtSourceName.Text == "")
-            {
-                lblSourceName.ForeColor = Color.Red;
-            }
-            else
-            {
-                lblSourceName.ForeColor = Color.Black;
-            }
+            this.TurnRed(txtSourceName, lblSourceName);
         }
-        #endregion
-
-        #region Release Category
-        private void cmbReleaseCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (this.cmbReleaseCategory.SelectedIndex)
-            {
-                // TO-DO: Define a function to switch between panels
-                case 0: // Movie
-                    this.pnlMovieEncode.Show();
-                    this.lblSomeDbLink.Text = "IMDb:";
-                    break;
-                case 1: // TV
-                    //this.pnlMovieEncode.Hide();
-                    this.lblSomeDbLink.Text = "TheTVDb:";
-                    break;
-                case 2: // Documentary
-                    this.pnlMovieEncode.Hide();
-                    break;
-                case 3: // Sport
-                    this.pnlMovieEncode.Hide();
-                    break;
-                case 4: // Music
-                    this.pnlMovieEncode.Hide();
-                    break;
-                case 5: /// XXX
-                    this.pnlMovieEncode.Hide();
-                    break;
-            }
-        }
-        #endregion
-
-        #region IMDB
-        private void btnSearchIMDb_Click(object sender, EventArgs e)
-        {
-            IMDbReader IMDb = new IMDbReader();
-            IMDb.SearchIMDb(this.txtGeneralTitle.Text, this.cmbGeneralYear.Text);
-            SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text, 
-                this.cmbGeneralYear.Text, this.txtSomeDbLink.Text);
-
-            for (int i = 0; i < IMDb.resultCount; i++)
-            {
-                SingleMatch result = new SingleMatch(resultDialog);
-                result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
-                if (!IMDb.isResponding)
-                {
-                    result.btnIMDbSelect.Hide();
-                }
-                
-                resultDialog.flpIMDbResult.Controls.Add(result);
-            }
-            
-            resultDialog.ShowDialog();
-            this.txtGeneralTitle.Text = resultDialog.selectedTitle;
-            this.cmbGeneralYear.Text = resultDialog.selectedYear;
-            this.txtSomeDbLink.Text = resultDialog.selectedLink;
-        }
-
-        private void txtIMDb_TextChanged(object sender, EventArgs e)
-        {
-            if (this.txtSomeDbLink.Text == "")
-            {
-                this.btnOpenIMDb.Enabled = false;
-            }
-            else
-            {
-                this.btnOpenIMDb.Enabled = true;
-            }
-            this.TurnRed(this.txtSomeDbLink, this.lblSomeDbLink);
-        }
-
-        private void btnOpenIMDb_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(this.txtSomeDbLink.Text);
-        }
-        #endregion
 
         private void txtAudioLanguage_TextChanged(object sender, EventArgs e)
         {
@@ -1436,5 +1149,262 @@ namespace NFOGenerator.Forms
         {
             this.TurnRed(this.txtSubtitleComment, this.lblSubtitleComment);
         }
+
+        private void txtIMDb_TextChanged(object sender, EventArgs e)
+        {
+            if (this.txtSomeDbLink.Text == "")
+            {
+                this.btnOpenIMDb.Enabled = false;
+            }
+            else
+            {
+                this.btnOpenIMDb.Enabled = true;
+            }
+            this.TurnRed(this.txtSomeDbLink, this.lblSomeDbLink);
+        }
+        #endregion
+
+        #region ----Not Mandatory (can't turn red if empty)
+        private void chkGeneralChaptersIncluded_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.releaseInfo != null)
+            {
+                this.releaseInfo.ChapterIncluded = chkGeneralChaptersIncluded.Checked;
+            }
+        }
+
+        private void chkGeneralChaptersNamed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.releaseInfo != null)
+            {
+                this.releaseInfo.ChapterNamed = chkGeneralChaptersNamed.Checked;
+            }
+        }
+        #endregion
+
+        #region ----Audio & Subtitle Item Edit
+        private void chkAudioCommentary_CheckedChanged(object sender, EventArgs e)
+        {
+            this.txtAudioCommentaryBy.Visible = this.chkAudioCommentary.Checked;
+        }
+
+        private void btnAudioUp_Click(object sender, EventArgs e)
+        {
+            int selected = lstAudio.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected > 0)
+                {
+                    SwapListItem(lstAudio, selected, selected - 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Audio, selected, selected - 1);
+                    lstAudio.SelectedIndex = selected - 1;
+                }
+            }
+        }
+
+        private void btnAudioDown_Click(object sender, EventArgs e)
+        {
+            int selected = lstAudio.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected < lstAudio.Items.Count - 1)
+                {
+                    SwapListItem(lstAudio, selected, selected + 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Audio, selected, selected + 1);
+                    lstAudio.SelectedIndex = selected + 1;
+                }
+            }
+        }
+
+        private void lstAudio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.lstAudio.SelectedIndex < 0 || this.lstAudio.SelectedIndex >= this.lstAudio.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                if (this.lstAudio.SelectedIndex == 0)
+                {
+                    this.btnAudioUp.Enabled = false;
+                }
+                else
+                {
+                    this.btnAudioUp.Enabled = true;
+                }
+                if (this.lstAudio.SelectedIndex == this.lstAudio.Items.Count - 1)
+                {
+                    this.btnAudioDown.Enabled = false;
+                }
+                else
+                {
+                    this.btnAudioDown.Enabled = true;
+                }
+                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioLanguage;
+                this.txtAudioCodec.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCodec;
+                this.txtAudioChannels.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioChannel;
+                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioBitrate;
+                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCommentary;
+                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCommentator;
+            }
+        }
+
+        private void btnSubtitleUp_Click(object sender, EventArgs e)
+        {
+            int selected = lstSubtitle.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected > 0)
+                {
+                    SwapListItem(lstSubtitle, selected, selected - 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Text, selected, selected - 1);
+                    lstSubtitle.SelectedIndex = selected - 1;
+                }
+            }
+        }
+
+        private void btnSubtitleDown_Click(object sender, EventArgs e)
+        {
+            int selected = lstSubtitle.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected < lstSubtitle.Items.Count - 1)
+                {
+                    SwapListItem(lstSubtitle, selected, selected + 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Text, selected, selected + 1);
+                    lstSubtitle.SelectedIndex = selected + 1;
+                }
+            }
+
+        }
+
+        private void lstSubtitle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.lstSubtitle.SelectedIndex < 0 || this.lstSubtitle.SelectedIndex >= this.lstSubtitle.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                if (this.lstSubtitle.SelectedIndex == 0)
+                {
+                    this.btnSubtitleUp.Enabled = false;
+                }
+                else
+                {
+                    this.btnSubtitleUp.Enabled = true;
+                }
+                if (this.lstSubtitle.SelectedIndex == this.lstSubtitle.Items.Count - 1)
+                {
+                    this.btnSubtitleDown.Enabled = false;
+                }
+                else
+                {
+                    this.btnSubtitleDown.Enabled = true;
+                }
+                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleLanguage;
+                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleFormat;
+                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleComment;
+                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleForced;
+                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleSDH;
+            }
+        }
+
+        private void btnAudioEdit_Click(object sender, EventArgs e)
+        {
+            int editIndex = this.lstAudio.SelectedIndex;
+
+            if (editIndex < 0 || editIndex >= this.lstAudio.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                try
+                {
+                    this.releaseInfo.AI[this.releaseInfo.audioIndex[editIndex]].UpdateAudioInfo(
+                                       this.txtAudioLanguage.Text,
+                                       this.txtAudioCodec.Text,
+                                       this.txtAudioChannels.Text,
+                                       this.txtAudioBitrate.Text,
+                                       this.chkAudioCommentary.Checked,
+                                       this.txtAudioCommentaryBy.Text);
+                    this.lstAudio.Items.RemoveAt(editIndex);
+                    this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[this.releaseInfo.audioIndex[editIndex]].ToString());
+                    this.lstAudio.SelectedIndex = editIndex;
+                    this.TurnRed(this.releaseInfo.AudioContainsUnknownItem, grpAudio);
+                }
+                catch (ArgumentOutOfRangeException aoore)
+                {
+                    MessageBox.Show(ExceptionUtil.FullMessage(new Exception("[Audio Groupbox Update Error]: Index is out of range when removing or inserting. " + editIndex.ToString() + "vs" + (this.lstAudio.Items.Count - 1).ToString(), aoore)), "Error", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ExceptionUtil.FullMessage(new Exception("[Audio Groupbox Update Error]: Invalid audio channel. " + this.txtAudioChannels.Text, ex)), "Error", MessageBoxButtons.OK); ;
+                    this.txtAudioChannels.Text = this.releaseInfo.AI[editIndex].AudioChannel;
+                }
+            }
+        }
+
+        private void btnSubtitleEdit_Click(object sender, EventArgs e)
+        {
+            int editIndex = this.lstSubtitle.SelectedIndex;
+
+            if (editIndex < 0 || editIndex >= this.lstSubtitle.Items.Count)
+            {
+                return;
+            }
+            else
+            {
+                this.releaseInfo.SI[this.releaseInfo.subtitleIndex[editIndex]].UpdateSubtitleInfo(
+                    this.txtSubtitleLanguage.Text,
+                    this.txtSubtitleFormat.Text,
+                    this.txtSubtitleComment.Text,
+                    this.chkSubtitleForced.Checked,
+                    this.chkSubtitleSDH.Checked
+                );
+                this.lstSubtitle.Items.RemoveAt(editIndex);
+                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[this.releaseInfo.subtitleIndex[editIndex]].ToString());
+                this.lstSubtitle.SelectedIndex = editIndex;
+                this.TurnRed(this.releaseInfo.SubtitleContainsUnknownItem, grpSubtitle);
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region IMDB
+        private void btnSearchIMDb_Click(object sender, EventArgs e)
+        {
+            IMDbReader IMDb = new IMDbReader();
+            IMDb.SearchIMDb(this.txtGeneralTitle.Text, this.cmbGeneralYear.Text);
+            SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text, 
+                this.cmbGeneralYear.Text, this.txtSomeDbLink.Text);
+
+            for (int i = 0; i < IMDb.resultCount; i++)
+            {
+                SingleMatch result = new SingleMatch(resultDialog);
+                result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
+                if (!IMDb.isResponding)
+                {
+                    result.btnIMDbSelect.Hide();
+                }
+                
+                resultDialog.flpIMDbResult.Controls.Add(result);
+            }
+            
+            resultDialog.ShowDialog();
+            this.txtGeneralTitle.Text = resultDialog.selectedTitle;
+            this.cmbGeneralYear.Text = resultDialog.selectedYear;
+            this.txtSomeDbLink.Text = resultDialog.selectedLink;
+        }
+
+        private void btnOpenIMDb_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(this.txtSomeDbLink.Text);
+        }
+        #endregion
     }
 }
