@@ -23,12 +23,15 @@ namespace NFOGenerator.Model.FileInfo
 {
     public class ReleaseInfo
     {
+        public int[] audioIndex;
+        public int[] subtitleIndex;
+        
         public MediaInfo MI = new MediaInfo();
         public GeneralInfo GI = new GeneralInfo();
         public VideoInfo VI = new VideoInfo();
         public AudioInfo[] AI;
         public SubtitleInfo[] SI;
-        public MenuInfo MNI = new MenuInfo();
+        public MenuInfo MNI;
 
         public ReleaseInfo()
         {
@@ -81,6 +84,7 @@ namespace NFOGenerator.Model.FileInfo
             }
 
             this.AI = new AudioInfo[this.MI.Count_Get(StreamKind.Audio)];
+            this.audioIndex = new int[this.MI.Count_Get(StreamKind.Audio)];
 
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
             {
@@ -104,9 +108,11 @@ namespace NFOGenerator.Model.FileInfo
                     this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"),
                     this.MI.Get(StreamKind.Audio, i, "Title")
                 );
+                audioIndex[i] = i;
             }
 
             this.SI = new SubtitleInfo[this.MI.Count_Get(StreamKind.Text)];
+            this.subtitleIndex = new int[this.MI.Count_Get(StreamKind.Text)];
 
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
             {
@@ -126,13 +132,14 @@ namespace NFOGenerator.Model.FileInfo
                     (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced")),
                     this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "SDH")
                 );
+                this.subtitleIndex[i] = i;
             }
 
             this.MNI = new MenuInfo();
             if (this.MI.Count_Get(StreamKind.Menu) > 0)
             {
                 this.MNI.Included = true;
-                this.MNI.Named = false;
+                this.MNI.Update(this.MI.Get(StreamKind.Menu, 0, "Inform"));
             }
             else
             {
@@ -141,32 +148,46 @@ namespace NFOGenerator.Model.FileInfo
             }
         }
 
-        public bool AudioContainsUnknownItem()
+        public void SwapIndex(StreamKind kind, int index1, int index2)
         {
-            bool containsUnknownItem = false;
-            for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
+            if (index1 != index2)
             {
-                if (this.AI[i].ContainsUnknowItem)
+                if (kind == StreamKind.Audio)
                 {
-                    containsUnknownItem = true;
-                    break;
+                    if (index1 < this.AI.Length && index2 < this.AI.Length)
+                    {
+                        int temp = audioIndex[index1];
+                        audioIndex[index1] = audioIndex[index2];
+                        audioIndex[index2] = temp;
+                    }
+                }
+                else if (kind == StreamKind.Text)
+                {
+                    if (index1 < this.SI.Length && index2 < this.SI.Length)
+                    {
+                        int temp = subtitleIndex[index1];
+                        subtitleIndex[index1] = subtitleIndex[index2];
+                        subtitleIndex[index2] = temp;
+                    }
                 }
             }
-            return containsUnknownItem;
         }
 
-        public bool SubtitleContainsUnknownItem()
+        public string GetAllInfo(StreamKind kind)
         {
-            bool containsUnknownItem = false;
-            for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
+            string parameter = "";//存放所有参数
+            string tempstr;
+            int i = 0;
+            while (true)
             {
-                if (this.SI[i].ContainsUnknowItem)
+                tempstr = MI.Get(kind, 0, i++, InfoKind.Name);
+                if (tempstr == "")
                 {
-                    containsUnknownItem = true;
                     break;
                 }
+                parameter += "\r\n" + tempstr + "   : " + MI.Get(kind, 0, tempstr);
             }
-            return containsUnknownItem;
+            return parameter;
         }
         /*-------------------------------------------------------------------------
          * Protected custom methods down below
@@ -268,5 +289,174 @@ namespace NFOGenerator.Model.FileInfo
          * Protected custom methods up above
          * ------------------------------------------------------------------------*/
 
+        #region Properties
+        #region AllInfo Properties
+        public string AudioInfo
+        {
+            get
+            {
+                if (this.AI == null)
+                {
+                    return "";
+                }
+                string audioCombined = ""; ;
+                int audioCount = this.AI.Length;
+                for (int i = 0; i < audioCount; i++)
+                {
+                    audioCombined += this.AI[audioIndex[i]].ToString() + Environment.NewLine;
+                }
+                return audioCombined;
+            }
+        }
+
+        public string SubtitleInfo
+        {
+            get
+            {
+                if (this.SI == null)
+                {
+                    return "";
+                }
+                string subCombined = "";
+                int subtitleCount = this.SI.Length;
+                if (subtitleCount == 0)
+                {
+                    return "";
+                }
+                subCombined = this.SI[subtitleIndex[0]].ToString();
+                if (subtitleCount == 1)
+                {
+                    return subCombined;
+                }
+                for (int i = 1; i < subtitleCount; i++)
+                {
+                    subCombined += ", " + this.SI[subtitleIndex[i]].ToString();
+                }
+                return subCombined;
+            }
+        }
+
+        public string ChapterInfo
+        {
+            get
+            {
+                if (this.MNI == null)
+                {
+                    return "";
+                }
+                return this.MNI.ToString();
+            }
+        }
+        #endregion
+
+        #region Audio Properties
+        public int AudioCount
+        {
+            get
+            {
+                if (this.AI == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return this.AI.Length;
+                }
+            }
+        }
+
+        public bool AudioContainsUnknownItem
+        {
+            get
+            {
+                if (this.AI == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    bool containsUnknownItem = false;
+                    for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
+                    {
+                        if (this.AI[i].ContainsUnknowItem)
+                        {
+                            containsUnknownItem = true;
+                            break;
+                        }
+                    }
+                    return containsUnknownItem;
+                }
+            }
+            
+        }
+        #endregion
+
+        #region Subtitle Properties
+        public int SubtitleCount
+        {
+            get
+            {
+                if (this.SI == null)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return this.SI.Length;
+                }
+            }
+        }
+
+        public bool SubtitleContainsUnknownItem
+        {
+            get
+            {
+                if (this.SI == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    bool containsUnknownItem = false;
+                    for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
+                    {
+                        if (this.SI[i].ContainsUnknowItem)
+                        {
+                            containsUnknownItem = true;
+                            break;
+                        }
+                    }
+                    return containsUnknownItem;
+                }
+            }
+        }
+        #endregion
+
+        #region Chapter Properties
+        public bool ChapterIncluded
+        {
+            get
+            {
+                return this.MNI.Included;
+            }
+            set
+            {
+                this.MNI.Included = value;
+            }
+        }
+
+        public bool ChapterNamed
+        {
+            get
+            {
+                return this.MNI.Named;
+            }
+            set
+            {
+                this.MNI.Named = value;
+            }
+        }
+        #endregion
+        #endregion
     }
 }

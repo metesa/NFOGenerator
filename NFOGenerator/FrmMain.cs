@@ -195,9 +195,12 @@ namespace NFOGenerator.Forms
             autoGenerate = false;
 
             // Do nothing if the input file is empty.
+            this.ResetWindow();
+            this.chkGeneralChaptersIncluded.Checked = false;
+            this.chkGeneralChaptersNamed.Checked = false;
+
             if (this.txtInputFile.Text == "")
             {
-                this.ResetWindow();
                 return;
             }
 
@@ -210,8 +213,8 @@ namespace NFOGenerator.Forms
             this.txtGeneralDuration.Text = this.releaseInfo.GI.duration;
 
             // Display menu/chapter info
-            this.chkGeneralChaptersIncluded.Checked = this.releaseInfo.MNI.Included;
-            this.chkGeneralChaptersNamed.Checked = this.releaseInfo.MNI.Named;
+            this.chkGeneralChaptersIncluded.Checked = this.releaseInfo.ChapterIncluded;
+            this.chkGeneralChaptersNamed.Checked = this.releaseInfo.ChapterNamed;
 
             // Display video info.
             this.txtVideoWidth.Text = this.releaseInfo.VI.width;
@@ -224,7 +227,8 @@ namespace NFOGenerator.Forms
             // Display audio info.
             bool haventFoundMainAudio = true;
             this.lstAudio.Items.Clear();
-            for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Audio); i++)
+            int count = this.releaseInfo.AudioCount;
+            for (int i = 0; i < count; i++)
             {
                 if (haventFoundMainAudio && !this.releaseInfo.AI[i].AudioCommentary)
                 {
@@ -233,7 +237,7 @@ namespace NFOGenerator.Forms
                 }
                 this.lstAudio.Items.Add(this.releaseInfo.AI[i].ToString());
             }
-            if (this.releaseInfo.AudioContainsUnknownItem())
+            if (this.releaseInfo.AudioContainsUnknownItem)
             {
                 grpAudio.ForeColor = Color.Red;
             }
@@ -241,14 +245,25 @@ namespace NFOGenerator.Forms
             {
                 grpAudio.ForeColor = Color.Black;
             }
+            if (count > 1)
+            {
+                this.btnAudioUp.Enabled = true;
+                this.btnAudioDown.Enabled = true;
+            }
+            else
+            {
+                this.btnAudioUp.Enabled = false;
+                this.btnAudioDown.Enabled = false;
+            }
 
             // Display subtitle info.
             this.lstSubtitle.Items.Clear();
-            for (int i = 0; i < this.releaseInfo.MI.Count_Get(StreamKind.Text); i++)
+            count = this.releaseInfo.SubtitleCount;
+            for (int i = 0; i < count; i++)
             {
                 this.lstSubtitle.Items.Add(this.releaseInfo.SI[i].ToString());
             }
-            if (this.releaseInfo.SubtitleContainsUnknownItem())
+            if (this.releaseInfo.SubtitleContainsUnknownItem)
             {
                 grpSubtitle.ForeColor = Color.Red;
             }
@@ -256,6 +271,17 @@ namespace NFOGenerator.Forms
             {
                 grpSubtitle.ForeColor = Color.Black;
             }
+            if (count > 1)
+            {
+                this.btnSubtitleUp.Enabled = true;
+                this.btnSubtitleDown.Enabled = true;
+            }
+            else
+            {
+                this.btnSubtitleUp.Enabled = false;
+                this.btnSubtitleDown.Enabled = false;
+            }
+
 
             // Add default output folder
             txtTargetLocation.Text = new FileInfo(this.txtInputFile.Text).DirectoryName;
@@ -357,7 +383,7 @@ namespace NFOGenerator.Forms
         {
             if (this.releaseInfo != null)
             {
-                this.releaseInfo.MNI.Included = chkGeneralChaptersIncluded.Checked;
+                this.releaseInfo.ChapterIncluded = chkGeneralChaptersIncluded.Checked;
             }
         }
 
@@ -365,7 +391,7 @@ namespace NFOGenerator.Forms
         {
             if (this.releaseInfo != null)
             {
-                this.releaseInfo.MNI.Named = chkGeneralChaptersNamed.Checked;
+                this.releaseInfo.ChapterNamed = chkGeneralChaptersNamed.Checked;
             }
         }
 
@@ -381,6 +407,34 @@ namespace NFOGenerator.Forms
             }
         }
 
+        private void btnAudioUp_Click(object sender, EventArgs e)
+        {
+            int selected = lstAudio.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected > 0)
+                {
+                    swapListItem(lstAudio, selected, selected - 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Audio, selected, selected - 1);
+                    lstAudio.SelectedIndex = selected - 1;
+                }
+            }
+        }
+
+        private void btnAudioDown_Click(object sender, EventArgs e)
+        {
+            int selected = lstAudio.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected < lstAudio.Items.Count - 1)
+                {
+                    swapListItem(lstAudio, selected, selected + 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Audio, selected, selected + 1);
+                    lstAudio.SelectedIndex = selected + 1;
+                }
+            }
+        }
+
         private void lstAudio_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.lstAudio.SelectedIndex < 0 || this.lstAudio.SelectedIndex >= this.lstAudio.Items.Count)
@@ -389,13 +443,58 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioLanguage;
-                this.txtAudioCodec.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioCodec;
-                this.txtAudioChannels.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioChannel;
-                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioBitrate;
-                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioCommentary;
-                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.lstAudio.SelectedIndex].AudioCommentator;
+                if (this.lstAudio.SelectedIndex == 0)
+                {
+                    this.btnAudioUp.Enabled = false;
+                }
+                else
+                {
+                    this.btnAudioUp.Enabled = true;
+                }
+                if (this.lstAudio.SelectedIndex == this.lstAudio.Items.Count - 1)
+                {
+                    this.btnAudioDown.Enabled = false;
+                }
+                else
+                {
+                    this.btnAudioDown.Enabled = true;
+                }
+                this.txtAudioLanguage.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioLanguage;
+                this.txtAudioCodec.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCodec;
+                this.txtAudioChannels.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioChannel;
+                this.txtAudioBitrate.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioBitrate;
+                this.chkAudioCommentary.Checked = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCommentary;
+                this.txtAudioCommentaryBy.Text = this.releaseInfo.AI[this.releaseInfo.audioIndex[this.lstAudio.SelectedIndex]].AudioCommentator;
             }
+        }
+
+        private void btnSubtitleUp_Click(object sender, EventArgs e)
+        {
+            int selected = lstSubtitle.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected > 0)
+                {
+                    swapListItem(lstSubtitle, selected, selected - 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Text, selected, selected - 1);
+                    lstSubtitle.SelectedIndex = selected - 1;
+                }
+            }
+        }
+
+        private void btnSubtitleDown_Click(object sender, EventArgs e)
+        {
+            int selected = lstSubtitle.SelectedIndex;
+            if (selected > -1)
+            {
+                if (selected < lstSubtitle.Items.Count - 1)
+                {
+                    swapListItem(lstSubtitle, selected, selected + 1);
+                    this.releaseInfo.SwapIndex(StreamKind.Text, selected, selected + 1);
+                    lstSubtitle.SelectedIndex = selected + 1;
+                }
+            }
+            
         }
 
         private void lstSubtitle_SelectedIndexChanged(object sender, EventArgs e)
@@ -406,11 +505,27 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleLanguage;
-                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleFormat;
-                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleComment;
-                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleForced;
-                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.lstSubtitle.SelectedIndex].SubtitleSDH;
+                if (this.lstSubtitle.SelectedIndex == 0)
+                {
+                    this.btnSubtitleUp.Enabled = false;
+                }
+                else
+                {
+                    this.btnSubtitleUp.Enabled = true;
+                }
+                if (this.lstSubtitle.SelectedIndex == this.lstSubtitle.Items.Count - 1)
+                {
+                    this.btnSubtitleDown.Enabled = false;
+                }
+                else
+                {
+                    this.btnSubtitleDown.Enabled = true;
+                }
+                this.txtSubtitleLanguage.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleLanguage;
+                this.txtSubtitleFormat.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleFormat;
+                this.txtSubtitleComment.Text = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleComment;
+                this.chkSubtitleForced.Checked = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleForced;
+                this.chkSubtitleSDH.Checked = this.releaseInfo.SI[this.releaseInfo.subtitleIndex[this.lstSubtitle.SelectedIndex]].SubtitleSDH;
             }
         }
 
@@ -426,7 +541,7 @@ namespace NFOGenerator.Forms
             {
                 try
                 {
-                    this.releaseInfo.AI[editIndex].UpdateAudioInfo(
+                    this.releaseInfo.AI[this.releaseInfo.audioIndex[editIndex]].UpdateAudioInfo(
                                        this.txtAudioLanguage.Text,
                                        this.txtAudioCodec.Text,
                                        this.txtAudioChannels.Text,
@@ -434,9 +549,9 @@ namespace NFOGenerator.Forms
                                        this.chkAudioCommentary.Checked,
                                        this.txtAudioCommentaryBy.Text);
                     this.lstAudio.Items.RemoveAt(editIndex);
-                    this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].ToString());
+                    this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[this.releaseInfo.audioIndex[editIndex]].ToString());
                     this.lstAudio.SelectedIndex = editIndex;
-                    if (this.releaseInfo.AudioContainsUnknownItem())
+                    if (this.releaseInfo.AudioContainsUnknownItem)
                     {
                         grpAudio.ForeColor = Color.Red;
                     }
@@ -467,7 +582,7 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.releaseInfo.SI[editIndex].UpdateSubtitleInfo(
+                this.releaseInfo.SI[this.releaseInfo.subtitleIndex[editIndex]].UpdateSubtitleInfo(
                     this.txtSubtitleLanguage.Text,
                     this.txtSubtitleFormat.Text,
                     this.txtSubtitleComment.Text,
@@ -475,8 +590,8 @@ namespace NFOGenerator.Forms
                     this.chkSubtitleSDH.Checked
                 );
                 this.lstSubtitle.Items.RemoveAt(editIndex);
-                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[editIndex].ToString());
-                if (this.releaseInfo.SubtitleContainsUnknownItem())
+                this.lstSubtitle.Items.Insert(editIndex, this.releaseInfo.SI[this.releaseInfo.subtitleIndex[editIndex]].ToString());
+                if (this.releaseInfo.SubtitleContainsUnknownItem)
                 {
                     grpSubtitle.ForeColor = Color.Red;
                 }
@@ -491,12 +606,12 @@ namespace NFOGenerator.Forms
         #region Process
         private bool containsUnknownItems()
         {
-            if (this.releaseInfo.AudioContainsUnknownItem())
+            if (this.releaseInfo.AudioContainsUnknownItem)
             {
                 return true;
             }
 
-            if (this.releaseInfo.SubtitleContainsUnknownItem())
+            if (this.releaseInfo.SubtitleContainsUnknownItem)
             {
                 return true;
             }
@@ -547,33 +662,13 @@ namespace NFOGenerator.Forms
                 try
                 {
                     // Combine all the audio info's into one string.
-                    for (int i = 0; i < this.lstAudio.Items.Count; i++)
-                    {
-                        audioCombined += this.lstAudio.Items[i].ToString() + Environment.NewLine;
-                    }
+                    audioCombined = this.releaseInfo.AudioInfo;
 
                     // Combine all the subtitle info's into one string.
-                    for (int i = 0; i < this.lstSubtitle.Items.Count; i++)
-                    {
-                        subCombined += this.lstSubtitle.Items[i].ToString() + ", ";
-                    }
+                    subCombined = this.releaseInfo.SubtitleInfo;
 
                     // Convert chapters info.
-                    if (this.chkGeneralChaptersIncluded.Checked)
-                    {
-                        if (this.chkGeneralChaptersNamed.Checked)
-                        {
-                            chapters = "Included & Named";
-                        }
-                        else
-                        {
-                            chapters = "Included & Unnamed";
-                        }
-                    }
-                    else
-                    {
-                        chapters = "Not Included";
-                    }
+                    chapters = this.releaseInfo.ChapterInfo;
                 }
                 catch (Exception ex)
                 {
@@ -605,6 +700,19 @@ namespace NFOGenerator.Forms
                 catch (Exception ex)
                 {
                     MessageBox.Show(ExceptionUtil.FullMessage(ex) + "There is an exception when generating NFO: " + Environment.NewLine + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void swapListItem(ListBox lb, int index1, int index2)
+        {
+            if (index1 != index2)
+            {
+                if (index1 < lb.Items.Count && index2 < lb.Items.Count)
+                {
+                    var temp = lb.Items[index1];
+                    lb.Items[index1] = lb.Items[index2];
+                    lb.Items[index2] = temp;
                 }
             }
         }
@@ -830,6 +938,7 @@ namespace NFOGenerator.Forms
                 }
 
                 //Audio
+                this.cmbGeneralAudio.Text = "";
                 MatchCollection audioWithChMC = audioWithChRgx.Matches(lower);
                 int audioIndexFirst = -1;
                 int audioIndexSelect = -1;
@@ -888,7 +997,7 @@ namespace NFOGenerator.Forms
                         }
                         catch
                         {
-                            SetStatus("Failed to guess some info from file name. Please set them manually");
+                            this.cmbGeneralAudio.Text = audioValue;
                         }
                     }
                 }
@@ -914,7 +1023,7 @@ namespace NFOGenerator.Forms
                                 }
                                 catch
                                 {
-                                    SetStatus("Failed to guess some info from file name. Please set them manually");
+                                    this.cmbGeneralAudio.Text = audioValue;
                                 }
                             }
                         }
@@ -922,6 +1031,7 @@ namespace NFOGenerator.Forms
                 }
 
                 //Special Edition
+                this.cmbGeneralEdition.SelectedIndex = 0;
                 MatchCollection specialEditionMC = specialEditionRgx.Matches(lower);
                 int specialEditionIndexFirst = -1;
                 int specialEditionIndexSelect = -1;
@@ -1080,11 +1190,7 @@ namespace NFOGenerator.Forms
                 }
 
                 //Movie name
-                if (firstIndex > 0)
-                {
-                    this.txtGeneralTitle.Text = name.Substring(0, firstIndex).Replace('.', ' ').Trim().Replace("  ", " ");
-                }
-
+                this.txtGeneralTitle.Text = firstIndex < 1 ? "" : (name.Substring(0, firstIndex).Replace('.', ' ').Trim().Replace("  ", " "));
             }
             catch
             {

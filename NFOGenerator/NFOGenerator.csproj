@@ -107,6 +107,8 @@
     <Compile Include="Util\ExceptionUtil.cs" />
     <Compile Include="Model\SomeDb\IMDbReader.cs" />
     <Compile Include="Util\IOUtil.cs" />
+    <Compile Include="Util\LangDic.cs" />
+    <Compile Include="Util\MathUtil.cs" />
     <Compile Include="Util\MediaInfoDLL.cs" />
     <Compile Include="Util\SerializationUtil.cs" />
     <Compile Include="Program.cs" />

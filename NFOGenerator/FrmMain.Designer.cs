@@ -139,6 +139,8 @@
             this.cmbReleaseMedium = new System.Windows.Forms.ComboBox();
             this.lblReleaseMedium = new System.Windows.Forms.Label();
             this.pnlReleaseType = new System.Windows.Forms.Panel();
+            this.btnSubtitleUp = new System.Windows.Forms.Button();
+            this.btnSubtitleDown = new System.Windows.Forms.Button();
             this.grpInput.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAudio.SuspendLayout();
@@ -429,8 +431,6 @@
             // 
             this.chkGeneralChaptersIncluded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGeneralChaptersIncluded.AutoSize = true;
-            this.chkGeneralChaptersIncluded.Checked = true;
-            this.chkGeneralChaptersIncluded.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkGeneralChaptersIncluded.Location = new System.Drawing.Point(524, 122);
             this.chkGeneralChaptersIncluded.Name = "chkGeneralChaptersIncluded";
             this.chkGeneralChaptersIncluded.Size = new System.Drawing.Size(72, 16);
@@ -630,6 +630,7 @@
             this.btnAudioDown.TabIndex = 7;
             this.btnAudioDown.Text = "Move Down";
             this.btnAudioDown.UseVisualStyleBackColor = true;
+            this.btnAudioDown.Click += new System.EventHandler(this.btnAudioDown_Click);
             // 
             // btnAudioUp
             // 
@@ -640,6 +641,7 @@
             this.btnAudioUp.TabIndex = 7;
             this.btnAudioUp.Text = "Move Up";
             this.btnAudioUp.UseVisualStyleBackColor = true;
+            this.btnAudioUp.Click += new System.EventHandler(this.btnAudioUp_Click);
             // 
             // btnAudioEdit
             // 
@@ -648,7 +650,7 @@
             this.btnAudioEdit.Name = "btnAudioEdit";
             this.btnAudioEdit.Size = new System.Drawing.Size(89, 21);
             this.btnAudioEdit.TabIndex = 7;
-            this.btnAudioEdit.Text = "Edit Audio";
+            this.btnAudioEdit.Text = "Save Audio";
             this.btnAudioEdit.UseVisualStyleBackColor = true;
             this.btnAudioEdit.Click += new System.EventHandler(this.btnAudioEdit_Click);
             // 
@@ -751,7 +753,9 @@
             // grpSubtitle
             // 
             this.grpSubtitle.Controls.Add(this.btnSubtitleEdit);
+            this.grpSubtitle.Controls.Add(this.btnSubtitleDown);
             this.grpSubtitle.Controls.Add(this.lstSubtitle);
+            this.grpSubtitle.Controls.Add(this.btnSubtitleUp);
             this.grpSubtitle.Controls.Add(this.txtSubtitleComment);
             this.grpSubtitle.Controls.Add(this.txtSubtitleFormat);
             this.grpSubtitle.Controls.Add(this.lblSubtitleComment);
@@ -771,11 +775,11 @@
             // btnSubtitleEdit
             // 
             this.btnSubtitleEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSubtitleEdit.Location = new System.Drawing.Point(249, 68);
+            this.btnSubtitleEdit.Location = new System.Drawing.Point(230, 95);
             this.btnSubtitleEdit.Name = "btnSubtitleEdit";
-            this.btnSubtitleEdit.Size = new System.Drawing.Size(70, 21);
+            this.btnSubtitleEdit.Size = new System.Drawing.Size(89, 21);
             this.btnSubtitleEdit.TabIndex = 7;
-            this.btnSubtitleEdit.Text = "Edit";
+            this.btnSubtitleEdit.Text = "Save Sub";
             this.btnSubtitleEdit.UseVisualStyleBackColor = true;
             this.btnSubtitleEdit.Click += new System.EventHandler(this.btnSubtitleEdit_Click);
             // 
@@ -787,9 +791,9 @@
             this.lstSubtitle.FormattingEnabled = true;
             this.lstSubtitle.HorizontalScrollbar = true;
             this.lstSubtitle.ItemHeight = 12;
-            this.lstSubtitle.Location = new System.Drawing.Point(6, 101);
+            this.lstSubtitle.Location = new System.Drawing.Point(6, 125);
             this.lstSubtitle.Name = "lstSubtitle";
-            this.lstSubtitle.Size = new System.Drawing.Size(313, 88);
+            this.lstSubtitle.Size = new System.Drawing.Size(313, 40);
             this.lstSubtitle.TabIndex = 6;
             this.lstSubtitle.SelectedIndexChanged += new System.EventHandler(this.lstSubtitle_SelectedIndexChanged);
             // 
@@ -799,7 +803,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSubtitleComment.Location = new System.Drawing.Point(83, 68);
             this.txtSubtitleComment.Name = "txtSubtitleComment";
-            this.txtSubtitleComment.Size = new System.Drawing.Size(158, 21);
+            this.txtSubtitleComment.Size = new System.Drawing.Size(236, 21);
             this.txtSubtitleComment.TabIndex = 5;
             this.txtSubtitleComment.TextChanged += new System.EventHandler(this.txtSubtitleComment_TextChanged);
             // 
@@ -934,7 +938,7 @@
             this.txtVideoNote.Location = new System.Drawing.Point(377, 19);
             this.txtVideoNote.Multiline = true;
             this.txtVideoNote.Name = "txtVideoNote";
-            this.txtVideoNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtVideoNote.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtVideoNote.Size = new System.Drawing.Size(279, 78);
             this.txtVideoNote.TabIndex = 6;
             // 
@@ -1403,6 +1407,29 @@
             this.pnlReleaseType.Size = new System.Drawing.Size(678, 24);
             this.pnlReleaseType.TabIndex = 22;
             // 
+            // btnSubtitleUp
+            // 
+            this.btnSubtitleUp.Enabled = false;
+            this.btnSubtitleUp.Location = new System.Drawing.Point(11, 95);
+            this.btnSubtitleUp.Name = "btnSubtitleUp";
+            this.btnSubtitleUp.Size = new System.Drawing.Size(89, 21);
+            this.btnSubtitleUp.TabIndex = 7;
+            this.btnSubtitleUp.Text = "Move Up";
+            this.btnSubtitleUp.UseVisualStyleBackColor = true;
+            this.btnSubtitleUp.Click += new System.EventHandler(this.btnSubtitleUp_Click);
+            // 
+            // btnSubtitleDown
+            // 
+            this.btnSubtitleDown.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSubtitleDown.Enabled = false;
+            this.btnSubtitleDown.Location = new System.Drawing.Point(120, 95);
+            this.btnSubtitleDown.Name = "btnSubtitleDown";
+            this.btnSubtitleDown.Size = new System.Drawing.Size(89, 21);
+            this.btnSubtitleDown.TabIndex = 7;
+            this.btnSubtitleDown.Text = "Move Down";
+            this.btnSubtitleDown.UseVisualStyleBackColor = true;
+            this.btnSubtitleDown.Click += new System.EventHandler(this.btnSubtitleDown_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1560,5 +1587,7 @@
         private System.Windows.Forms.Button btnSearchSomeDb;
         private System.Windows.Forms.Button btnOpenIMDb;
         private System.Windows.Forms.Button btnInputBrowse;
+        private System.Windows.Forms.Button btnSubtitleDown;
+        private System.Windows.Forms.Button btnSubtitleUp;
     }
 }

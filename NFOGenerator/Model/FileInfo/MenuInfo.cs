@@ -12,6 +12,11 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 
+using System;
+using System.Collections.Generic;
+
+using NFOGenerator.Util;
+
 namespace NFOGenerator.Model.FileInfo
 {
     /// <summary>
@@ -29,6 +34,59 @@ namespace NFOGenerator.Model.FileInfo
         {
             included = false;
             named = false;
+        }
+        #endregion
+
+        #region Public Methods
+        public void Update(string content)
+        {
+            if (content == "")
+            {
+                included = false;
+                named = false;
+            }
+            else
+            {
+                included = true;
+                string[] text = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                if (text.Length > 0)
+                {
+                    List<double> lengths = new List<double>();
+                    foreach (string item in text)
+                    {
+                        lengths.Add(item.Length);
+                    }
+                    if (MathUtil.GetVariance(lengths) > 5)
+                    {
+                        named = true;
+                    }
+                    else
+                    {
+                        named = false;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Object Members
+        public override string ToString()
+        {
+            if (included)
+            {
+                if (named)
+                {
+                    return "Included & Named";
+                }
+                else
+                {
+                    return "Included & Unnamed";
+                }
+            }
+            else
+            {
+                return "Not Included";
+            }
         }
         #endregion
 
