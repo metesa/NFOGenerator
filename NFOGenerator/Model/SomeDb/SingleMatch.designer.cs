@@ -12,9 +12,9 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 
-namespace NFOGenerator.Main.IMDb
+namespace NFOGenerator.Model.SomeDb
 {
-    partial class IMDbResult
+    partial class SingleMatch
     {
         /// <summary> 
         /// Required designer variable.
@@ -42,13 +42,13 @@ namespace NFOGenerator.Main.IMDb
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IMDbResult));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SingleMatch));
             this.picIMDbPoster = new System.Windows.Forms.PictureBox();
             this.lblIMDbTitle = new System.Windows.Forms.Label();
             this.txtIMDbTitle = new System.Windows.Forms.TextBox();
             this.lblIMDbYear = new System.Windows.Forms.Label();
             this.txtIMDbYear = new System.Windows.Forms.TextBox();
-            this.lnkIMDbLink = new System.Windows.Forms.LinkLabel();
+            this.lnkSomeDbLink = new System.Windows.Forms.LinkLabel();
             this.lblIMDbLink = new System.Windows.Forms.Label();
             this.btnIMDbSelect = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picIMDbPoster)).BeginInit();
@@ -102,19 +102,19 @@ namespace NFOGenerator.Main.IMDb
             this.txtIMDbYear.Size = new System.Drawing.Size(52, 21);
             this.txtIMDbYear.TabIndex = 4;
             // 
-            // lnkIMDbLink
+            // lnkSomeDbLink
             // 
-            this.lnkIMDbLink.ActiveLinkColor = System.Drawing.Color.Brown;
-            this.lnkIMDbLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lnkSomeDbLink.ActiveLinkColor = System.Drawing.Color.Brown;
+            this.lnkSomeDbLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.lnkIMDbLink.AutoSize = true;
-            this.lnkIMDbLink.Location = new System.Drawing.Point(211, 65);
-            this.lnkIMDbLink.Name = "lnkIMDbLink";
-            this.lnkIMDbLink.Size = new System.Drawing.Size(101, 12);
-            this.lnkIMDbLink.TabIndex = 6;
-            this.lnkIMDbLink.TabStop = true;
-            this.lnkIMDbLink.Text = "(IMDb link here)";
-            this.lnkIMDbLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkIMDbLink_LinkClicked);
+            this.lnkSomeDbLink.AutoSize = true;
+            this.lnkSomeDbLink.Location = new System.Drawing.Point(211, 65);
+            this.lnkSomeDbLink.Name = "lnkSomeDbLink";
+            this.lnkSomeDbLink.Size = new System.Drawing.Size(113, 12);
+            this.lnkSomeDbLink.TabIndex = 6;
+            this.lnkSomeDbLink.TabStop = true;
+            this.lnkSomeDbLink.Text = "(SomeDb link here)";
+            this.lnkSomeDbLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkIMDbLink_LinkClicked);
             // 
             // lblIMDbLink
             // 
@@ -136,20 +136,20 @@ namespace NFOGenerator.Main.IMDb
             this.btnIMDbSelect.UseVisualStyleBackColor = true;
             this.btnIMDbSelect.Click += new System.EventHandler(this.btnIMDbSelect_Click);
             // 
-            // IMDbResult
+            // SingleMatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.btnIMDbSelect);
-            this.Controls.Add(this.lnkIMDbLink);
+            this.Controls.Add(this.lnkSomeDbLink);
             this.Controls.Add(this.txtIMDbYear);
             this.Controls.Add(this.lblIMDbYear);
             this.Controls.Add(this.txtIMDbTitle);
             this.Controls.Add(this.lblIMDbLink);
             this.Controls.Add(this.lblIMDbTitle);
             this.Controls.Add(this.picIMDbPoster);
-            this.Name = "IMDbResult";
+            this.Name = "SingleMatch";
             this.Size = new System.Drawing.Size(438, 218);
             ((System.ComponentModel.ISupportInitialize)(this.picIMDbPoster)).EndInit();
             this.ResumeLayout(false);
@@ -164,7 +164,7 @@ namespace NFOGenerator.Main.IMDb
         private System.Windows.Forms.TextBox txtIMDbTitle;
         private System.Windows.Forms.Label lblIMDbYear;
         private System.Windows.Forms.TextBox txtIMDbYear;
-        private System.Windows.Forms.LinkLabel lnkIMDbLink;
+        private System.Windows.Forms.LinkLabel lnkSomeDbLink;
         private System.Windows.Forms.Label lblIMDbLink;
         public System.Windows.Forms.Button btnIMDbSelect;
     }

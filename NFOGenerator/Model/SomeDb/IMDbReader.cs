@@ -20,7 +20,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 
-namespace NFOGenerator.Main.IMDb
+namespace NFOGenerator.Model.SomeDb
 {
     class IMDbReader
     {

@@ -22,7 +22,7 @@ using System.Text;
 using System.Windows.Forms;
 using NFOGenerator.Forms;
 
-namespace NFOGenerator.Main.IMDb
+namespace NFOGenerator.Model.SomeDb
 {
     public partial class SearchResults : Form
     {

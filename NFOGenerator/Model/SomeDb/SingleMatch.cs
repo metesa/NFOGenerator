@@ -21,13 +21,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NFOGenerator.Main.IMDb
+namespace NFOGenerator.Model.SomeDb
 {
-    public partial class IMDbResult : UserControl
+    public partial class SingleMatch : UserControl
     {
         private SearchResults sr;
         
-        public IMDbResult(SearchResults sr)
+        public SingleMatch(SearchResults sr)
         {
             InitializeComponent();
             this.sr = sr;
@@ -47,44 +47,23 @@ namespace NFOGenerator.Main.IMDb
             this.txtIMDbYear.Text = paraYear;
             if (paraID != "")
             {
-                this.lnkIMDbLink.Text = "http://www.imdb.com/title/" + paraID + "/";
+                this.lnkSomeDbLink.Text = "http://www.imdb.com/title/" + paraID + "/";
             }
             else
             {
-                this.lnkIMDbLink.Text = "";
+                this.lnkSomeDbLink.Text = "";
             }
         }
 
         private void lnkIMDbLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(this.lnkIMDbLink.Text);
+            System.Diagnostics.Process.Start(this.lnkSomeDbLink.Text);
         }
 
         private void btnIMDbSelect_Click(object sender, EventArgs e)
         {
-            this.sr.LogSelectedMovie(this.txtIMDbTitle.Text, this.txtIMDbYear.Text, this.lnkIMDbLink.Text);
+            this.sr.LogSelectedMovie(this.txtIMDbTitle.Text, this.txtIMDbYear.Text, this.lnkSomeDbLink.Text);
             this.sr.Close();
-        }
-    }
-
-    public class IMDbResultSelectedEventArgs : EventArgs
-    {
-        public string title;
-        public string year;
-        public string link;
-
-        public IMDbResultSelectedEventArgs()
-        {
-            this.title = "";
-            this.year = "";
-            this.link = "";
-        }
-
-        public IMDbResultSelectedEventArgs(string title, string year, string link)
-        {
-            this.title = title;
-            this.year = year;
-            this.link = link;
         }
     }
 }

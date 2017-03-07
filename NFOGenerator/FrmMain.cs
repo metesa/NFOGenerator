@@ -9,10 +9,10 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 using MediaInfoLib;
-using NFOGenerator.Main.IMDb;
 using NFOGenerator.Model.FileInfo;
 using NFOGenerator.Model.General;
 using NFOGenerator.Model.NFO;
+using NFOGenerator.Model.SomeDb;
 using NFOGenerator.Tools.ImageUploader;
 using NFOGenerator.Util;
 
@@ -505,7 +505,7 @@ namespace NFOGenerator.Forms
             {
                 return true;
             }
-            if (this.txtIMDb.Text == "")
+            if (this.txtSomeDbLink.Text == "")
             {
                 return true;
             }
@@ -586,7 +586,7 @@ namespace NFOGenerator.Forms
                     NFOStyle style = NFOStyle.ImportTemplate(@"./Templates/" + cmbNfoTemplate.SelectedItem.ToString());
                     NFOInfo info = new NFOInfo(this.txtGeneralReleaseName.Text,
                         Alignment.Left,
-                        this.txtIMDb.Text == "" ? "N/A" : this.txtIMDb.Text,
+                        this.txtSomeDbLink.Text == "" ? "N/A" : this.txtSomeDbLink.Text,
                         this.txtSourceName.Text == "" ? "N/A" : (this.txtSourceName.Text + " - Thanks!"),
                         this.txtGeneralSize.Text,
                         this.txtGeneralDuration.Text,
@@ -1095,7 +1095,7 @@ namespace NFOGenerator.Forms
         private void updateReleaseName()
         {
             // Load form infomation into releaseInfo.GI container.
-            this.releaseInfo.GI.imdbLink = this.txtIMDb.Text;
+            this.releaseInfo.GI.imdbLink = this.txtSomeDbLink.Text;
             this.releaseInfo.GI.nameTitle = this.txtGeneralTitle.Text;
             this.releaseInfo.GI.nameYear = this.cmbGeneralYear.Text;
             this.releaseInfo.GI.nameEdition = this.cmbGeneralEdition.Text;
@@ -1229,9 +1229,11 @@ namespace NFOGenerator.Forms
                 // TO-DO: Define a function to switch between panels
                 case 0: // Movie
                     this.pnlMovieEncode.Show();
+                    this.lblSomeDbLink.Text = "IMDb:";
                     break;
                 case 1: // TV
-                    this.pnlMovieEncode.Hide();
+                    //this.pnlMovieEncode.Hide();
+                    this.lblSomeDbLink.Text = "TheTVDb:";
                     break;
                 case 2: // Documentary
                     this.pnlMovieEncode.Hide();
@@ -1255,11 +1257,11 @@ namespace NFOGenerator.Forms
             IMDbReader IMDb = new IMDbReader();
             IMDb.SearchIMDb(this.txtGeneralTitle.Text, this.cmbGeneralYear.Text);
             SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text, 
-                this.cmbGeneralYear.Text, this.txtIMDb.Text);
+                this.cmbGeneralYear.Text, this.txtSomeDbLink.Text);
 
             for (int i = 0; i < IMDb.resultCount; i++)
             {
-                IMDbResult result = new IMDbResult(resultDialog);
+                SingleMatch result = new SingleMatch(resultDialog);
                 result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
                 if (!IMDb.isResponding)
                 {
@@ -1272,12 +1274,12 @@ namespace NFOGenerator.Forms
             resultDialog.ShowDialog();
             this.txtGeneralTitle.Text = resultDialog.selectedTitle;
             this.cmbGeneralYear.Text = resultDialog.selectedYear;
-            this.txtIMDb.Text = resultDialog.selectedLink;
+            this.txtSomeDbLink.Text = resultDialog.selectedLink;
         }
 
         private void txtIMDb_TextChanged(object sender, EventArgs e)
         {
-            if (this.txtIMDb.Text == "")
+            if (this.txtSomeDbLink.Text == "")
             {
                 this.btnOpenIMDb.Enabled = false;
             }
@@ -1285,12 +1287,12 @@ namespace NFOGenerator.Forms
             {
                 this.btnOpenIMDb.Enabled = true;
             }
-            this.TurnRed(this.txtIMDb, this.lblIMDb);
+            this.TurnRed(this.txtSomeDbLink, this.lblSomeDbLink);
         }
 
         private void btnOpenIMDb_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(this.txtIMDb.Text);
+            System.Diagnostics.Process.Start(this.txtSomeDbLink.Text);
         }
         #endregion
 

@@ -12,7 +12,7 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.
 
-namespace NFOGenerator.Main.IMDb
+namespace NFOGenerator.Model.SomeDb
 {
     partial class SearchResults
     {

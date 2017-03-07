@@ -36,7 +36,7 @@
             this.lblNfoTemplate = new System.Windows.Forms.Label();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.btnOpenIMDb = new System.Windows.Forms.Button();
-            this.btnSearchIMDb = new System.Windows.Forms.Button();
+            this.btnSearchSomeDb = new System.Windows.Forms.Button();
             this.cmbGeneralProper = new System.Windows.Forms.ComboBox();
             this.cmbGeneralHybrid = new System.Windows.Forms.ComboBox();
             this.cmbGeneralEdition = new System.Windows.Forms.ComboBox();
@@ -59,8 +59,8 @@
             this.txtGeneralDuration = new System.Windows.Forms.TextBox();
             this.lblGeneralEdition = new System.Windows.Forms.Label();
             this.txtGeneralSize = new System.Windows.Forms.TextBox();
-            this.txtIMDb = new System.Windows.Forms.TextBox();
-            this.lblIMDb = new System.Windows.Forms.Label();
+            this.txtSomeDbLink = new System.Windows.Forms.TextBox();
+            this.lblSomeDbLink = new System.Windows.Forms.Label();
             this.txtGeneralTitle = new System.Windows.Forms.TextBox();
             this.lblGeneralTitle = new System.Windows.Forms.Label();
             this.grpAudio = new System.Windows.Forms.GroupBox();
@@ -185,6 +185,7 @@
             // 
             // btnInputBrowse
             // 
+            this.btnInputBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInputBrowse.Location = new System.Drawing.Point(378, 19);
             this.btnInputBrowse.Name = "btnInputBrowse";
             this.btnInputBrowse.Size = new System.Drawing.Size(75, 21);
@@ -227,7 +228,7 @@
             this.grpGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGeneral.Controls.Add(this.btnOpenIMDb);
-            this.grpGeneral.Controls.Add(this.btnSearchIMDb);
+            this.grpGeneral.Controls.Add(this.btnSearchSomeDb);
             this.grpGeneral.Controls.Add(this.cmbGeneralProper);
             this.grpGeneral.Controls.Add(this.cmbGeneralHybrid);
             this.grpGeneral.Controls.Add(this.cmbGeneralEdition);
@@ -250,8 +251,8 @@
             this.grpGeneral.Controls.Add(this.txtGeneralDuration);
             this.grpGeneral.Controls.Add(this.lblGeneralEdition);
             this.grpGeneral.Controls.Add(this.txtGeneralSize);
-            this.grpGeneral.Controls.Add(this.txtIMDb);
-            this.grpGeneral.Controls.Add(this.lblIMDb);
+            this.grpGeneral.Controls.Add(this.txtSomeDbLink);
+            this.grpGeneral.Controls.Add(this.lblSomeDbLink);
             this.grpGeneral.Controls.Add(this.txtGeneralTitle);
             this.grpGeneral.Controls.Add(this.lblGeneralTitle);
             this.grpGeneral.Location = new System.Drawing.Point(3, 5);
@@ -263,6 +264,7 @@
             // 
             // btnOpenIMDb
             // 
+            this.btnOpenIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenIMDb.Location = new System.Drawing.Point(581, 39);
             this.btnOpenIMDb.Name = "btnOpenIMDb";
             this.btnOpenIMDb.Size = new System.Drawing.Size(75, 23);
@@ -271,15 +273,16 @@
             this.btnOpenIMDb.UseVisualStyleBackColor = true;
             this.btnOpenIMDb.Click += new System.EventHandler(this.btnOpenIMDb_Click);
             // 
-            // btnSearchIMDb
+            // btnSearchSomeDb
             // 
-            this.btnSearchIMDb.Location = new System.Drawing.Point(459, 39);
-            this.btnSearchIMDb.Name = "btnSearchIMDb";
-            this.btnSearchIMDb.Size = new System.Drawing.Size(116, 23);
-            this.btnSearchIMDb.TabIndex = 3;
-            this.btnSearchIMDb.Text = "Search by Title";
-            this.btnSearchIMDb.UseVisualStyleBackColor = true;
-            this.btnSearchIMDb.Click += new System.EventHandler(this.btnSearchIMDb_Click);
+            this.btnSearchSomeDb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSearchSomeDb.Location = new System.Drawing.Point(459, 39);
+            this.btnSearchSomeDb.Name = "btnSearchSomeDb";
+            this.btnSearchSomeDb.Size = new System.Drawing.Size(116, 23);
+            this.btnSearchSomeDb.TabIndex = 3;
+            this.btnSearchSomeDb.Text = "Search by Title";
+            this.btnSearchSomeDb.UseVisualStyleBackColor = true;
+            this.btnSearchSomeDb.Click += new System.EventHandler(this.btnSearchIMDb_Click);
             // 
             // cmbGeneralProper
             // 
@@ -541,25 +544,25 @@
             this.txtGeneralSize.Size = new System.Drawing.Size(91, 21);
             this.txtGeneralSize.TabIndex = 5;
             // 
-            // txtIMDb
+            // txtSomeDbLink
             // 
-            this.txtIMDb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtSomeDbLink.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIMDb.Location = new System.Drawing.Point(83, 41);
-            this.txtIMDb.Name = "txtIMDb";
-            this.txtIMDb.Size = new System.Drawing.Size(370, 21);
-            this.txtIMDb.TabIndex = 1;
-            this.txtIMDb.TextChanged += new System.EventHandler(this.txtIMDb_TextChanged);
+            this.txtSomeDbLink.Location = new System.Drawing.Point(83, 41);
+            this.txtSomeDbLink.Name = "txtSomeDbLink";
+            this.txtSomeDbLink.Size = new System.Drawing.Size(370, 21);
+            this.txtSomeDbLink.TabIndex = 1;
+            this.txtSomeDbLink.TextChanged += new System.EventHandler(this.txtIMDb_TextChanged);
             // 
-            // lblIMDb
+            // lblSomeDbLink
             // 
-            this.lblIMDb.AutoSize = true;
-            this.lblIMDb.ForeColor = System.Drawing.Color.Black;
-            this.lblIMDb.Location = new System.Drawing.Point(6, 44);
-            this.lblIMDb.Name = "lblIMDb";
-            this.lblIMDb.Size = new System.Drawing.Size(65, 12);
-            this.lblIMDb.TabIndex = 0;
-            this.lblIMDb.Text = "IMDb Link:";
+            this.lblSomeDbLink.AutoSize = true;
+            this.lblSomeDbLink.ForeColor = System.Drawing.Color.Black;
+            this.lblSomeDbLink.Location = new System.Drawing.Point(6, 44);
+            this.lblSomeDbLink.Name = "lblSomeDbLink";
+            this.lblSomeDbLink.Size = new System.Drawing.Size(35, 12);
+            this.lblSomeDbLink.TabIndex = 0;
+            this.lblSomeDbLink.Text = "IMDb:";
             // 
             // txtGeneralTitle
             // 
@@ -1343,6 +1346,7 @@
             this.lblReleaseCategory.Size = new System.Drawing.Size(59, 12);
             this.lblReleaseCategory.TabIndex = 0;
             this.lblReleaseCategory.Text = "Category:";
+            this.lblReleaseCategory.Visible = false;
             // 
             // cmbReleaseCategory
             // 
@@ -1375,6 +1379,7 @@
             this.cmbReleaseMedium.Name = "cmbReleaseMedium";
             this.cmbReleaseMedium.Size = new System.Drawing.Size(95, 20);
             this.cmbReleaseMedium.TabIndex = 1;
+            this.cmbReleaseMedium.Visible = false;
             // 
             // lblReleaseMedium
             // 
@@ -1384,6 +1389,7 @@
             this.lblReleaseMedium.Size = new System.Drawing.Size(47, 12);
             this.lblReleaseMedium.TabIndex = 2;
             this.lblReleaseMedium.Text = "Medium:";
+            this.lblReleaseMedium.Visible = false;
             // 
             // pnlReleaseType
             // 
@@ -1536,8 +1542,8 @@
         private System.Windows.Forms.CheckBox chkSubtitleForced;
         private System.Windows.Forms.ToolStripMenuItem mnsToolsImageUploader;
         private System.Windows.Forms.ToolStripMenuItem mnsToolsAutoTest;
-        private System.Windows.Forms.TextBox txtIMDb;
-        private System.Windows.Forms.Label lblIMDb;
+        private System.Windows.Forms.TextBox txtSomeDbLink;
+        private System.Windows.Forms.Label lblSomeDbLink;
         private System.Windows.Forms.ComboBox cmbNfoTemplate;
         private System.Windows.Forms.Label lblNfoTemplate;
         private System.Windows.Forms.StatusStrip stsStatus;
@@ -1551,7 +1557,7 @@
         private System.Windows.Forms.ComboBox cmbReleaseMedium;
         private System.Windows.Forms.Label lblReleaseMedium;
         private System.Windows.Forms.Panel pnlReleaseType;
-        private System.Windows.Forms.Button btnSearchIMDb;
+        private System.Windows.Forms.Button btnSearchSomeDb;
         private System.Windows.Forms.Button btnOpenIMDb;
         private System.Windows.Forms.Button btnInputBrowse;
     }

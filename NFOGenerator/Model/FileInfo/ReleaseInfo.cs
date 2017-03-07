@@ -84,9 +84,17 @@ namespace NFOGenerator.Model.FileInfo
 
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
             {
-                // Get the language code and look it up in the dictionary.
+                string language;
+                if (this.MI.Get(StreamKind.Audio, i, "Language/String") == "")
+                {
+                    language = "Unknown";
+                }
+                else
+                {
+                    language = this.MI.Get(StreamKind.Audio, i, "Language/String");
+                }
                 this.AI[i] = new AudioInfo(
-                    this.MI.Get(StreamKind.Audio, i, "Language/String"),
+                    language,
                     this.MI.Get(StreamKind.Audio, i, "Format"),
                     this.GetChannels(
                         this.MI.Get(StreamKind.Audio, i, "ChannelPositions/String2"),
@@ -102,8 +110,17 @@ namespace NFOGenerator.Model.FileInfo
 
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
             {
+                string language;
+                if (this.MI.Get(StreamKind.Text, i, "Language/String") == "")
+                {
+                    language = "Unknown";
+                }
+                else
+                {
+                    language = this.MI.Get(StreamKind.Text, i, "Language/String");
+                }
                 this.SI[i] = new SubtitleInfo(
-                    this.MI.Get(StreamKind.Text, i, "Language/String"),
+                    language,
                     this.MI.Get(StreamKind.Text, i, "Format"),
                     this.MI.Get(StreamKind.Text, 0, "Title"),
                     (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced")),

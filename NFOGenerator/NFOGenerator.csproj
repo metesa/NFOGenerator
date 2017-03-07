@@ -72,16 +72,16 @@
     <Compile Include="Tools\Zones\FrmZones.Designer.cs">
       <DependentUpon>FrmZones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\IMDb\IMDbResult.cs">
+    <Compile Include="Model\SomeDb\SingleMatch.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Main\IMDb\IMDbResult.designer.cs">
-      <DependentUpon>IMDbResult.cs</DependentUpon>
+    <Compile Include="Model\SomeDb\SingleMatch.designer.cs">
+      <DependentUpon>SingleMatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\IMDb\SearchResults.cs">
+    <Compile Include="Model\SomeDb\SearchResults.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\IMDb\SearchResults.designer.cs">
+    <Compile Include="Model\SomeDb\SearchResults.designer.cs">
       <DependentUpon>SearchResults.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\FileInfo\AudioInfo.cs" />
@@ -105,7 +105,7 @@
     <Compile Include="Util\CryptographUtil.cs" />
     <Compile Include="Util\EnumUtil.cs" />
     <Compile Include="Util\ExceptionUtil.cs" />
-    <Compile Include="Main\IMDb\IMDbReader.cs" />
+    <Compile Include="Model\SomeDb\IMDbReader.cs" />
     <Compile Include="Util\IOUtil.cs" />
     <Compile Include="Util\MediaInfoDLL.cs" />
     <Compile Include="Util\SerializationUtil.cs" />
@@ -120,11 +120,11 @@
     <EmbeddedResource Include="Tools\Zones\FrmZones.resx">
       <DependentUpon>FrmZones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\IMDb\IMDbResult.resx">
-      <DependentUpon>IMDbResult.cs</DependentUpon>
+    <EmbeddedResource Include="Model\SomeDb\SingleMatch.resx">
+      <DependentUpon>SingleMatch.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\IMDb\SearchResults.resx">
+    <EmbeddedResource Include="Model\SomeDb\SearchResults.resx">
       <DependentUpon>SearchResults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -160,10 +160,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Main\TVDb\" />
-    <Folder Include="Model\SomeDb\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
