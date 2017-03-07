@@ -802,7 +802,7 @@
             this.lstSubtitle.ItemHeight = 12;
             this.lstSubtitle.Location = new System.Drawing.Point(6, 125);
             this.lstSubtitle.Name = "lstSubtitle";
-            this.lstSubtitle.Size = new System.Drawing.Size(313, 40);
+            this.lstSubtitle.Size = new System.Drawing.Size(313, 64);
             this.lstSubtitle.TabIndex = 6;
             this.lstSubtitle.SelectedIndexChanged += new System.EventHandler(this.lstSubtitle_SelectedIndexChanged);
             // 
