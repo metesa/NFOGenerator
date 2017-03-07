@@ -26,10 +26,6 @@ Tweaks (6):
 > * Add format check for audio channel edit
 > * Add support for chapter
 
-KnownIssues (1):
-
-> * Can't detect if chapter is named or unnamed for now
-
 ### NFOGenerator v0.5.0-Alpha  (Mar. 03, 2017)
 
 **"Supreme Happiness"**
