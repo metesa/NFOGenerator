@@ -601,7 +601,7 @@
             this.grpAudio.ForeColor = System.Drawing.Color.Black;
             this.grpAudio.Location = new System.Drawing.Point(3, 3);
             this.grpAudio.Name = "grpAudio";
-            this.grpAudio.Size = new System.Drawing.Size(325, 179);
+            this.grpAudio.Size = new System.Drawing.Size(325, 198);
             this.grpAudio.TabIndex = 11;
             this.grpAudio.TabStop = false;
             this.grpAudio.Text = "Audio";
@@ -659,7 +659,7 @@
             this.lstAudio.ItemHeight = 12;
             this.lstAudio.Location = new System.Drawing.Point(8, 125);
             this.lstAudio.Name = "lstAudio";
-            this.lstAudio.Size = new System.Drawing.Size(308, 40);
+            this.lstAudio.Size = new System.Drawing.Size(308, 64);
             this.lstAudio.TabIndex = 6;
             this.lstAudio.SelectedIndexChanged += new System.EventHandler(this.lstAudio_SelectedIndexChanged);
             // 
@@ -760,7 +760,7 @@
             this.grpSubtitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSubtitle.Location = new System.Drawing.Point(334, 3);
             this.grpSubtitle.Name = "grpSubtitle";
-            this.grpSubtitle.Size = new System.Drawing.Size(325, 179);
+            this.grpSubtitle.Size = new System.Drawing.Size(325, 198);
             this.grpSubtitle.TabIndex = 12;
             this.grpSubtitle.TabStop = false;
             this.grpSubtitle.Text = "Subtitle";
@@ -786,7 +786,7 @@
             this.lstSubtitle.ItemHeight = 12;
             this.lstSubtitle.Location = new System.Drawing.Point(6, 101);
             this.lstSubtitle.Name = "lstSubtitle";
-            this.lstSubtitle.Size = new System.Drawing.Size(313, 64);
+            this.lstSubtitle.Size = new System.Drawing.Size(313, 88);
             this.lstSubtitle.TabIndex = 6;
             this.lstSubtitle.SelectedIndexChanged += new System.EventHandler(this.lstSubtitle_SelectedIndexChanged);
             // 
@@ -1281,7 +1281,7 @@
             // 
             this.stsStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stsStatusLabel});
-            this.stsStatus.Location = new System.Drawing.Point(0, 693);
+            this.stsStatus.Location = new System.Drawing.Point(0, 712);
             this.stsStatus.Name = "stsStatus";
             this.stsStatus.Size = new System.Drawing.Size(678, 22);
             this.stsStatus.TabIndex = 19;
@@ -1306,7 +1306,7 @@
             this.tblAudioAndSubtitle.Name = "tblAudioAndSubtitle";
             this.tblAudioAndSubtitle.RowCount = 1;
             this.tblAudioAndSubtitle.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tblAudioAndSubtitle.Size = new System.Drawing.Size(662, 185);
+            this.tblAudioAndSubtitle.Size = new System.Drawing.Size(662, 204);
             this.tblAudioAndSubtitle.TabIndex = 20;
             // 
             // pnlMovieEncode
@@ -1320,7 +1320,7 @@
             this.pnlMovieEncode.Controls.Add(this.grpVideo);
             this.pnlMovieEncode.Location = new System.Drawing.Point(6, 112);
             this.pnlMovieEncode.Name = "pnlMovieEncode";
-            this.pnlMovieEncode.Size = new System.Drawing.Size(668, 551);
+            this.pnlMovieEncode.Size = new System.Drawing.Size(668, 570);
             this.pnlMovieEncode.TabIndex = 21;
             // 
             // pnlOutput
@@ -1330,7 +1330,7 @@
             this.pnlOutput.Controls.Add(this.btnTargetBrowse);
             this.pnlOutput.Controls.Add(this.btnProcess);
             this.pnlOutput.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlOutput.Location = new System.Drawing.Point(0, 665);
+            this.pnlOutput.Location = new System.Drawing.Point(0, 684);
             this.pnlOutput.Name = "pnlOutput";
             this.pnlOutput.Size = new System.Drawing.Size(678, 28);
             this.pnlOutput.TabIndex = 11;
@@ -1401,7 +1401,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 715);
+            this.ClientSize = new System.Drawing.Size(678, 734);
             this.Controls.Add(this.grpInput);
             this.Controls.Add(this.pnlReleaseType);
             this.Controls.Add(this.pnlOutput);

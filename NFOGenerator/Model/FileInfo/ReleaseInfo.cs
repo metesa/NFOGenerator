@@ -80,16 +80,13 @@ namespace NFOGenerator.Model.FileInfo
                     break;
             }
 
-            // Create a language name dictionary for both audio and subtitle lookup.
-            LangDic languageName = new LangDic();
-
             this.AI = new AudioInfo[this.MI.Count_Get(StreamKind.Audio)];
 
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Audio); i++)
             {
                 // Get the language code and look it up in the dictionary.
                 this.AI[i] = new AudioInfo(
-                    languageName.GetFullName(this.MI.Get(StreamKind.Audio, i, "Language")),
+                    this.MI.Get(StreamKind.Audio, i, "Language/String"),
                     this.MI.Get(StreamKind.Audio, i, "Format"),
                     this.GetChannels(
                         this.MI.Get(StreamKind.Audio, i, "ChannelPositions/String2"),
@@ -106,7 +103,7 @@ namespace NFOGenerator.Model.FileInfo
             for (int i = 0; i < this.MI.Count_Get(StreamKind.Text); i++)
             {
                 this.SI[i] = new SubtitleInfo(
-                    languageName.GetFullName(this.MI.Get(StreamKind.Text, i, "Language")),
+                    this.MI.Get(StreamKind.Text, i, "Language/String"),
                     this.MI.Get(StreamKind.Text, i, "Format"),
                     this.MI.Get(StreamKind.Text, 0, "Title"),
                     (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced")),
