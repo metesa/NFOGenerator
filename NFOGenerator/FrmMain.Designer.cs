@@ -293,7 +293,7 @@
             "REPACK PROPER"});
             this.cmbGeneralProper.Location = new System.Drawing.Point(289, 94);
             this.cmbGeneralProper.Name = "cmbGeneralProper";
-            this.cmbGeneralProper.Size = new System.Drawing.Size(126, 20);
+            this.cmbGeneralProper.Size = new System.Drawing.Size(149, 20);
             this.cmbGeneralProper.TabIndex = 8;
             this.cmbGeneralProper.SelectedIndexChanged += new System.EventHandler(this.cmbGeneralProper_SelectedIndexChanged);
             // 
@@ -324,7 +324,7 @@
             "Criterion"});
             this.cmbGeneralEdition.Location = new System.Drawing.Point(289, 68);
             this.cmbGeneralEdition.Name = "cmbGeneralEdition";
-            this.cmbGeneralEdition.Size = new System.Drawing.Size(126, 20);
+            this.cmbGeneralEdition.Size = new System.Drawing.Size(149, 20);
             this.cmbGeneralEdition.TabIndex = 8;
             this.cmbGeneralEdition.SelectedIndexChanged += new System.EventHandler(this.cmbGeneralEdition_SelectedIndexChanged);
             // 
@@ -520,7 +520,7 @@
             this.txtGeneralDuration.Location = new System.Drawing.Point(289, 120);
             this.txtGeneralDuration.Name = "txtGeneralDuration";
             this.txtGeneralDuration.ReadOnly = true;
-            this.txtGeneralDuration.Size = new System.Drawing.Size(126, 21);
+            this.txtGeneralDuration.Size = new System.Drawing.Size(149, 21);
             this.txtGeneralDuration.TabIndex = 5;
             // 
             // lblGeneralEdition

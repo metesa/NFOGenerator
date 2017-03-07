@@ -38,22 +38,23 @@ namespace NFOGenerator.Model.FileInfo
         {
             MI.Open(inputFile);
 
-            this.GI.fileSize = this.GetFileSize(this.MI.Get(StreamKind.General, 0, "FileSize"));
-            this.GI.duration = this.GetDuration(this.MI.Get(StreamKind.General, 0, "Duration"));
+            this.GI.fileSize = this.MI.Get(StreamKind.General, 0, "FileSize/String4");
+            this.GI.duration = this.MI.Get(StreamKind.General, 0, "Duration/String1");
 
             // Get video info.
             this.VI.width = this.MI.Get(StreamKind.Video, 0, "Width");
             this.VI.height = this.MI.Get(StreamKind.Video, 0, "Height");
-            this.VI.displayAR = this.MI.Get(StreamKind.Video, 0, "DisplayAspectRatio");
-            this.VI.framerate = this.MI.Get(StreamKind.Video, 0, "FrameRate") + " FPS";
-            this.VI.bitrate = this.GetBitrate(this.MI.Get(StreamKind.Video, 0, "BitRate"));
+            this.VI.displayAR = this.MI.Get(StreamKind.Video, 0, "DisplayAspectRatio/String");
+            this.VI.framerate = this.MI.Get(StreamKind.Video, 0, "FrameRate/String");
+            this.VI.bitrate = this.MI.Get(StreamKind.Video, 0, "BitRate/String");
 
             // Switch among video codecs.
             string videoFormat = this.MI.Get(StreamKind.Video, 0, "Format");
             switch (videoFormat)
             {
                 case "AVC":
-                    if (this.MI.Inform().Contains("x264"))
+                    //if (this.MI.Inform().Contains("x264"))
+                    if (this.MI.Get(StreamKind.Video, 0, "Encoded_Library").Contains("x264"))
                     {
                         this.VI.codec = "x264";
                     }
@@ -94,7 +95,7 @@ namespace NFOGenerator.Model.FileInfo
                         this.MI.Get(StreamKind.Audio, i, "ChannelPositions/String2"),
                         this.MI.Get(StreamKind.Audio, i, "Channel(s)")
                     ),
-                    this.GetBitrate(this.MI.Get(StreamKind.Audio, i, "BitRate")),
+                    this.MI.Get(StreamKind.Audio, i, "BitRate/String"),
                     this.isSomething(this.MI.Get(StreamKind.Audio, i, "Title").ToLower(), "comm"),
                     this.MI.Get(StreamKind.Audio, i, "Title")
                 );
@@ -156,89 +157,6 @@ namespace NFOGenerator.Model.FileInfo
         /*-------------------------------------------------------------------------
          * Protected custom methods down below
          * ------------------------------------------------------------------------*/
-
-        /// <summary>
-        /// Decide which unit to display the value in, such as MB or GB, Kbps or Mbps, etc.
-        /// This is a simplified method, with 2 value variants in the same decimal spaces, and a default critical value of 1000.
-        /// </summary>
-        /// <param name="paraSmall">Value in the smaller unit.</param>
-        /// <param name="paraBig">Value in the bigger unit.</param>
-        /// <param name="unitSmall">Smaller unit.</param>
-        /// <param name="unitBig">Bigger unit.</param>
-        /// <param name="decimals">Decimal spaces for both values.</param>
-        /// <returns></returns>
-        protected string GetDisplayUnit(double paraSmall, double paraBig, string unitSmall, string unitBig, int decimals)
-        {
-            return this.GetDisplayUnit(paraSmall, paraBig, 1000, unitSmall, unitBig, decimals, decimals);
-        }
-
-        /// <summary>
-        /// Decide which unit to display the value in, such as MB or GB, Kbps or Mbps, etc.
-        /// </summary>
-        /// <param name="paraSmall">Value in the smaller unit.</param>
-        /// <param name="paraBig">Value in the bigger unit.</param>
-        /// <param name="criteria">Critical value in between.</param>
-        /// <param name="unitSmall">Smaller unit.</param>
-        /// <param name="unitBig">Bigger unit.</param>
-        /// <param name="decimalSmall">Decimal spaces for the value in smaller unit.</param>
-        /// <param name="decimalBig">Decimal spaces for the value in bigger unit.</param>
-        /// <returns></returns>
-        protected string GetDisplayUnit(double paraSmall, double paraBig, double criteria, string unitSmall, string unitBig,
-            int decimalSmall, int decimalBig)
-        {
-            string result;
-            if (paraSmall < criteria)
-            {
-                result = Math.Round(paraSmall, decimalSmall).ToString() + " " + unitSmall;
-            }
-            else
-            {
-                result = Math.Round(paraBig, decimalBig).ToString() + " " + unitBig;
-            }
-            return result;
-        }
-
-        // Get the size of the selected file.
-        protected string GetFileSize(string paraFileSize)
-        {
-            // Calculate the file size.
-            Int64 fileSizeBytes = Convert.ToInt64(paraFileSize);
-            double fileSizeMBytes;
-            double fileSizeGBytes;
-            string result;
-
-            // Display the file size in proper format. If it's smaller than 1GB, then display it in MB.
-            // Otherwise, display it in GB.
-            fileSizeMBytes = Convert.ToDouble(fileSizeBytes) / (1024 * 1024);
-            fileSizeGBytes = fileSizeMBytes / 1024;
-            result = this.GetDisplayUnit(fileSizeMBytes, fileSizeGBytes, "MB", "GB", 2);
-            return result;
-        }
-
-        // Calculate the duration.
-        protected string GetDuration(string paraDuration)
-        {
-            Int64 durationMilliSecond = Convert.ToInt64(paraDuration);
-            string result;
-            DateTime duration = new DateTime(durationMilliSecond * 10000);
-            result = duration.ToString("HH") + "h " + duration.ToString("mm") + "mn " + duration.ToString("ss") + "s";
-            return result;
-        }
-
-        // Calculate the bitrate.
-        protected string GetBitrate(string paraBitrate)
-        {
-            string result;
-            int bitrate;
-            if (Int32.TryParse(paraBitrate, out bitrate))
-            {
-                double bitrateKbps = bitrate / 1000;
-                double bitrateMbps = bitrateKbps / 1000;
-                result = this.GetDisplayUnit(bitrateKbps, bitrateMbps, 10000, "Kbps", "Mbps", 0, 1);
-                return result;
-            }
-            return "0 Kbps";
-        }
 
         protected string GetChannels(string paraChanPos, string paraChanCount)
         {
