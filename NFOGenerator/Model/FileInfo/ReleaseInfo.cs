@@ -28,6 +28,7 @@ namespace NFOGenerator.Model.FileInfo
         public VideoInfo VI = new VideoInfo();
         public AudioInfo[] AI;
         public SubtitleInfo[] SI;
+        public MenuInfo MNI = new MenuInfo();
 
         public ReleaseInfo()
         {
@@ -110,6 +111,18 @@ namespace NFOGenerator.Model.FileInfo
                     (this.isYesOrNo(this.MI.Get(StreamKind.Text, i, "Forced")) || this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "Forced")),
                     this.isSomething(this.MI.Get(StreamKind.Text, i, "Title"), "SDH")
                 );
+            }
+
+            this.MNI = new MenuInfo();
+            if (this.MI.Count_Get(StreamKind.Menu) > 0)
+            {
+                this.MNI.Included = true;
+                this.MNI.Named = false;
+            }
+            else
+            {
+                this.MNI.Included = false;
+                this.MNI.Named = false;
             }
         }
 
@@ -216,11 +229,15 @@ namespace NFOGenerator.Model.FileInfo
         protected string GetBitrate(string paraBitrate)
         {
             string result;
-            Int32 bitrate = Convert.ToInt32(paraBitrate);
-            double bitrateKbps = bitrate / 1000;
-            double bitrateMbps = bitrateKbps / 1000;
-            result = this.GetDisplayUnit(bitrateKbps, bitrateMbps, 10000, "Kbps", "Mbps", 0, 1);
-            return result;
+            int bitrate;
+            if (Int32.TryParse(paraBitrate, out bitrate))
+            {
+                double bitrateKbps = bitrate / 1000;
+                double bitrateMbps = bitrateKbps / 1000;
+                result = this.GetDisplayUnit(bitrateKbps, bitrateMbps, 10000, "Kbps", "Mbps", 0, 1);
+                return result;
+            }
+            return "0 Kbps";
         }
 
         protected string GetChannels(string paraChanPos, string paraChanCount)

@@ -73,7 +73,7 @@ namespace NFOGenerator.Model.FileInfo
         /// <returns>release name</returns>
         public string GenerateRLZName(string separate, string groupName)
         {
-            this.releaseName = this.nameTitle + separate + this.nameYear + this.RemoveSepIfEmpty(this.nameEdition, separate) +
+            this.releaseName = (separate == " " ? this.nameTitle : this.nameTitle.Replace(" ", separate).Replace(separate + separate, separate)) + separate + this.nameYear + this.RemoveSepIfEmpty(this.nameEdition, separate) +
                 this.RemoveSepIfEmpty(this.nameHybrid, separate) + this.RemoveSepIfEmpty(this.nameProper, separate) + separate +
                 this.nameResolution + separate + this.nameSource + separate + this.nameAudio + separate + this.nameVideo + "-" + groupName;
             return this.releaseName;

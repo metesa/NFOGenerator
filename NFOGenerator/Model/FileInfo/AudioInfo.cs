@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace NFOGenerator.Model.FileInfo
 {
@@ -53,9 +54,17 @@ namespace NFOGenerator.Model.FileInfo
         #region Public Methods
         public void UpdateAudioInfo(string language, string codec, string channel, string bitrate, bool commentary, string commentator)
         {
+            try
+            {
+                AudioChannel = channel;
+            }
+            catch
+            {
+                throw;
+            }
+            
             this.audioLang = language;
             this.audioCodec = parseCodec(codec);
-            this.audioChan = channel;
             this.audioBitr = bitrate;
             this.audioComm = commentary;
             this.audioCommentator = commentator;
@@ -144,7 +153,15 @@ namespace NFOGenerator.Model.FileInfo
             }
             set
             {
-                audioChan = value;
+                Regex channelRegex = new Regex(@"[0-9]{1,2}.[0-9]{1,2}");
+                if (channelRegex.IsMatch(value))
+                {
+                    audioChan = channelRegex.Match(value).Value;
+                }
+                else
+                {
+                    throw new Exception("Can't parse audio channel: " + value);
+                }
                 UpdateAudioText();
             }
         }

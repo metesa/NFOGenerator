@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="Model\FileInfo\AudioInfo.cs" />
     <Compile Include="Model\FileInfo\GeneralInfo.cs" />
+    <Compile Include="Model\FileInfo\MenuInfo.cs" />
     <Compile Include="Model\FileInfo\ReleaseInfo.cs" />
     <Compile Include="Model\FileInfo\SubtitleInfo.cs" />
     <Compile Include="Model\FileInfo\VideoInfo.cs" />

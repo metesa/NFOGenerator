@@ -162,6 +162,10 @@ namespace NFOGenerator.Forms
             this.txtGeneralSize.Text = this.releaseInfo.GI.fileSize;
             this.txtGeneralDuration.Text = this.releaseInfo.GI.duration;
 
+            // Display menu/chapter info
+            this.chkGeneralChaptersIncluded.Checked = this.releaseInfo.MNI.Included;
+            this.chkGeneralChaptersNamed.Checked = this.releaseInfo.MNI.Named;
+
             // Display video info.
             this.txtVideoWidth.Text = this.releaseInfo.VI.width;
             this.txtVideoHeight.Text = this.releaseInfo.VI.height;
@@ -216,6 +220,7 @@ namespace NFOGenerator.Forms
             cmbGeneralAudio_TextChanged(this, null);
             cmbVideoCodec_SelectedIndexChanged(this, null);
             txtIMDb_TextChanged(this, null);
+            txtSourceName_TextChanged(this, null);
 
             autoGenerate = true;
         }
@@ -304,7 +309,23 @@ namespace NFOGenerator.Forms
         }
         #endregion
 
-        #region Audio & Subtitle
+        #region Audio & Subtitle & Chapter
+        private void chkGeneralChaptersIncluded_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.releaseInfo != null)
+            {
+                this.releaseInfo.MNI.Included = chkGeneralChaptersIncluded.Checked;
+            }
+        }
+
+        private void chkGeneralChaptersNamed_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.releaseInfo != null)
+            {
+                this.releaseInfo.MNI.Named = chkGeneralChaptersNamed.Checked;
+            }
+        }
+
         private void chkAudioCommentary_CheckedChanged(object sender, EventArgs e)
         {
             if (this.chkAudioCommentary.Checked)
@@ -360,22 +381,35 @@ namespace NFOGenerator.Forms
             }
             else
             {
-                this.releaseInfo.AI[editIndex].UpdateAudioInfo(
-                    this.txtAudioLanguage.Text, 
-                    this.txtAudioCodec.Text,
-                    this.txtAudioChannels.Text, 
-                    this.txtAudioBitrate.Text, 
-                    this.chkAudioCommentary.Checked,
-                    this.txtAudioCommentaryBy.Text);
-                this.lstAudio.Items.RemoveAt(editIndex);
-                this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].ToString());
-                if (this.releaseInfo.AudioContainsUnknownItem())
+                try
                 {
-                    grpAudio.ForeColor = Color.Red;
+                    this.releaseInfo.AI[editIndex].UpdateAudioInfo(
+                                       this.txtAudioLanguage.Text,
+                                       this.txtAudioCodec.Text,
+                                       this.txtAudioChannels.Text,
+                                       this.txtAudioBitrate.Text,
+                                       this.chkAudioCommentary.Checked,
+                                       this.txtAudioCommentaryBy.Text);
+                    this.lstAudio.Items.RemoveAt(editIndex);
+                    this.lstAudio.Items.Insert(editIndex, this.releaseInfo.AI[editIndex].ToString());
+                    this.lstAudio.SelectedIndex = editIndex;
+                    if (this.releaseInfo.AudioContainsUnknownItem())
+                    {
+                        grpAudio.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        grpAudio.ForeColor = Color.Black;
+                    }
                 }
-                else
+                catch (ArgumentOutOfRangeException aoore)
                 {
-                    grpAudio.ForeColor = Color.Black;
+                    MessageBox.Show(ExceptionUtil.FullMessage(new Exception("[Audio Groupbox Update Error]: Index is out of range when removing or inserting. " + editIndex.ToString() + "vs" + (this.lstAudio.Items.Count - 1).ToString(), aoore)), "Error", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ExceptionUtil.FullMessage(new Exception("[Audio Groupbox Update Error]: Invalid audio channel. " + this.txtAudioChannels.Text, ex)), "Error", MessageBoxButtons.OK); ;
+                    this.txtAudioChannels.Text = this.releaseInfo.AI[editIndex].AudioChannel;
                 }
             }
         }
@@ -1141,6 +1175,18 @@ namespace NFOGenerator.Forms
             if (autoGenerate)
             {
                 updateReleaseName();
+            }
+        }
+
+        private void txtSourceName_TextChanged(object sender, EventArgs e)
+        {
+            if (txtInputFile.Text != "" && txtSourceName.Text == "")
+            {
+                lblSourceName.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblSourceName.ForeColor = Color.Black;
             }
         }
         #endregion

@@ -411,6 +411,7 @@
             this.chkGeneralChaptersNamed.TabIndex = 10;
             this.chkGeneralChaptersNamed.Text = "Named";
             this.chkGeneralChaptersNamed.UseVisualStyleBackColor = true;
+            this.chkGeneralChaptersNamed.CheckedChanged += new System.EventHandler(this.chkGeneralChaptersNamed_CheckedChanged);
             // 
             // txtGeneralReleaseName
             // 
@@ -433,6 +434,7 @@
             this.chkGeneralChaptersIncluded.TabIndex = 10;
             this.chkGeneralChaptersIncluded.Text = "Included";
             this.chkGeneralChaptersIncluded.UseVisualStyleBackColor = true;
+            this.chkGeneralChaptersIncluded.CheckedChanged += new System.EventHandler(this.chkGeneralChaptersIncluded_CheckedChanged);
             // 
             // lblGeneralChapters
             // 
@@ -1152,6 +1154,7 @@
             this.txtSourceName.Name = "txtSourceName";
             this.txtSourceName.Size = new System.Drawing.Size(492, 21);
             this.txtSourceName.TabIndex = 6;
+            this.txtSourceName.TextChanged += new System.EventHandler(this.txtSourceName_TextChanged);
             // 
             // lblSourceResolution
             // 
