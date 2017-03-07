@@ -9,11 +9,12 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 using MediaInfoLib;
+using NFOGenerator.Main.IMDb;
 using NFOGenerator.Model.FileInfo;
 using NFOGenerator.Model.General;
 using NFOGenerator.Model.NFO;
+using NFOGenerator.Tools.ImageUploader;
 using NFOGenerator.Util;
-using NFOGenerator.Main.IMDb;
 
 namespace NFOGenerator.Forms
 {
@@ -34,16 +35,64 @@ namespace NFOGenerator.Forms
          * Protected custom methods down below
          * ------------------------------------------------------------------------*/
 
+        /// <summary>
+        /// Turn the corresponding Label's ForeColor to Red if the TextBox's Text is empty, or unknown.
+        /// Otherwise set the ForeColor to Black.
+        /// </summary>
+        /// <param name="txt">TextBox control to check if whose Text is empty.</param>
+        /// <param name="lbl">Label control to set ForeColor</param>
+        protected void TurnRed(Control txt, Control lbl)
+        {
+            if ((this.txtInputFile.Text != "") && (txt.Text == "" || txt.Text == "Unknown" || txt.Text == "UNKNOWN"))
+            {
+                lbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                lbl.ForeColor = Color.Black;
+            }
+        }
+
+        protected void ClearChildTextBox(Control parent)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (c is TextBox)
+                {
+                    c.Text = "";
+                }
+            }
+        }
+
         protected void ResetWindow()
         {
-            foreach (TextBox txt in this.Controls)
+            this.ClearChildTextBox(this);
+
+            foreach (Control c in this.Controls)
             {
-                txt.Text = "";
+                this.ClearChildTextBox(c);
+
+                foreach (Control childC in c.Controls)
+                {
+                    this.ClearChildTextBox(childC);
+                }
             }
 
-            foreach (ListBox lst in this.Controls)
+            foreach (Control c in this.Controls)
             {
-                lst.Items.Clear();
+                foreach (Control childC in c.Controls)
+                {
+                    foreach (Control grandChildC in childC.Controls)
+                    {
+                        foreach (Control greatGrandChildC in grandChildC.Controls)
+                        {
+                            if (greatGrandChildC is ListBox)
+                            {
+                                ((ListBox)greatGrandChildC).Items.Clear();
+                            }
+                        }
+                    }
+                }
             }
         }
         protected void MoveUp(ListBox paraBox)
@@ -1070,6 +1119,7 @@ namespace NFOGenerator.Forms
             {
                 updateReleaseName();
             }
+            this.TurnRed(this.txtInputFile, lblGeneralTitle);
             if (txtInputFile.Text != "" && txtGeneralTitle.Text == "")
             {
                 lblGeneralTitle.ForeColor = Color.Red;
@@ -1122,14 +1172,7 @@ namespace NFOGenerator.Forms
 
         private void cmbGeneralAudio_TextChanged(object sender, EventArgs e)
         {
-            if (txtInputFile.Text != "" && cmbGeneralAudio.Text == "")
-            {
-                lblGeneralAudio.ForeColor = Color.Red;
-            }
-            else
-            {
-                lblGeneralAudio.ForeColor = Color.Black;
-            }
+            this.TurnRed(this.cmbGeneralAudio, this.lblGeneralAudio);
         }
 
         private void cmbGeneralAudio_SelectedIndexChanged(object sender, EventArgs e)
@@ -1154,14 +1197,7 @@ namespace NFOGenerator.Forms
             {
                 updateReleaseName();
             }
-            if (txtInputFile.Text != "" && cmbVideoCodec.Text == "UNKNOWN")
-            {
-                lblVideoCodec.ForeColor = Color.Red;
-            }
-            else
-            {
-                lblVideoCodec.ForeColor = Color.Black;
-            }
+            this.TurnRed(this.cmbVideoCodec, this.lblVideoCodec);
         }
 
         private void cmbSeparateChar_SelectedIndexChanged(object sender, EventArgs e)
@@ -1218,7 +1254,8 @@ namespace NFOGenerator.Forms
         {
             IMDbReader IMDb = new IMDbReader();
             IMDb.SearchIMDb(this.txtGeneralTitle.Text, this.cmbGeneralYear.Text);
-            SearchResults resultDialog = new SearchResults();
+            SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text, 
+                this.cmbGeneralYear.Text, this.txtIMDb.Text);
 
             for (int i = 0; i < IMDb.resultCount; i++)
             {
@@ -1231,23 +1268,11 @@ namespace NFOGenerator.Forms
                 
                 resultDialog.flpIMDbResult.Controls.Add(result);
             }
-
-            foreach (IMDbResult result in resultDialog.Controls[0].Controls)
-            {
-                result.IMDbResultSelected += new IMDbResult.IMDbResultSelectedEventHandler(this.LogSelectedMovie);
-            }
-
+            
             resultDialog.ShowDialog();
-            resultDialog.Close();
-        }
-
-        private void LogSelectedMovie(object sender, IMDbResultSelectedEventArgs e)
-        {
-            this.txtGeneralTitle.Text = e.title;
-            this.cmbGeneralYear.Text = e.year;
-            this.txtIMDb.Text = e.link;
-
-            ((SearchResults)sender).Close();
+            this.txtGeneralTitle.Text = resultDialog.selectedTitle;
+            this.cmbGeneralYear.Text = resultDialog.selectedYear;
+            this.txtIMDb.Text = resultDialog.selectedLink;
         }
 
         private void txtIMDb_TextChanged(object sender, EventArgs e)
@@ -1260,14 +1285,7 @@ namespace NFOGenerator.Forms
             {
                 this.btnOpenIMDb.Enabled = true;
             }
-            if (txtInputFile.Text != "" && txtIMDb.Text == "")
-            {
-                lblIMDb.ForeColor = Color.Red;
-            }
-            else
-            {
-                lblIMDb.ForeColor = Color.Black;
-            }
+            this.TurnRed(this.txtIMDb, this.lblIMDb);
         }
 
         private void btnOpenIMDb_Click(object sender, EventArgs e)
@@ -1275,5 +1293,40 @@ namespace NFOGenerator.Forms
             System.Diagnostics.Process.Start(this.txtIMDb.Text);
         }
         #endregion
+
+        private void txtAudioLanguage_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtAudioLanguage, this.lblAudioLanguage);
+        }
+
+        private void txtAudioCodec_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtAudioCodec, this.lblAudioCodec);
+        }
+
+        private void txtAudioChannels_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtAudioChannels, this.lblAudioChannels);
+        }
+
+        private void txtAudioBitrate_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtAudioBitrate, this.lblAudioBitrate);
+        }
+
+        private void txtSubtitleLanguage_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtSubtitleLanguage, this.lblSubtitleLanguage);
+        }
+
+        private void txtSubtitleFormat_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtSubtitleFormat, this.lblSubtitleFormat);
+        }
+
+        private void txtSubtitleComment_TextChanged(object sender, EventArgs e)
+        {
+            this.TurnRed(this.txtSubtitleComment, this.lblSubtitleComment);
+        }
     }
 }

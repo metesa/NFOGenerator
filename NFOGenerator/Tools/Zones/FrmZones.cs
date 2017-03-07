@@ -19,12 +19,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using NFOGenerator.Tools.Zones;
 
-namespace NFOGenerator.Forms
+namespace NFOGenerator.Tools.Zones
 {
-    public partial class FrmImageUploader : Form
+    public partial class FrmZones : Form
     {
-        public FrmImageUploader()
+        public FrmZones()
         {
             InitializeComponent();
         }

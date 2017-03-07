@@ -20,11 +20,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace NFOGenerator.Forms
+namespace NFOGenerator.Tools.ImageUploader
 {
-    public partial class FrmZones : Form
+    public partial class FrmImageUploader : Form
     {
-        public FrmZones()
+        public FrmImageUploader()
         {
             InitializeComponent();
         }

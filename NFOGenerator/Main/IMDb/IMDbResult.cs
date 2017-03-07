@@ -48,14 +48,9 @@ namespace NFOGenerator.Main.IMDb
 
         private void btnIMDbSelect_Click(object sender, EventArgs e)
         {
-            IMDbResultSelectedEventArgs args = new IMDbResultSelectedEventArgs(this.txtIMDbTitle.Text, 
-                this.txtIMDbYear.Text, this.lnkIMDbLink.Text);
-            IMDbResultSelected(sr, args);
+            this.sr.LogSelectedMovie(this.txtIMDbTitle.Text, this.txtIMDbYear.Text, this.lnkIMDbLink.Text);
+            this.sr.Close();
         }
-
-        public event IMDbResultSelectedEventHandler IMDbResultSelected;
-
-        public delegate void IMDbResultSelectedEventHandler(object sender, IMDbResultSelectedEventArgs e);
     }
 
     public class IMDbResultSelectedEventArgs : EventArgs

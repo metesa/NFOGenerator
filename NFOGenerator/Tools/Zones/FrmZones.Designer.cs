@@ -1,4 +1,4 @@
-﻿namespace NFOGenerator.Forms
+﻿namespace NFOGenerator.Tools.Zones
 {
     partial class FrmZones
     {
