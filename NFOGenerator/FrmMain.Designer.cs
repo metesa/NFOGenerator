@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtInputFile = new System.Windows.Forms.TextBox();
             this.grpInput = new System.Windows.Forms.GroupBox();
+            this.txtInputFile = new System.Windows.Forms.TextBox();
             this.btnInputBrowse = new System.Windows.Forms.Button();
             this.lblInputFile = new System.Windows.Forms.Label();
             this.cmbNfoTemplate = new System.Windows.Forms.ComboBox();
@@ -155,25 +155,14 @@
             this.pnlReleaseType.SuspendLayout();
             this.SuspendLayout();
             // 
-            // txtInputFile
-            // 
-            this.txtInputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInputFile.Location = new System.Drawing.Point(83, 20);
-            this.txtInputFile.Name = "txtInputFile";
-            this.txtInputFile.ReadOnly = true;
-            this.txtInputFile.Size = new System.Drawing.Size(289, 21);
-            this.txtInputFile.TabIndex = 0;
-            this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
-            // 
             // grpInput
             // 
             this.grpInput.AllowDrop = true;
             this.grpInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Controls.Add(this.btnInputBrowse);
             this.grpInput.Controls.Add(this.lblInputFile);
-            this.grpInput.Controls.Add(this.txtInputFile);
             this.grpInput.Controls.Add(this.cmbNfoTemplate);
             this.grpInput.Controls.Add(this.lblNfoTemplate);
             this.grpInput.Location = new System.Drawing.Point(9, 52);
@@ -184,6 +173,15 @@
             this.grpInput.Text = "Input";
             this.grpInput.DragDrop += new System.Windows.Forms.DragEventHandler(this.grpInput_DragDrop);
             this.grpInput.DragEnter += new System.Windows.Forms.DragEventHandler(this.grpInput_DragEnter);
+            // 
+            // txtInputFile
+            // 
+            this.txtInputFile.Location = new System.Drawing.Point(83, 20);
+            this.txtInputFile.Name = "txtInputFile";
+            this.txtInputFile.ReadOnly = true;
+            this.txtInputFile.Size = new System.Drawing.Size(289, 21);
+            this.txtInputFile.TabIndex = 10;
+            this.txtInputFile.TextChanged += new System.EventHandler(this.txtInputFile_TextChanged);
             // 
             // btnInputBrowse
             // 
@@ -1472,7 +1470,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtInputFile;
         private System.Windows.Forms.GroupBox grpInput;
         private System.Windows.Forms.Label lblInputFile;
         private System.Windows.Forms.GroupBox grpGeneral;
@@ -1585,5 +1582,6 @@
         private System.Windows.Forms.Button btnInputBrowse;
         private System.Windows.Forms.Button btnSubtitleDown;
         private System.Windows.Forms.Button btnSubtitleUp;
+        private System.Windows.Forms.TextBox txtInputFile;
     }
 }

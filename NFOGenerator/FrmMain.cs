@@ -56,6 +56,49 @@ namespace NFOGenerator.Forms
             }
         }
 
+        protected void ClearChildTextBoxExceptOne(Control parent, Control exception)
+        {
+            foreach (Control c in parent.Controls)
+            {
+                if (c is TextBox && c.Name != exception.Name)
+                {
+                    c.Text = "";
+                }
+            }
+        }
+
+        protected void ResetAllWindowExceptOne(Control exception)
+        {
+            this.ClearChildTextBoxExceptOne(this, exception);
+
+            foreach (Control c in this.Controls)
+            {
+                this.ClearChildTextBoxExceptOne(c, exception);
+
+                foreach (Control childC in c.Controls)
+                {
+                    this.ClearChildTextBoxExceptOne(childC, exception);
+                }
+            }
+
+            foreach (Control c in this.Controls)
+            {
+                foreach (Control childC in c.Controls)
+                {
+                    foreach (Control grandChildC in childC.Controls)
+                    {
+                        foreach (Control greatGrandChildC in grandChildC.Controls)
+                        {
+                            if (greatGrandChildC is ListBox)
+                            {
+                                ((ListBox)greatGrandChildC).Items.Clear();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         protected void ClearChildTextBox(Control parent)
         {
             foreach (Control c in parent.Controls)
@@ -160,7 +203,7 @@ namespace NFOGenerator.Forms
         {
             this.cmbReleaseCategory.SelectedIndex = 0;
             this.cmbReleaseMedium.SelectedIndex = 0;
-            // Initialize form.
+
             switch (this.cmbReleaseCategory.SelectedIndex)
             {
                 // TO-DO: Define a function to switch between panels
@@ -168,19 +211,14 @@ namespace NFOGenerator.Forms
                     LoadMovie();
                     break;
                 case 1: // TV
-                    this.pnlMovieEncode.Hide();
                     break;
                 case 2: // Documentary
-                    this.pnlMovieEncode.Hide();
                     break;
                 case 3: // Sport
-                    this.pnlMovieEncode.Hide();
                     break;
                 case 4: // Music
-                    this.pnlMovieEncode.Hide();
                     break;
                 case 5: /// XXX
-                    this.pnlMovieEncode.Hide();
                     break;
             }
         }
@@ -199,8 +237,6 @@ namespace NFOGenerator.Forms
             this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceResolution.SelectedIndex = 2;
             this.cmbSeparateChar.SelectedIndex = 0;
-            this.cmbReleaseCategory.SelectedIndex = 0;
-            this.cmbReleaseMedium.SelectedIndex = 0;
 
             // Check all available template
             this.cmbNfoTemplate.Items.Clear();
@@ -224,7 +260,7 @@ namespace NFOGenerator.Forms
         private void grpInput_DragDrop(object sender, DragEventArgs e)
         {
             Array aryFiles = ((System.Array)e.Data.GetData(DataFormats.FileDrop));
-            txtInputFile.Text = aryFiles.GetValue(0).ToString();
+            this.txtInputFile.Text = aryFiles.GetValue(0).ToString();
         }
 
         private void grpInput_DragEnter(object sender, DragEventArgs e)
@@ -244,7 +280,7 @@ namespace NFOGenerator.Forms
             autoGenerate = false;
 
             // Do nothing if the input file is empty.
-            this.ResetWindow();
+            this.ResetAllWindowExceptOne(txtInputFile);
             this.chkGeneralChaptersIncluded.Checked = false;
             this.chkGeneralChaptersNamed.Checked = false;
 
@@ -254,7 +290,7 @@ namespace NFOGenerator.Forms
             }
 
             guessReleaseNameFromFilename(this.txtInputFile.Text);
-            
+
             this.releaseInfo.ReadMediaInfo(this.txtInputFile.Text);
 
             // Display general info.
@@ -335,22 +371,7 @@ namespace NFOGenerator.Forms
 
         private void btnInputBrowse_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            ofd.Filter = "mkv media file(*.mkv)|*.mkv|mp4 media file(*.mp4)|*.mp4|all files|*.*";
-            ofd.ValidateNames = true;
-            ofd.CheckPathExists = true;
-            ofd.CheckFileExists = true;
-            if (txtInputFile.Text != "")
-            {
-                ofd.InitialDirectory = Path.GetDirectoryName(txtInputFile.Text);
-                ofd.FileName = Path.GetFileName(txtInputFile.Text);
-            }
-            
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                txtInputFile.Text = ofd.FileName;
-            }
+            this.txtInputFile.Text = openFile();
         }
 
         private void btnTargetBrowse_Click(object sender, EventArgs e)
@@ -392,18 +413,7 @@ namespace NFOGenerator.Forms
 
         private void mnsFileOpen_Click(object sender, EventArgs e)
         {
-            // Displays an OpenFileDialog so the user can select an MKV.  
-            OpenFileDialog openFileInput = new OpenFileDialog();
-            openFileInput.Filter = "MKV files|*.mkv";
-            openFileInput.Title = "Select an MKV File";
-
-            // Show the dialog.  
-            // If the user clicked OK in the dialog and a .MKV file was selected,
-            //  send the file path to input file textBox.
-            if (openFileInput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                this.txtInputFile.Text = openFileInput.FileName;
-            }
+            this.txtInputFile.Text = openFile();
         }
 
         private void mnsToolsImageUploader_Click(object sender, EventArgs e)
@@ -1006,6 +1016,35 @@ namespace NFOGenerator.Forms
             string sep = this.cmbSeparateChar.SelectedIndex == 0 ? " " : ".";
             string group = this.cmbNfoTemplate.Text == "" ? "TAiCHi" : this.cmbNfoTemplate.Text.Replace(".tpl", "");
             this.txtGeneralReleaseName.Text = this.releaseInfo.GI.GenerateRLZName(sep, group);
+        }
+
+        private string openFile()
+        {
+            // Displays an OpenFileDialog so the user can select an MKV.  
+            OpenFileDialog openFileInput = new OpenFileDialog();
+            openFileInput.Filter = "mkv media file(*.mkv)|*.mkv|mp4 media file(*.mp4)|*.mp4|all files|*.*";
+            openFileInput.ValidateNames = true;
+            openFileInput.CheckPathExists = true;
+            openFileInput.CheckFileExists = true;
+            openFileInput.Title = "Select an Media File";
+
+            if (txtInputFile.Text != "")
+            {
+                openFileInput.InitialDirectory = Path.GetDirectoryName(txtInputFile.Text);
+                openFileInput.FileName = Path.GetFileName(txtInputFile.Text);
+            }
+
+            // Show the dialog.  
+            // If the user clicked OK in the dialog and a .MKV file was selected,
+            //  send the file path to input file textBox.
+            if (openFileInput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                return openFileInput.FileName;
+            }
+            else
+            {
+                return "";
+            }
         }
         #endregion
 
