@@ -43,34 +43,41 @@ An internal tool which can generate NFO with specific form automatically.
 
 ## Instruction
 
-1. **First, you should have a media file. It is better if it has a standard release name.**
+### 1. **First, you should have a media file. It is better if it has a standard release name.**
+ 
 ![step1](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_1.PNG)
 
-2. **Drag and drop it on the Input box or you can click the "Browse" button on the Input area to load the media file. When you have set input file, the program will automatically read some necessary media info and then display on the screens.**
+### 2. **Drag and drop it on the Input box or you can click the "Browse" button on the Input area to load the media file. When you have set input file, the program will automatically read some necessary media info and then display on the screens.**
+
 ![step2](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_2.PNG)
 
-3. **If there is something missing or "unknown", the label will turn red so you can easily notice them. Now edit them to get black again.**
+### 3. **If there is something missing or "unknown", the label will turn red so you can easily notice them. Now edit them to get black again.**
 
-4. **For the missing iMDB info, click "Search by Title" button if you already have the correct title and correct year, and the program will open a new dialog showing search result. Then you can choose the one you want.**
+### 4. **For the missing iMDB info, click "Search by Title" button if you already have the correct title and correct year, and the program will open a new dialog showing search result. Then you can choose the one you want.**
+
 ![step3](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_3.PNG)
 
-5. **For the missing source name info, just enter it in the textbox.**
+### 5. **For the missing source name info, just enter it in the textbox.**
+
 ![step4](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_4.PNG)
 ![step5](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_5.PNG)
 
-6. **For the unknown audio language info, click the audio item to load the info.**
+### 6. **For the unknown audio language info, click the audio item to load the info. Edit the "Unknown" item and click "Edit Audio" button, and it will turn black again.**
+
 ![step6](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_6.PNG)
-**Edit the "Unknown" item and click "Edit Audio" button, and it will turn black again.**
 ![step7](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_7.PNG)
 ![step8](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_8.PNG)
 
-7. **After all missing info fixed, change the target location if needed.**
+### 7. **After all missing info fixed, change the target location if needed.**
+
 ![step9](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_9.PNG)
 
-8. **After everything done, click "GO!" button on bottom right.**
+### 8. **After everything done, click "GO!" button on bottom right.**
+
 ![step10](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_10.PNG)
 
-9. **Bang! The NFO file with specific form will be generated.**
+### 9. **Bang! The NFO file with specific form will be generated.**
+
 ![step11](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_11.PNG)
 
 
