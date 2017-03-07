@@ -158,6 +158,8 @@ namespace NFOGenerator.Forms
         #region Load & Dispose
         private void frmMain_Load(object sender, EventArgs e)
         {
+            this.cmbReleaseCategory.SelectedIndex = 0;
+            this.cmbReleaseMedium.SelectedIndex = 0;
             // Initialize form.
             switch (this.cmbReleaseCategory.SelectedIndex)
             {
