@@ -173,26 +173,11 @@ namespace NFOGenerator.Forms
         {
             switch (this.cmbReleaseCategory.SelectedIndex)
             {
-                // TO-DO: Define a function to switch between panels
                 case 0: // Movie
-                    this.pnlMovieEncode.Show();
                     this.lblSomeDbLink.Text = "IMDb:";
                     break;
                 case 1: // TV
-                    //this.pnlMovieEncode.Hide();
                     this.lblSomeDbLink.Text = "TheTVDb:";
-                    break;
-                case 2: // Documentary
-                    this.pnlMovieEncode.Hide();
-                    break;
-                case 3: // Sport
-                    this.pnlMovieEncode.Hide();
-                    break;
-                case 4: // Music
-                    this.pnlMovieEncode.Hide();
-                    break;
-                case 5: /// XXX
-                    this.pnlMovieEncode.Hide();
                     break;
             }
         }
@@ -1416,12 +1401,25 @@ namespace NFOGenerator.Forms
 
         #endregion
 
-        #region IMDB
+        #region SomeDB
         private void btnSearchIMDb_Click(object sender, EventArgs e)
+        {
+            switch (this.cmbReleaseCategory.SelectedIndex)
+            {
+                case 0: // Movie
+                    this.SearchIMDb();
+                    break;
+                case 1: // TV/Season
+                    this.SearchTVDb();
+                    break;
+            }
+        }
+
+        private void SearchIMDb()
         {
             IMDbReader IMDb = new IMDbReader();
             IMDb.SearchIMDb(this.txtGeneralTitle.Text, this.cmbGeneralYear.Text);
-            SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text, 
+            SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text,
                 this.cmbGeneralYear.Text, this.txtSomeDbLink.Text);
 
             for (int i = 0; i < IMDb.resultCount; i++)
@@ -1430,12 +1428,36 @@ namespace NFOGenerator.Forms
                 result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
                 if (!IMDb.isResponding)
                 {
-                    result.btnIMDbSelect.Hide();
+                    result.btnSelect.Hide();
                 }
+
+                resultDialog.flpIMDbResult.Controls.Add(result);
+            }
+
+            resultDialog.ShowDialog();
+            this.txtGeneralTitle.Text = resultDialog.selectedTitle;
+            this.cmbGeneralYear.Text = resultDialog.selectedYear;
+            this.txtSomeDbLink.Text = resultDialog.selectedLink;
+        }
+
+        private void SearchTVDb()
+        {
+            TVDbReader TVDb = new TVDbReader();
+            TVDb.Login();
+            TVDb.Search(this.txtGeneralTitle.Text);
+            SearchResults resultDialog = new SearchResults(this.txtGeneralTitle.Text,
+                this.cmbGeneralYear.Text, this.txtSomeDbLink.Text);
+
+            for (int i = 0; i < TVDb.results.match.Length; i++)
+            {
+                SingleMatch result = new SingleMatch(resultDialog);
+                string poster = TVDb.FindPoster(TVDb.results.match[i].ID);
+                result.DisplaySeries(poster, TVDb.results.match[i].seriesName, TVDb.results.match[i].firstAired,
+                    TVDb.results.match[i].ID, TVDb.results.match[i].overview);
                 
                 resultDialog.flpIMDbResult.Controls.Add(result);
             }
-            
+
             resultDialog.ShowDialog();
             this.txtGeneralTitle.Text = resultDialog.selectedTitle;
             this.cmbGeneralYear.Text = resultDialog.selectedYear;

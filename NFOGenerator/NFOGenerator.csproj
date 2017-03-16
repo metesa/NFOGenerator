@@ -39,6 +39,10 @@
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -60,6 +64,7 @@
     <Compile Include="FrmAboutUs.Designer.cs">
       <DependentUpon>FrmAboutUs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\SomeDb\TVDbReader.cs" />
     <Compile Include="Tools\ImageUploader\FrmImageUploader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,7 +112,6 @@
     <Compile Include="Util\ExceptionUtil.cs" />
     <Compile Include="Model\SomeDb\IMDbReader.cs" />
     <Compile Include="Util\IOUtil.cs" />
-    <Compile Include="Util\LangDic.cs" />
     <Compile Include="Util\MathUtil.cs" />
     <Compile Include="Util\MediaInfoDLL.cs" />
     <Compile Include="Util\SerializationUtil.cs" />

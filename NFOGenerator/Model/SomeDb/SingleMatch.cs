@@ -42,27 +42,45 @@ namespace NFOGenerator.Model.SomeDb
         /// <param name="paraID">IMDb ID.</param>
         public void DisplayMovie(string paraPoster, string paraTitle, string paraYear, string paraID)
         {
-            this.picIMDbPoster.ImageLocation = paraPoster;
-            this.txtIMDbTitle.Text = paraTitle;
-            this.txtIMDbYear.Text = paraYear;
+            this.picPoster.ImageLocation = paraPoster;
+            this.txtTitle.Text = paraTitle;
+            this.txtYear.Text = paraYear;
             if (paraID != "")
             {
-                this.lnkSomeDbLink.Text = "http://www.imdb.com/title/" + paraID + "/";
+                this.lnkLink.Text = "http://www.imdb.com/title/" + paraID + "/";
             }
             else
             {
-                this.lnkSomeDbLink.Text = "";
+                this.lnkLink.Text = "";
             }
+        }
+
+        /// <summary>
+        /// Add TV series info to search result control.
+        /// </summary>
+        /// <param name="paraPoster">Poster link.</param>
+        /// <param name="paraTitle">Series name.</param>
+        /// <param name="paraYear">First aired year.</param>
+        /// <param name="paraID">TVDb ID.</param>
+        /// <param name="paraPlot">Series overview.</param>
+        public void DisplaySeries(string paraPoster, string paraTitle, string paraYear, int paraID, string paraPlot)
+        {
+            this.picPoster.ImageLocation = paraPoster;
+            this.txtTitle.Text = paraTitle;
+            string[] date = paraYear.Split("-".ToCharArray());
+            this.txtYear.Text = date[0];
+            this.lnkLink.Text = "http://www.thetvdb.com/?tab=series&id=" + paraID.ToString();
+            this.txtPlot.Text = paraPlot;
         }
 
         private void lnkIMDbLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(this.lnkSomeDbLink.Text);
+            System.Diagnostics.Process.Start(this.lnkLink.Text);
         }
 
         private void btnIMDbSelect_Click(object sender, EventArgs e)
         {
-            this.sr.LogSelectedMovie(this.txtIMDbTitle.Text, this.txtIMDbYear.Text, this.lnkSomeDbLink.Text);
+            this.sr.LogSelectedMovie(this.txtTitle.Text, this.txtYear.Text, this.lnkLink.Text);
             this.sr.Close();
         }
     }
