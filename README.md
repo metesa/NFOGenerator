@@ -43,7 +43,7 @@ An internal tool which can generate NFO with specific form automatically.
 
 ## Instruction
 
-### 1. **First, you should have a media file. It is better if it has a standard release name.**
+### 1. **First, you should have a media file. It is better if it has a [standard release name](#standard-release-name).**
  
 ![step1](https://raw.githubusercontent.com/metesa/NFOGenerator/dev/Screenshots/Step_1.PNG)
 
@@ -83,7 +83,7 @@ An internal tool which can generate NFO with specific form automatically.
 
 ## Miscellaneous
 
-* About standard release name
+### standard release name
 
 > For movie, it's like
 > 
