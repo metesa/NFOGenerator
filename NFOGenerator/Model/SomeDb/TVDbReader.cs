@@ -108,7 +108,9 @@ namespace NFOGenerator.Model.SomeDb
             string posterAddr = "";
             if (posterCount > 0)
             {
-                posterAddr = "http://www.thetvdb.com/banners/" + posters.poster[posterCount - 1].filename;
+                Random rnd = new Random();
+                int posterID = rnd.Next(posterCount);
+                posterAddr = "http://www.thetvdb.com/banners/" + posters.poster[posterID].filename;
             }
             return posterAddr;
         }

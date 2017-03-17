@@ -1425,13 +1425,13 @@ namespace NFOGenerator.Forms
             for (int i = 0; i < IMDb.resultCount; i++)
             {
                 SingleMatch result = new SingleMatch(resultDialog);
-                result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i]);
+                result.DisplayMovie(IMDb.poster[i], IMDb.title[i], IMDb.year[i], IMDb.IMDbID[i], IMDb.plot[i]);
                 if (!IMDb.isResponding)
                 {
                     result.btnSelect.Hide();
                 }
 
-                resultDialog.flpIMDbResult.Controls.Add(result);
+                resultDialog.flpSomeDbResults.Controls.Add(result);
             }
 
             resultDialog.ShowDialog();
@@ -1455,7 +1455,7 @@ namespace NFOGenerator.Forms
                 result.DisplaySeries(poster, TVDb.results.match[i].seriesName, TVDb.results.match[i].firstAired,
                     TVDb.results.match[i].ID, TVDb.results.match[i].overview);
                 
-                resultDialog.flpIMDbResult.Controls.Add(result);
+                resultDialog.flpSomeDbResults.Controls.Add(result);
             }
 
             resultDialog.ShowDialog();

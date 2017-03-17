@@ -42,35 +42,34 @@ namespace NFOGenerator.Model.SomeDb
         /// </summary>
         private void InitializeComponent()
         {
-            this.flpIMDbResult = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpSomeDbResults = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // flpIMDbResult
+            // flpSomeDbResults
             // 
-            this.flpIMDbResult.AutoScroll = true;
-            this.flpIMDbResult.AutoSize = true;
-            this.flpIMDbResult.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpIMDbResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpIMDbResult.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpIMDbResult.Location = new System.Drawing.Point(0, 0);
-            this.flpIMDbResult.Name = "flpIMDbResult";
-            this.flpIMDbResult.Size = new System.Drawing.Size(464, 571);
-            this.flpIMDbResult.TabIndex = 0;
-            this.flpIMDbResult.WrapContents = false;
+            this.flpSomeDbResults.AutoScroll = true;
+            this.flpSomeDbResults.AutoSize = true;
+            this.flpSomeDbResults.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpSomeDbResults.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpSomeDbResults.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpSomeDbResults.Location = new System.Drawing.Point(0, 0);
+            this.flpSomeDbResults.Name = "flpSomeDbResults";
+            this.flpSomeDbResults.Size = new System.Drawing.Size(484, 0);
+            this.flpSomeDbResults.TabIndex = 0;
+            this.flpSomeDbResults.WrapContents = false;
             // 
             // SearchResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(464, 571);
-            this.Controls.Add(this.flpIMDbResult);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(484, 571);
+            this.Controls.Add(this.flpSomeDbResults);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(600, 600);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(470, 600);
+            this.MinimumSize = new System.Drawing.Size(490, 600);
             this.Name = "SearchResults";
             this.Text = "Search Results";
             this.ResumeLayout(false);
@@ -80,7 +79,7 @@ namespace NFOGenerator.Model.SomeDb
 
         #endregion
 
-        public System.Windows.Forms.FlowLayoutPanel flpIMDbResult;
+        public System.Windows.Forms.FlowLayoutPanel flpSomeDbResults;
 
 
 

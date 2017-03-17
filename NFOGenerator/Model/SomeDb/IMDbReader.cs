@@ -29,6 +29,7 @@ namespace NFOGenerator.Model.SomeDb
         public string[] title { get; set; }
         public string[] year { get; set; }
         public string[] IMDbID { get; set; }
+        public string[] plot { get; set; }
         public bool isResponding;
         public int resultCount { get; set; }
         private WebClient IMDbInfo;
@@ -52,6 +53,8 @@ namespace NFOGenerator.Model.SomeDb
             StreamReader IMDbRes = new StreamReader(IMDbStream);
 
             this.result = IMDbRes.ReadToEnd();
+            IMDbRes.Close();
+            IMDbStream.Close();
 
             this.IMDbParser.LoadXml(this.result);
             this.IsResponding();
@@ -63,6 +66,7 @@ namespace NFOGenerator.Model.SomeDb
                 this.IMDbID = new string[this.resultCount];
                 this.year = new string[this.resultCount];
                 this.poster = new string[this.resultCount];
+                this.plot = new string[this.resultCount];
                 XmlNodeList nodes = IMDbParser.SelectNodes("/root/result");
 
                 for (int i = 0; i < this.resultCount; i++)
@@ -78,6 +82,16 @@ namespace NFOGenerator.Model.SomeDb
                     {
                         this.poster[i] = "";
                     }
+
+                    // Get plot from a single search by ID
+                    Stream PlotStream = this.IMDbInfo.OpenRead("http://www.omdbapi.com/?i=" + this.IMDbID[i] + "&plot=full&r=xml");
+                    StreamReader PlotRes = new StreamReader(PlotStream);
+                    string plotXML = PlotRes.ReadToEnd();
+                    PlotRes.Close();
+                    PlotStream.Close();
+                    XmlDocument plotParser = new XmlDocument();
+                    plotParser.LoadXml(plotXML);
+                    this.plot[i] = plotParser.SelectSingleNode("/root/movie").Attributes["plot"].Value;
                 }
             }
             else
@@ -86,14 +100,13 @@ namespace NFOGenerator.Model.SomeDb
                 this.IMDbID = new string[1];
                 this.year = new string[1];
                 this.poster = new string[1];
+                this.plot = new string[1];
                 this.title[0] = "Movie not found";
                 this.IMDbID[0] = "";
                 this.year[0] = "";
                 this.poster[0] = "";
+                this.plot[0] = "";
             }
-
-            IMDbRes.Close();
-            IMDbStream.Close();
         }
 
         private void IsResponding()

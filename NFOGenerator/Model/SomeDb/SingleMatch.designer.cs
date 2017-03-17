@@ -84,7 +84,7 @@ namespace NFOGenerator.Model.SomeDb
             this.txtTitle.Margin = new System.Windows.Forms.Padding(10);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.ReadOnly = true;
-            this.txtTitle.Size = new System.Drawing.Size(215, 21);
+            this.txtTitle.Size = new System.Drawing.Size(255, 21);
             this.txtTitle.TabIndex = 2;
             // 
             // lblYear
@@ -130,7 +130,7 @@ namespace NFOGenerator.Model.SomeDb
             // btnSelect
             // 
             this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelect.Location = new System.Drawing.Point(353, 185);
+            this.btnSelect.Location = new System.Drawing.Point(393, 185);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(75, 23);
             this.btnSelect.TabIndex = 7;
@@ -149,12 +149,14 @@ namespace NFOGenerator.Model.SomeDb
             // 
             // txtPlot
             // 
+            this.txtPlot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPlot.Location = new System.Drawing.Point(213, 85);
             this.txtPlot.Multiline = true;
             this.txtPlot.Name = "txtPlot";
             this.txtPlot.ReadOnly = true;
-            this.txtPlot.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txtPlot.Size = new System.Drawing.Size(215, 94);
+            this.txtPlot.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPlot.Size = new System.Drawing.Size(255, 94);
             this.txtPlot.TabIndex = 4;
             // 
             // SingleMatch
@@ -173,7 +175,7 @@ namespace NFOGenerator.Model.SomeDb
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.picPoster);
             this.Name = "SingleMatch";
-            this.Size = new System.Drawing.Size(438, 218);
+            this.Size = new System.Drawing.Size(478, 218);
             ((System.ComponentModel.ISupportInitialize)(this.picPoster)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

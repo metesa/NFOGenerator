@@ -40,7 +40,7 @@ namespace NFOGenerator.Model.SomeDb
         /// <param name="paraTitle">Movie title.</param>
         /// <param name="paraYear">Release year.</param>
         /// <param name="paraID">IMDb ID.</param>
-        public void DisplayMovie(string paraPoster, string paraTitle, string paraYear, string paraID)
+        public void DisplayMovie(string paraPoster, string paraTitle, string paraYear, string paraID, string paraPlot)
         {
             this.picPoster.ImageLocation = paraPoster;
             this.txtTitle.Text = paraTitle;
@@ -53,6 +53,7 @@ namespace NFOGenerator.Model.SomeDb
             {
                 this.lnkLink.Text = "";
             }
+            this.txtPlot.Text = paraPlot;
         }
 
         /// <summary>
